@@ -7,10 +7,21 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, ArrowRight, MapPin, Star, Lock } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Diagnostic = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 5;
+  const [formData, setFormData] = useState({
+    age: "",
+    country: "",
+    budget: "",
+    treatments: [] as string[],
+    fullName: "",
+    email: "",
+    phone: "",
+  });
 
   return (
     <div className="min-h-screen bg-background">
@@ -226,27 +237,45 @@ const Diagnostic = () => {
               {currentStep === 5 && (
                 <div className="space-y-6">
                   <h2 className="text-2xl font-semibold text-foreground">
-                    Dernière étape : vos coordonnées
+                    Dernière étape : créez votre compte
                   </h2>
                   <p className="text-muted-foreground">
-                    Pour recevoir votre rapport personnalisé et être contactée par notre équipe.
+                    Créez votre compte pour sauvegarder votre diagnostic et recevoir vos devis personnalisés par email. 
+                    Vous pourrez revenir consulter vos propositions à tout moment.
                   </p>
                   <div className="space-y-4">
                     <input
                       type="text"
-                      placeholder="Prénom"
+                      placeholder="Nom complet"
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none bg-background"
                     />
                     <input
                       type="email"
                       placeholder="Email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none bg-background"
                     />
                     <input
                       type="tel"
                       placeholder="Téléphone (optionnel)"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none bg-background"
                     />
+                    <div className="flex items-start gap-3 p-4 bg-muted/50 rounded-xl">
+                      <div className="text-sm text-muted-foreground">
+                        💡 <strong>Pourquoi créer un compte ?</strong>
+                        <ul className="mt-2 space-y-1 list-disc list-inside">
+                          <li>Accédez à tous vos devis en un seul endroit</li>
+                          <li>Échangez avec les experts des cliniques</li>
+                          <li>Recevez un email quand de nouveaux devis arrivent</li>
+                          <li>Gardez un historique de vos recherches</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -290,11 +319,23 @@ const Diagnostic = () => {
             ) : currentStep === 4.5 ? (
               <div /> // Empty div as button is in the card
             ) : (
-              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <NavLink to="/resultats-diagnostic">
-                  Voir mes recommandations
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </NavLink>
+              <Button 
+                onClick={() => {
+                  if (formData.fullName && formData.email) {
+                    navigate("/auth", { 
+                      state: { 
+                        email: formData.email, 
+                        fullName: formData.fullName,
+                        fromDiagnostic: true 
+                      } 
+                    });
+                  }
+                }}
+                disabled={!formData.fullName || !formData.email}
+                className="bg-accent hover:bg-accent/90 text-accent-foreground"
+              >
+                Créer mon compte et voir les devis
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             )}
           </div>
