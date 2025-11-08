@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import FeaturedClinics from "@/components/FeaturedClinics";
 import HowItWorks from "@/components/HowItWorks";
+import Testimonials from "@/components/Testimonials";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -16,6 +17,7 @@ const Index = () => {
       <Features />
       <FeaturedClinics />
       <HowItWorks />
+      <Testimonials />
       <CTASection />
       <Footer />
     </div>
