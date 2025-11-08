@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import PriceSimulatorBanner from "@/components/PriceSimulatorBanner";
 import Hero from "@/components/Hero";
+import TrustBanner from "@/components/TrustBanner";
 import Features from "@/components/Features";
 import FeaturedClinics from "@/components/FeaturedClinics";
 import HowItWorks from "@/components/HowItWorks";
@@ -15,6 +16,7 @@ const Index = () => {
       <Navigation />
       <PriceSimulatorBanner />
       <Hero />
+      <TrustBanner />
       <Features />
       <FeaturedClinics />
       <HowItWorks />

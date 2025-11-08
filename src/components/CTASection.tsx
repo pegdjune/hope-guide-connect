@@ -15,26 +15,25 @@ const CTASection = () => {
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 text-white backdrop-blur-sm">
             <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">Gratuit et sans engagement</span>
+            <span className="text-sm font-medium">100% Indépendant - 0% Commission</span>
           </div>
 
           <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
-            Prête à démarrer votre parcours vers la maternité ?
+            Besoin d'aide pour choisir votre clinique ?
           </h2>
 
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Obtenez votre diagnostic personnalisé en 5 minutes et découvrez les cliniques 
-            les mieux adaptées à votre situation.
+            Recevez des devis personnalisés ou échangez avec une experte PMA par téléphone - 100% gratuit et indépendant
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button 
               asChild 
               size="lg" 
-              className="bg-white text-primary hover:bg-white/90 shadow-large text-lg px-8 group"
+              className="bg-white text-primary hover:bg-white/90 shadow-large text-lg px-10 py-7 font-bold group"
             >
               <NavLink to="/diagnostic" className="flex items-center gap-2">
-                Commencer mon diagnostic gratuit
+                📋 Recevoir mes devis gratuits
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </NavLink>
             </Button>
@@ -43,26 +42,26 @@ const CTASection = () => {
               asChild 
               size="lg" 
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white/10 bg-transparent text-lg px-8"
+              className="border-2 border-white text-white hover:bg-white hover:text-primary bg-transparent text-lg px-10 py-7 font-bold"
             >
-              <NavLink to="/comparateur">
-                Explorer les cliniques
-              </NavLink>
+              <a href="tel:+33123456789">
+                📞 Appel gratuit avec une experte
+              </a>
             </Button>
           </div>
 
           <div className="pt-8 flex flex-wrap justify-center gap-8 text-white/80">
             <div className="text-center">
-              <div className="text-2xl font-bold text-white">5 min</div>
-              <div className="text-sm">Diagnostic complet</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-white">+50</div>
-              <div className="text-sm">Cliniques comparées</div>
-            </div>
-            <div className="text-center">
               <div className="text-2xl font-bold text-white">100%</div>
-              <div className="text-sm">Gratuit</div>
+              <div className="text-sm">Indépendant</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">0%</div>
+              <div className="text-sm">Commission</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-white">Gratuit</div>
+              <div className="text-sm">Devis & appel</div>
             </div>
           </div>
         </div>

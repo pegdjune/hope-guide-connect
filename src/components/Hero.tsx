@@ -16,16 +16,19 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="space-y-8 animate-fade-in">
-            <div className="inline-block animate-scale-in">
-              <span className="px-5 py-2.5 rounded-full bg-white shadow-medium text-primary text-base font-bold border-2 border-primary/20">
-                ✨ Devis gratuits en 2 minutes
+            <div className="flex flex-wrap gap-3">
+              <span className="px-5 py-2.5 rounded-full bg-white shadow-medium text-success text-base font-bold border-2 border-success/20">
+                🔒 100% Indépendant
+              </span>
+              <span className="px-5 py-2.5 rounded-full bg-white shadow-medium text-accent text-base font-bold border-2 border-accent/20">
+                ✅ 0% Commission
               </span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-foreground leading-tight font-heading">
-              Comparez les prix des{" "}
+              Comparez les{" "}
               <span className="text-primary relative inline-block">
-                cliniques FIV
+                meilleures cliniques FIV
                 <svg className="absolute -bottom-2 left-0 w-full" height="12" viewBox="0 0 200 12" fill="none">
                   <path d="M2 10C60 2, 140 2, 198 10" stroke="currentColor" strokeWidth="4" strokeLinecap="round"/>
                 </svg>
@@ -34,18 +37,18 @@ const Hero = () => {
             </h1>
             
             <p className="text-xl text-foreground/80 leading-relaxed font-medium">
-              Recevez des <span className="text-primary font-bold">offres personnalisées</span> de +50 cliniques européennes 
-              avec tarifs transparents et taux de réussite réels.
+              <span className="text-foreground font-bold">Plateforme 100% indépendante.</span> Nous ne recevons aucune commission. 
+              Recevez des devis personnalisés et parlez à une experte - gratuitement.
             </p>
 
             <div className="space-y-4 bg-white/60 backdrop-blur-sm p-6 rounded-2xl shadow-medium border-2 border-primary/10">
               {[
-                "Devis gratuits de plusieurs cliniques",
-                "Prix transparents et comparaison facile",
-                "Accompagnement personnalisé gratuit"
+                "Aucune commission sur les cliniques",
+                "Conseils 100% objectifs et personnalisés",
+                "Devis détaillés et appel expert gratuit"
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-4 group">
-                  <div className="bg-accent p-2 rounded-full group-hover:scale-110 transition-transform">
+                  <div className="bg-success p-2 rounded-full group-hover:scale-110 transition-transform">
                     <CheckCircle className="w-6 h-6 text-white" />
                   </div>
                   <span className="text-foreground font-semibold text-lg">{feature}</span>
@@ -53,14 +56,14 @@ const Hero = () => {
               ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col gap-4 pt-4">
               <Button 
                 asChild 
                 size="lg" 
                 className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
               >
                 <NavLink to="/diagnostic" className="flex items-center gap-3">
-                  Obtenir mes devis gratuits
+                  📋 Recevoir mes devis gratuits
                   <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                 </NavLink>
               </Button>
@@ -69,11 +72,11 @@ const Hero = () => {
                 asChild 
                 size="lg" 
                 variant="outline" 
-                className="border-3 border-primary text-primary hover:bg-primary hover:text-white text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
+                className="border-3 border-accent text-accent hover:bg-accent hover:text-white text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
               >
-                <NavLink to="/comparateur">
-                  Voir toutes les cliniques
-                </NavLink>
+                <a href="tel:+33123456789">
+                  📞 Parler à une experte PMA (gratuit)
+                </a>
               </Button>
             </div>
           </div>
