@@ -3,27 +3,27 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const features = [
   {
-    icon: Brain,
-    title: "Diagnostic IA Personnalisé",
-    description: "Notre intelligence artificielle analyse votre profil pour vous recommander les cliniques les plus adaptées à votre situation.",
+    icon: Globe,
+    title: "Répertoire Complet",
+    description: "+50 cliniques européennes répertoriées avec toutes leurs informations : tarifs détaillés, services, taux de réussite et conditions d'accès.",
     color: "text-primary"
   },
   {
-    icon: Users,
-    title: "Accompagnement Humain",
-    description: "Une équipe dédiée vous accompagne tout au long de votre parcours, répond à vos questions et vous guide dans vos démarches.",
+    icon: Shield,
+    title: "Informations Vérifiées",
+    description: "Toutes les données cliniques sont vérifiées et mises à jour régulièrement : prix, protocoles, législations et avis patients.",
     color: "text-accent"
   },
   {
-    icon: Shield,
-    title: "Transparence Totale",
-    description: "Comparaisons objectives basées sur les taux de réussite réels, les tarifs et les avis patients vérifiés.",
+    icon: Brain,
+    title: "Comparateur Intelligent",
+    description: "Filtrez et comparez facilement les cliniques selon vos critères : budget, pays, traitement, taux de réussite.",
     color: "text-success"
   },
   {
-    icon: Globe,
-    title: "Expertise Européenne",
-    description: "Accédez aux meilleures cliniques d'Europe avec une connaissance approfondie des législations de chaque pays.",
+    icon: Users,
+    title: "Accompagnement Expert",
+    description: "Notre équipe vous aide à comprendre les informations et à faire le meilleur choix pour votre situation.",
     color: "text-primary"
   }
 ];
@@ -34,11 +34,11 @@ const Features = () => {
       <div className="container mx-auto px-4">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Pourquoi choisir FertilEurope ?
+            La référence de l'information FIV en Europe
           </h2>
           <p className="text-lg text-muted-foreground">
-            Une approche innovante qui combine technologie de pointe et accompagnement humain 
-            pour vous aider à réaliser votre rêve de parentalité.
+            Un répertoire exhaustif et transparent de toutes les cliniques européennes, 
+            avec leurs tarifs, services et conditions d'accès détaillés.
           </p>
         </div>
 

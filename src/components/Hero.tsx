@@ -17,20 +17,20 @@ const Hero = () => {
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
-              Votre parcours FIV en Europe,{" "}
-              <span className="text-primary">simplifié</span>
+              Toutes les cliniques FIV d'Europe{" "}
+              <span className="text-primary">en un seul endroit</span>
             </h1>
             
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Comparez les meilleures cliniques européennes, obtenez un diagnostic personnalisé 
-              et bénéficiez d'un accompagnement humain à chaque étape de votre projet.
+              Consultez notre répertoire complet de +50 cliniques européennes avec tarifs détaillés, 
+              taux de réussite réels, services proposés et avis patients vérifiés.
             </p>
 
             <div className="space-y-3">
               {[
-                "Diagnostic IA personnalisé en 5 minutes",
-                "Comparaison transparente de +50 cliniques",
-                "Accompagnement humain gratuit"
+                "Répertoire complet avec prix et services",
+                "Comparateur transparent par critères",
+                "Diagnostic IA pour trouver votre match"
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
@@ -45,8 +45,8 @@ const Hero = () => {
                 size="lg" 
                 className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-large group"
               >
-                <NavLink to="/diagnostic" className="flex items-center gap-2">
-                  Commencer mon diagnostic
+                <NavLink to="/comparateur" className="flex items-center gap-2">
+                  Explorer toutes les cliniques
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </NavLink>
               </Button>
@@ -57,8 +57,8 @@ const Hero = () => {
                 variant="outline" 
                 className="border-2 border-primary text-primary hover:bg-primary/5"
               >
-                <NavLink to="/comparateur">
-                  Voir les cliniques
+                <NavLink to="/diagnostic">
+                  Diagnostic personnalisé
                 </NavLink>
               </Button>
             </div>
