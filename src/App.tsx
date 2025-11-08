@@ -8,6 +8,7 @@ import Diagnostic from "./pages/Diagnostic";
 import ResultatsDiagnostic from "./pages/ResultatsDiagnostic";
 import Comparateur from "./pages/Comparateur";
 import Blog from "./pages/Blog";
+import BlogArticle from "./pages/BlogArticle";
 import APropos from "./pages/APropos";
 import NotFound from "./pages/NotFound";
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/resultats-diagnostic" element={<ResultatsDiagnostic />} />
           <Route path="/comparateur" element={<Comparateur />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/a-propos" element={<APropos />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
