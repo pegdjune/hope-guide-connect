@@ -1,6 +1,7 @@
 import { useParams, Navigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -208,6 +209,7 @@ const BlogArticle = () => {
         </div>
       </main>
 
+      <ChatWidget />
       <Footer />
     </div>
   );

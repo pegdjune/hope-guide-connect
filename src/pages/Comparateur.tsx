@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import InteractiveMap from "@/components/InteractiveMap";
 import ComparisonTable from "@/components/ComparisonTable";
 import { Card, CardContent } from "@/components/ui/card";
@@ -314,6 +315,7 @@ const Comparateur = () => {
         </div>
       </main>
 
+      <ChatWidget />
       <Footer />
     </div>
   );

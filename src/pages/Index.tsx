@@ -8,6 +8,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import FAQ from "@/components/FAQ";
 import CTASection from "@/components/CTASection";
+import ChatWidget from "@/components/ChatWidget";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
       <Testimonials />
       <FAQ />
       <CTASection />
+      <ChatWidget />
       <Footer />
     </div>
   );
