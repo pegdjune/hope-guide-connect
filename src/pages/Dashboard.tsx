@@ -273,7 +273,11 @@ const Dashboard = () => {
             ) : (
               <div className="grid gap-4">
                 {conversations.map((conv) => (
-                  <Card key={conv.id} className="cursor-pointer hover:bg-accent/50 transition-colors">
+                  <Card 
+                    key={conv.id} 
+                    className="cursor-pointer hover:bg-accent/50 transition-colors"
+                    onClick={() => navigate(`/chat/${conv.id}`)}
+                  >
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div>

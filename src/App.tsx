@@ -12,6 +12,7 @@ import BlogArticle from "./pages/BlogArticle";
 import APropos from "./pages/APropos";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
+import ChatConversation from "./pages/ChatConversation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/a-propos" element={<APropos />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/chat/:conversationId" element={<ChatConversation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
