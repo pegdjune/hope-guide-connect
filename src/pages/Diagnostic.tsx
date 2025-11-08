@@ -289,9 +289,11 @@ const Diagnostic = () => {
             ) : currentStep === 4.5 ? (
               <div /> // Empty div as button is in the card
             ) : (
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                Voir mes recommandations
-                <ArrowRight className="w-4 h-4 ml-2" />
+              <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                <NavLink to="/resultats-diagnostic">
+                  Voir mes recommandations
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </NavLink>
               </Button>
             )}
           </div>

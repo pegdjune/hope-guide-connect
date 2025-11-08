@@ -5,6 +5,7 @@ import Features from "@/components/Features";
 import FeaturedClinics from "@/components/FeaturedClinics";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
@@ -18,6 +19,7 @@ const Index = () => {
       <FeaturedClinics />
       <HowItWorks />
       <Testimonials />
+      <FAQ />
       <CTASection />
       <Footer />
     </div>

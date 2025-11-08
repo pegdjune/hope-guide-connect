@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, MapPin, TrendingUp, Euro, Sparkles } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { ScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const featuredClinics = [
   {
@@ -77,7 +78,8 @@ const FeaturedClinics = () => {
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {featuredClinics.map((clinic, idx) => (
-            <Card 
+            <ScrollAnimation key={clinic.id} animation="fade-in" className={`delay-${idx * 100}`}>
+            <Card
               key={clinic.id} 
               className="group hover:shadow-glow transition-all duration-500 border-2 hover:border-primary/30 bg-white overflow-hidden hover:scale-105"
               style={{ animationDelay: `${idx * 0.1}s` }}
@@ -152,6 +154,7 @@ const FeaturedClinics = () => {
                 </Button>
               </CardContent>
             </Card>
+            </ScrollAnimation>
           ))}
         </div>
 

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sparkles, Heart, Shield, Globe } from "lucide-react";
+import { ScrollAnimation } from "@/hooks/useScrollAnimation";
 import aiIllustration from "@/assets/ai-illustration.jpg";
 import consultationIllustration from "@/assets/consultation-illustration.jpg";
 import europeMapIllustration from "@/assets/europe-map-illustration.jpg";
@@ -66,7 +67,8 @@ const Features = () => {
           {features.map((feature, idx) => {
             const Icon = feature.icon;
             return (
-              <Card 
+              <ScrollAnimation key={idx} animation="scale-in">
+              <Card
                 key={idx} 
                 className="group hover:shadow-glow transition-all duration-500 border-2 hover:border-primary/30 hover:scale-105 overflow-hidden bg-white"
                 style={{ animationDelay: `${idx * 0.1}s` }}
@@ -90,6 +92,7 @@ const Features = () => {
                   </p>
                 </CardContent>
               </Card>
+              </ScrollAnimation>
             );
           })}
         </div>

@@ -1,12 +1,14 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import InteractiveMap from "@/components/InteractiveMap";
+import ComparisonTable from "@/components/ComparisonTable";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map } from "lucide-react";
+import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
 
 // Mock data - sera remplacé par de vraies données
 const clinics = [
@@ -53,6 +55,28 @@ const clinics = [
 
 const Comparateur = () => {
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
+  const [comparisonMode, setComparisonMode] = useState(false);
+  const [selectedClinics, setSelectedClinics] = useState<number[]>([]);
+
+  const toggleClinicSelection = (clinicId: number) => {
+    if (selectedClinics.includes(clinicId)) {
+      setSelectedClinics(selectedClinics.filter(id => id !== clinicId));
+    } else if (selectedClinics.length < 3) {
+      setSelectedClinics([...selectedClinics, clinicId]);
+      toast({
+        title: "Clinique ajoutée",
+        description: "Clinique ajoutée à la comparaison",
+      });
+    } else {
+      toast({
+        title: "Limite atteinte",
+        description: "Vous pouvez comparer maximum 3 cliniques",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const selectedClinicsData = clinics.filter(c => selectedClinics.includes(c.id));
 
   return (
     <div className="min-h-screen bg-background">
@@ -107,14 +131,24 @@ const Comparateur = () => {
           </Card>
 
           {/* View toggle and results count */}
-          <div className="mb-6 flex items-center justify-between">
-            <p className="text-muted-foreground">
-              <span className="font-semibold text-foreground">{clinics.length}</span> cliniques trouvées
-            </p>
-            <div className="flex gap-2">
+          <div className="mb-6 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            <div>
+              <p className="text-muted-foreground">
+                <span className="font-semibold text-foreground">{clinics.length}</span> cliniques trouvées
+              </p>
+              {selectedClinics.length > 0 && (
+                <p className="text-sm text-primary mt-1">
+                  {selectedClinics.length} clinique{selectedClinics.length > 1 ? 's' : ''} sélectionnée{selectedClinics.length > 1 ? 's' : ''} pour comparaison
+                </p>
+              )}
+            </div>
+            <div className="flex gap-2 flex-wrap">
               <Button
                 variant={viewMode === 'map' ? 'default' : 'outline'}
-                onClick={() => setViewMode('map')}
+                onClick={() => {
+                  setViewMode('map');
+                  setComparisonMode(false);
+                }}
                 className="gap-2"
               >
                 <Map className="w-4 h-4" />
@@ -122,12 +156,28 @@ const Comparateur = () => {
               </Button>
               <Button
                 variant={viewMode === 'list' ? 'default' : 'outline'}
-                onClick={() => setViewMode('list')}
+                onClick={() => {
+                  setViewMode('list');
+                  setComparisonMode(false);
+                }}
                 className="gap-2"
               >
                 <MapPin className="w-4 h-4" />
                 Liste
               </Button>
+              {selectedClinics.length >= 2 && (
+                <Button
+                  variant={comparisonMode ? 'default' : 'outline'}
+                  onClick={() => {
+                    setComparisonMode(!comparisonMode);
+                    setViewMode('list');
+                  }}
+                  className="gap-2"
+                >
+                  <GitCompare className="w-4 h-4" />
+                  Comparer ({selectedClinics.length})
+                </Button>
+              )}
             </div>
           </div>
 
@@ -138,8 +188,20 @@ const Comparateur = () => {
             </div>
           )}
 
+          {/* Comparison view */}
+          {comparisonMode && viewMode === 'list' && (
+            <ComparisonTable 
+              clinics={selectedClinicsData}
+              onRemove={(id) => setSelectedClinics(selectedClinics.filter(cId => cId !== id))}
+              onClearAll={() => {
+                setSelectedClinics([]);
+                setComparisonMode(false);
+              }}
+            />
+          )}
+
           {/* Clinics list */}
-          {viewMode === 'list' && (
+          {viewMode === 'list' && !comparisonMode && (
           <div className="space-y-6">
             {clinics.map((clinic) => (
               <Card key={clinic.id} className="hover:shadow-large transition-all duration-300">
@@ -211,8 +273,19 @@ const Comparateur = () => {
                         Voir les détails
                         <ArrowRight className="w-4 h-4 ml-2" />
                       </Button>
-                      <Button variant="outline" className="border-2">
-                        Comparer
+                      <Button 
+                        variant={selectedClinics.includes(clinic.id) ? "default" : "outline"}
+                        className="border-2"
+                        onClick={() => toggleClinicSelection(clinic.id)}
+                      >
+                        {selectedClinics.includes(clinic.id) ? (
+                          <>
+                            <GitCompare className="w-4 h-4 mr-2" />
+                            Sélectionnée
+                          </>
+                        ) : (
+                          'Comparer'
+                        )}
                       </Button>
                     </div>
                   </div>
