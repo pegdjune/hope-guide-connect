@@ -1,10 +1,12 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import InteractiveMap from "@/components/InteractiveMap";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Star, Euro, TrendingUp, ArrowRight } from "lucide-react";
+import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useState } from "react";
 
 // Mock data - sera remplacé par de vraies données
 const clinics = [
@@ -19,6 +21,7 @@ const clinics = [
     priceFrom: 4500,
     specialties: ["FIV", "Don d'ovocytes", "ICSI"],
     badges: ["Disponibilité rapide", "Francophone"],
+    coordinates: [14.4378, 50.0755] as [number, number],
   },
   {
     id: 2,
@@ -31,6 +34,7 @@ const clinics = [
     priceFrom: 6200,
     specialties: ["FIV", "Don d'ovocytes", "Don de sperme"],
     badges: ["Taux de réussite élevé", "Équipe multiculturelle"],
+    coordinates: [2.1734, 41.3851] as [number, number],
   },
   {
     id: 3,
@@ -43,10 +47,13 @@ const clinics = [
     priceFrom: 3800,
     specialties: ["FIV", "ICSI"],
     badges: ["Budget friendly", "Support émotionnel"],
+    coordinates: [23.7275, 37.9838] as [number, number],
   },
 ];
 
 const Comparateur = () => {
+  const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -99,14 +106,40 @@ const Comparateur = () => {
             </CardContent>
           </Card>
 
-          {/* Results count */}
-          <div className="mb-6">
+          {/* View toggle and results count */}
+          <div className="mb-6 flex items-center justify-between">
             <p className="text-muted-foreground">
               <span className="font-semibold text-foreground">{clinics.length}</span> cliniques trouvées
             </p>
+            <div className="flex gap-2">
+              <Button
+                variant={viewMode === 'map' ? 'default' : 'outline'}
+                onClick={() => setViewMode('map')}
+                className="gap-2"
+              >
+                <Map className="w-4 h-4" />
+                Carte
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'outline'}
+                onClick={() => setViewMode('list')}
+                className="gap-2"
+              >
+                <MapPin className="w-4 h-4" />
+                Liste
+              </Button>
+            </div>
           </div>
 
+          {/* Interactive Map */}
+          {viewMode === 'map' && (
+            <div className="mb-8">
+              <InteractiveMap clinics={clinics} />
+            </div>
+          )}
+
           {/* Clinics list */}
+          {viewMode === 'list' && (
           <div className="space-y-6">
             {clinics.map((clinic) => (
               <Card key={clinic.id} className="hover:shadow-large transition-all duration-300">
@@ -187,6 +220,7 @@ const Comparateur = () => {
               </Card>
             ))}
           </div>
+          )}
 
           {/* CTA bottom */}
           <Card className="mt-12 bg-gradient-to-br from-primary/10 via-accent-light/30 to-primary-light/20 border-primary/20">
