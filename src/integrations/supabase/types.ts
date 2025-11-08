@@ -14,7 +14,213 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      conversations: {
+        Row: {
+          clinic_name: string
+          created_at: string | null
+          id: string
+          quote_id: string | null
+          status: string | null
+          subject: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          clinic_name: string
+          created_at?: string | null
+          id?: string
+          quote_id?: string | null
+          status?: string | null
+          subject?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          clinic_name?: string
+          created_at?: string | null
+          id?: string
+          quote_id?: string | null
+          status?: string | null
+          subject?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      diagnostic_submissions: {
+        Row: {
+          additional_info: string | null
+          age_range: string | null
+          budget_range: string | null
+          country_preference: string | null
+          created_at: string | null
+          id: string
+          situation: string
+          user_id: string
+        }
+        Insert: {
+          additional_info?: string | null
+          age_range?: string | null
+          budget_range?: string | null
+          country_preference?: string | null
+          created_at?: string | null
+          id?: string
+          situation: string
+          user_id: string
+        }
+        Update: {
+          additional_info?: string | null
+          age_range?: string | null
+          budget_range?: string | null
+          country_preference?: string | null
+          created_at?: string | null
+          id?: string
+          situation?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          attachments: string[] | null
+          content: string
+          conversation_id: string
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          sender_name: string | null
+          sender_type: string
+        }
+        Insert: {
+          attachments?: string[] | null
+          content: string
+          conversation_id: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          sender_name?: string | null
+          sender_type: string
+        }
+        Update: {
+          attachments?: string[] | null
+          content?: string
+          conversation_id?: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          sender_name?: string | null
+          sender_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      quotes: {
+        Row: {
+          additional_notes: string | null
+          clinic_country: string
+          clinic_logo_url: string | null
+          clinic_name: string
+          created_at: string | null
+          diagnostic_id: string | null
+          expires_at: string | null
+          id: string
+          included_services: string[] | null
+          price_currency: string | null
+          price_total: number
+          status: string | null
+          success_rate: string | null
+          treatment_duration: string | null
+          treatment_type: string
+          user_id: string
+        }
+        Insert: {
+          additional_notes?: string | null
+          clinic_country: string
+          clinic_logo_url?: string | null
+          clinic_name: string
+          created_at?: string | null
+          diagnostic_id?: string | null
+          expires_at?: string | null
+          id?: string
+          included_services?: string[] | null
+          price_currency?: string | null
+          price_total: number
+          status?: string | null
+          success_rate?: string | null
+          treatment_duration?: string | null
+          treatment_type: string
+          user_id: string
+        }
+        Update: {
+          additional_notes?: string | null
+          clinic_country?: string
+          clinic_logo_url?: string | null
+          clinic_name?: string
+          created_at?: string | null
+          diagnostic_id?: string | null
+          expires_at?: string | null
+          id?: string
+          included_services?: string[] | null
+          price_currency?: string | null
+          price_total?: number
+          status?: string | null
+          success_rate?: string | null
+          treatment_duration?: string | null
+          treatment_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quotes_diagnostic_id_fkey"
+            columns: ["diagnostic_id"]
+            isOneToOne: false
+            referencedRelation: "diagnostic_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
