@@ -2,7 +2,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, ArrowRight, MapPin, Star, Lock } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState } from "react";
 
@@ -20,16 +21,16 @@ const Diagnostic = () => {
           <div className="mb-12">
             <div className="flex justify-between items-center mb-3">
               <span className="text-sm text-muted-foreground">
-                Étape {currentStep} sur {totalSteps}
+                Étape {currentStep === 4.5 ? 4 : currentStep} sur {totalSteps}
               </span>
               <span className="text-sm font-medium text-primary">
-                {Math.round((currentStep / totalSteps) * 100)}% complété
+                {Math.round(((currentStep === 4.5 ? 4 : currentStep) / totalSteps) * 100)}% complété
               </span>
             </div>
             <div className="h-2 bg-muted rounded-full overflow-hidden">
               <div 
                 className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-300"
-                style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+                style={{ width: `${((currentStep === 4.5 ? 4 : currentStep) / totalSteps) * 100}%` }}
               />
             </div>
           </div>
@@ -142,6 +143,85 @@ const Diagnostic = () => {
                 </div>
               )}
 
+              {currentStep === 4.5 && (
+                <div className="space-y-6">
+                  <div className="text-center mb-8">
+                    <h2 className="text-2xl font-semibold text-foreground mb-3">
+                      🎉 Vos recommandations sont presque prêtes !
+                    </h2>
+                    <p className="text-muted-foreground">
+                      Voici un aperçu des cliniques qui correspondent à votre profil
+                    </p>
+                  </div>
+
+                  {/* Blurred Preview */}
+                  <div className="relative">
+                    {/* Blur overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background z-10 backdrop-blur-sm" />
+                    <div className="absolute inset-0 flex items-center justify-center z-20">
+                      <Card className="bg-background/95 backdrop-blur-md p-6 shadow-large border-2 border-primary/50 max-w-md mx-4">
+                        <div className="text-center space-y-4">
+                          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
+                            <Lock className="w-8 h-8 text-primary" />
+                          </div>
+                          <h3 className="text-xl font-semibold text-foreground">
+                            Débloquez vos résultats personnalisés
+                          </h3>
+                          <p className="text-sm text-muted-foreground">
+                            Complétez la dernière étape pour accéder à votre rapport complet avec prix détaillés et recommandations personnalisées
+                          </p>
+                          <Button 
+                            className="bg-primary hover:bg-primary-hover text-primary-foreground w-full"
+                            onClick={() => setCurrentStep(5)}
+                          >
+                            Voir mes recommandations
+                            <ArrowRight className="w-4 h-4 ml-2" />
+                          </Button>
+                        </div>
+                      </Card>
+                    </div>
+
+                    {/* Teaser clinics */}
+                    <div className="space-y-4 opacity-40">
+                      {[
+                        { name: "Clinique FertiCare Prague", city: "Prague", country: "République Tchèque", rating: 4.8, price: 4500, badges: ["Disponibilité rapide", "Francophone"] },
+                        { name: "Barcelona IVF", city: "Barcelone", country: "Espagne", rating: 4.9, price: 6200, badges: ["Taux de réussite élevé"] },
+                        { name: "Athens Fertility Center", city: "Athènes", country: "Grèce", rating: 4.7, price: 3800, badges: ["Budget friendly"] },
+                      ].map((clinic, idx) => (
+                        <Card key={idx} className="p-6">
+                          <div className="flex justify-between items-start mb-4">
+                            <div className="flex-1">
+                              <h3 className="text-xl font-semibold text-foreground mb-2">
+                                {clinic.name}
+                              </h3>
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                                <MapPin className="w-4 h-4" />
+                                <span>{clinic.city}, {clinic.country}</span>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {clinic.badges.map((badge, i) => (
+                                  <Badge key={i} variant="outline" className="text-xs">
+                                    {badge}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="flex items-center gap-1 bg-accent/10 px-3 py-1 rounded-full mb-2">
+                                <Star className="w-4 h-4 text-accent fill-current" />
+                                <span className="font-semibold text-accent">{clinic.rating}</span>
+                              </div>
+                              <div className="text-sm text-muted-foreground">À partir de</div>
+                              <div className="text-2xl font-bold text-primary">{clinic.price.toLocaleString()}€</div>
+                            </div>
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {currentStep === 5 && (
                 <div className="space-y-6">
                   <h2 className="text-2xl font-semibold text-foreground">
@@ -176,7 +256,13 @@ const Diagnostic = () => {
           <div className="flex justify-between items-center">
             <Button
               variant="outline"
-              onClick={() => currentStep > 1 && setCurrentStep(currentStep - 1)}
+              onClick={() => {
+                if (currentStep === 4.5) {
+                  setCurrentStep(4);
+                } else if (currentStep > 1) {
+                  setCurrentStep(currentStep - 1);
+                }
+              }}
               disabled={currentStep === 1}
               className="border-2"
             >
@@ -184,7 +270,7 @@ const Diagnostic = () => {
               Précédent
             </Button>
 
-            {currentStep < totalSteps ? (
+{currentStep < 4 ? (
               <Button
                 onClick={() => setCurrentStep(currentStep + 1)}
                 className="bg-primary hover:bg-primary-hover text-primary-foreground"
@@ -192,6 +278,16 @@ const Diagnostic = () => {
                 Suivant
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
+            ) : currentStep === 4 ? (
+              <Button
+                onClick={() => setCurrentStep(4.5)}
+                className="bg-primary hover:bg-primary-hover text-primary-foreground"
+              >
+                Suivant
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : currentStep === 4.5 ? (
+              <div /> // Empty div as button is in the card
             ) : (
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 Voir mes recommandations
