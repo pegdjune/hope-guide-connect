@@ -1,22 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { Calculator, ArrowRight } from "lucide-react";
+import { Calculator, ArrowRight, Sparkles } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
 const PriceSimulatorBanner = () => {
   return (
-    <section className="bg-gradient-to-r from-primary via-primary-hover to-accent py-6 px-4 shadow-large">
-      <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4 text-primary-foreground">
-            <div className="bg-white/20 p-3 rounded-full">
-              <Calculator className="w-6 h-6" />
+    <section className="relative overflow-hidden bg-gradient-to-r from-primary via-secondary to-accent py-8 px-4 shadow-large">
+      {/* Decorative elements */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-pulse-slow" />
+      <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
+      
+      <div className="container mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-5 text-primary-foreground">
+            <div className="relative">
+              <div className="absolute inset-0 bg-white/30 rounded-2xl blur-lg animate-pulse-slow" />
+              <div className="relative bg-white/20 backdrop-blur-sm p-4 rounded-2xl border-2 border-white/30">
+                <Calculator className="w-8 h-8" />
+              </div>
             </div>
             <div>
-              <h2 className="text-xl md:text-2xl font-bold">
-                Obtenez des devis gratuits de cliniques FIV
-              </h2>
-              <p className="text-primary-foreground/90 text-sm md:text-base">
-                Comparez les prix et trouvez la meilleure offre pour votre traitement
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-2xl md:text-3xl font-bold font-heading">
+                  Obtenez des devis gratuits
+                </h2>
+                <Sparkles className="w-6 h-6 animate-pulse-slow" />
+              </div>
+              <p className="text-primary-foreground/95 text-base md:text-lg font-medium">
+                Comparez les prix de +50 cliniques européennes en 2 minutes
               </p>
             </div>
           </div>
@@ -24,11 +34,11 @@ const PriceSimulatorBanner = () => {
           <Button 
             asChild 
             size="lg"
-            className="bg-white text-primary hover:bg-white/90 shadow-xl whitespace-nowrap group flex-shrink-0"
+            className="bg-white text-primary hover:bg-white/95 shadow-glow whitespace-nowrap group flex-shrink-0 font-bold text-lg px-8 py-6 hover:scale-105 transition-all"
           >
-            <NavLink to="/diagnostic" className="flex items-center gap-2">
-              Simuler mon devis
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <NavLink to="/diagnostic" className="flex items-center gap-3">
+              Simuler gratuitement
+              <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </NavLink>
           </Button>
         </div>
