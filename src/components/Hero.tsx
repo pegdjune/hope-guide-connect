@@ -128,8 +128,8 @@ const Hero = () => {
       <div 
         ref={mapContainer} 
         className="absolute inset-0 w-full h-full cursor-pointer transition-opacity hover:opacity-90"
-        onClick={() => navigate("/carte-cliniques")}
-        title="Cliquer pour voir la carte complète"
+        onClick={() => navigate("/comparateur")}
+        title="Cliquer pour voir toutes les cliniques"
       />
       
       {/* Token input overlay */}
