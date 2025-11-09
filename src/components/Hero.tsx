@@ -174,6 +174,17 @@ const Hero = () => {
             <Button 
               asChild 
               size="lg" 
+              className="bg-accent hover:bg-accent/90 text-white shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
+            >
+              <NavLink to="/comparateur" className="flex items-center gap-3">
+                🗺️ Comparer les cliniques
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </NavLink>
+            </Button>
+            
+            <Button 
+              asChild 
+              size="lg" 
               className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
             >
               <NavLink to="/diagnostic" className="flex items-center gap-3">
