@@ -1,15 +1,17 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import InteractiveMap from "@/components/InteractiveMap";
 import ComparisonTable from "@/components/ComparisonTable";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "@/hooks/use-toast";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 // Mock data - sera remplacé par de vraies données
 const clinics = [
@@ -54,10 +56,22 @@ const clinics = [
   },
 ];
 
+const getStoredToken = () => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('mapbox_token') || '';
+  }
+  return '';
+};
+
 const Comparateur = () => {
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedClinics, setSelectedClinics] = useState<number[]>([]);
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapboxToken, setMapboxToken] = useState(getStoredToken);
+  const [showTokenInput, setShowTokenInput] = useState(!getStoredToken());
 
   const toggleClinicSelection = (clinicId: number) => {
     if (selectedClinics.includes(clinicId)) {
@@ -76,6 +90,97 @@ const Comparateur = () => {
       });
     }
   };
+
+  const handleTokenSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const token = formData.get('token') as string;
+    if (token) {
+      localStorage.setItem('mapbox_token', token);
+      setMapboxToken(token);
+      setShowTokenInput(false);
+      window.location.reload();
+    }
+  };
+
+  useEffect(() => {
+    if (!mapContainer.current || map.current || !mapboxToken || viewMode !== 'map') return;
+
+    try {
+      mapboxgl.accessToken = mapboxToken;
+
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current!,
+        style: "mapbox://styles/mapbox/light-v11",
+        center: [10, 48],
+        zoom: 4.5,
+        pitch: 45,
+      });
+
+      map.current.addControl(
+        new mapboxgl.NavigationControl({
+          visualizePitch: true,
+        }),
+        "top-right"
+      );
+
+      map.current.on("load", () => {
+        setMapLoaded(true);
+        setShowTokenInput(false);
+
+        clinics.forEach((clinic) => {
+          const el = document.createElement("div");
+          el.className = "marker";
+          el.style.width = "40px";
+          el.style.height = "40px";
+          el.style.cursor = "pointer";
+          
+          const markerIcon = document.createElement("div");
+          markerIcon.innerHTML = `
+            <div class="flex items-center justify-center w-10 h-10 bg-primary rounded-full shadow-lg border-2 border-white hover:scale-110 transition-transform">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </div>
+          `;
+          el.appendChild(markerIcon);
+
+          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+            <div class="p-3">
+              <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
+              <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
+              <div class="flex items-center gap-1 mt-2">
+                <span class="text-yellow-500">★</span>
+                <span class="font-semibold">${clinic.rating}</span>
+              </div>
+              <div class="text-sm text-muted-foreground mt-1">
+                Taux de réussite: ${clinic.successRate}
+              </div>
+              <div class="text-sm font-semibold text-primary mt-1">
+                À partir de ${clinic.priceFrom.toLocaleString()}€
+              </div>
+            </div>
+          `);
+
+          new mapboxgl.Marker(el)
+            .setLngLat(clinic.coordinates)
+            .setPopup(popup)
+            .addTo(map.current!);
+        });
+      });
+    } catch (error) {
+      console.error("Error initializing map:", error);
+      setShowTokenInput(true);
+    }
+
+    return () => {
+      if (viewMode !== 'map') {
+        map.current?.remove();
+        map.current = null;
+        setMapLoaded(false);
+      }
+    };
+  }, [mapboxToken, viewMode]);
 
   const selectedClinicsData = clinics.filter(c => selectedClinics.includes(c.id));
 
@@ -184,8 +289,61 @@ const Comparateur = () => {
 
           {/* Interactive Map */}
           {viewMode === 'map' && (
-            <div className="mb-8">
-              <InteractiveMap clinics={clinics} />
+            <div className="relative mb-8 h-[600px] rounded-lg overflow-hidden shadow-large">
+              <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
+              
+              {/* Token input overlay */}
+              {showTokenInput && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/95 backdrop-blur-sm z-30">
+                  <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-2xl font-bold text-foreground">
+                        Configuration Mapbox
+                      </h3>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => setShowTokenInput(false)}
+                      >
+                        <X className="w-5 h-5" />
+                      </Button>
+                    </div>
+                    <p className="text-muted-foreground mb-6">
+                      Pour afficher la carte, veuillez entrer votre token Mapbox public.
+                      <br />
+                      <a 
+                        href="https://account.mapbox.com/access-tokens/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline font-semibold"
+                      >
+                        Obtenir un token Mapbox →
+                      </a>
+                    </p>
+                    <form onSubmit={handleTokenSubmit} className="space-y-4">
+                      <Input
+                        name="token"
+                        placeholder="pk.eyJ1..."
+                        required
+                        className="w-full"
+                      />
+                      <Button type="submit" className="w-full">
+                        Valider
+                      </Button>
+                    </form>
+                  </div>
+                </div>
+              )}
+              
+              {/* Loading indicator */}
+              {!mapLoaded && !showTokenInput && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
+                  <div className="text-center">
+                    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                    <p className="text-lg font-semibold text-foreground">Chargement de la carte...</p>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
