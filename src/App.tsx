@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Diagnostic from "./pages/Diagnostic";
 import ResultatsDiagnostic from "./pages/ResultatsDiagnostic";
 import Comparateur from "./pages/Comparateur";
+import CarteCliniques from "./pages/CarteCliniques";
 import Blog from "./pages/Blog";
 import BlogArticle from "./pages/BlogArticle";
 import APropos from "./pages/APropos";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/diagnostic" element={<Diagnostic />} />
           <Route path="/resultats-diagnostic" element={<ResultatsDiagnostic />} />
           <Route path="/comparateur" element={<Comparateur />} />
+          <Route path="/carte-cliniques" element={<CarteCliniques />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/a-propos" element={<APropos />} />

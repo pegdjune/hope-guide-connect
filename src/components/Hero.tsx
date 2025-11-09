@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle, MapPin } from "lucide-react";
@@ -29,6 +30,7 @@ const getStoredToken = () => {
 };
 
 const Hero = () => {
+  const navigate = useNavigate();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -123,7 +125,12 @@ const Hero = () => {
   return (
     <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
       {/* Mapbox Map Background */}
-      <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
+      <div 
+        ref={mapContainer} 
+        className="absolute inset-0 w-full h-full cursor-pointer transition-opacity hover:opacity-90"
+        onClick={() => navigate("/carte-cliniques")}
+        title="Cliquer pour voir la carte complète"
+      />
       
       {/* Token input overlay */}
       {showTokenInput && (
