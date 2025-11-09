@@ -21,27 +21,20 @@ const clinics = [
   { name: "Reprogenesis", city: "Athènes", country: "Grèce", coordinates: [23.7369, 37.9795], rating: 4.6 },
 ];
 
-// Récupération du token depuis localStorage
-const getStoredToken = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('mapbox_token') || '';
-  }
-  return '';
-};
+// Token Mapbox configuré
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmc3NTc1NzUiLCJhIjoiY21ocXhnNzdiMGNzczJqc2R3dWpmM3N4ZSJ9.BUHrAaoH9kK_HXmAfCo9ig';
 
 const Hero = () => {
   const navigate = useNavigate();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [mapboxToken, setMapboxToken] = useState(getStoredToken);
-  const [showTokenInput, setShowTokenInput] = useState(!getStoredToken());
 
   useEffect(() => {
-    if (!mapContainer.current || map.current || !mapboxToken) return;
+    if (!mapContainer.current || map.current) return;
 
     try {
-      mapboxgl.accessToken = mapboxToken;
+      mapboxgl.accessToken = MAPBOX_TOKEN;
 
       map.current = new mapboxgl.Map({
         container: mapContainer.current!,
@@ -61,7 +54,6 @@ const Hero = () => {
 
       map.current.on("load", () => {
         setMapLoaded(true);
-        setShowTokenInput(false);
 
         // Add markers for each clinic
         clinics.forEach((clinic) => {
@@ -101,26 +93,12 @@ const Hero = () => {
       });
     } catch (error) {
       console.error("Error initializing map:", error);
-      setShowTokenInput(true);
     }
 
     return () => {
       map.current?.remove();
     };
-  }, [mapboxToken]);
-
-  const handleTokenSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const token = formData.get('token') as string;
-    if (token) {
-      localStorage.setItem('mapbox_token', token);
-      setMapboxToken(token);
-      setShowTokenInput(false);
-      // Force reload
-      window.location.reload();
-    }
-  };
+  }, []);
 
   return (
     <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
@@ -132,42 +110,8 @@ const Hero = () => {
         title="Cliquer pour voir toutes les cliniques"
       />
       
-      {/* Token input overlay */}
-      {showTokenInput && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/95 backdrop-blur-sm z-20">
-          <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4">
-            <h3 className="text-2xl font-bold text-foreground mb-4">
-              Configuration Mapbox
-            </h3>
-            <p className="text-muted-foreground mb-6">
-              Pour afficher la carte, veuillez entrer votre token Mapbox public.
-              <br />
-              <a 
-                href="https://account.mapbox.com/access-tokens/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary hover:underline font-semibold"
-              >
-                Obtenir un token Mapbox →
-              </a>
-            </p>
-            <form onSubmit={handleTokenSubmit} className="space-y-4">
-              <Input
-                name="token"
-                placeholder="pk.eyJ1..."
-                required
-                className="w-full"
-              />
-              <Button type="submit" className="w-full">
-                Valider
-              </Button>
-            </form>
-          </div>
-        </div>
-      )}
-      
       {/* Loading indicator */}
-      {!mapLoaded && !showTokenInput && (
+      {!mapLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />

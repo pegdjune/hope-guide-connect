@@ -56,12 +56,8 @@ const clinics = [
   },
 ];
 
-const getStoredToken = () => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('mapbox_token') || '';
-  }
-  return '';
-};
+// Token Mapbox configuré
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmc3NTc1NzUiLCJhIjoiY21ocXhnNzdiMGNzczJqc2R3dWpmM3N4ZSJ9.BUHrAaoH9kK_HXmAfCo9ig';
 
 const Comparateur = () => {
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
@@ -70,8 +66,6 @@ const Comparateur = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
-  const [mapboxToken, setMapboxToken] = useState(getStoredToken);
-  const [showTokenInput, setShowTokenInput] = useState(!getStoredToken());
 
   const toggleClinicSelection = (clinicId: number) => {
     if (selectedClinics.includes(clinicId)) {
@@ -91,23 +85,11 @@ const Comparateur = () => {
     }
   };
 
-  const handleTokenSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const token = formData.get('token') as string;
-    if (token) {
-      localStorage.setItem('mapbox_token', token);
-      setMapboxToken(token);
-      setShowTokenInput(false);
-      window.location.reload();
-    }
-  };
-
   useEffect(() => {
-    if (!mapContainer.current || map.current || !mapboxToken || viewMode !== 'map') return;
+    if (!mapContainer.current || map.current || viewMode !== 'map') return;
 
     try {
-      mapboxgl.accessToken = mapboxToken;
+      mapboxgl.accessToken = MAPBOX_TOKEN;
 
       map.current = new mapboxgl.Map({
         container: mapContainer.current!,
@@ -126,7 +108,6 @@ const Comparateur = () => {
 
       map.current.on("load", () => {
         setMapLoaded(true);
-        setShowTokenInput(false);
 
         clinics.forEach((clinic) => {
           const el = document.createElement("div");
@@ -170,7 +151,6 @@ const Comparateur = () => {
       });
     } catch (error) {
       console.error("Error initializing map:", error);
-      setShowTokenInput(true);
     }
 
     return () => {
@@ -180,7 +160,7 @@ const Comparateur = () => {
         setMapLoaded(false);
       }
     };
-  }, [mapboxToken, viewMode]);
+  }, [viewMode]);
 
   const selectedClinicsData = clinics.filter(c => selectedClinics.includes(c.id));
 
@@ -292,51 +272,8 @@ const Comparateur = () => {
             <div className="relative mb-8 h-[600px] rounded-lg overflow-hidden shadow-large">
               <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
               
-              {/* Token input overlay */}
-              {showTokenInput && (
-                <div className="absolute inset-0 flex items-center justify-center bg-background/95 backdrop-blur-sm z-30">
-                  <div className="bg-white p-8 rounded-2xl shadow-2xl max-w-md w-full mx-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-2xl font-bold text-foreground">
-                        Configuration Mapbox
-                      </h3>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setShowTokenInput(false)}
-                      >
-                        <X className="w-5 h-5" />
-                      </Button>
-                    </div>
-                    <p className="text-muted-foreground mb-6">
-                      Pour afficher la carte, veuillez entrer votre token Mapbox public.
-                      <br />
-                      <a 
-                        href="https://account.mapbox.com/access-tokens/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline font-semibold"
-                      >
-                        Obtenir un token Mapbox →
-                      </a>
-                    </p>
-                    <form onSubmit={handleTokenSubmit} className="space-y-4">
-                      <Input
-                        name="token"
-                        placeholder="pk.eyJ1..."
-                        required
-                        className="w-full"
-                      />
-                      <Button type="submit" className="w-full">
-                        Valider
-                      </Button>
-                    </form>
-                  </div>
-                </div>
-              )}
-              
               {/* Loading indicator */}
-              {!mapLoaded && !showTokenInput && (
+              {!mapLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
                   <div className="text-center">
                     <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
