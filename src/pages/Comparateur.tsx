@@ -27,6 +27,7 @@ interface Clinic {
   badges: string[];
   longitude: number | null;
   latitude: number | null;
+  website: string | null;
 }
 
 // Token Mapbox configuré
@@ -152,26 +153,81 @@ const Comparateur = () => {
         `;
         el.appendChild(markerIcon);
 
-        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-          <div class="p-3">
-            <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
-            <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
-            ${clinic.rating ? `
-              <div class="flex items-center gap-1 mt-2">
-                <span class="text-yellow-500">★</span>
-                <span class="font-semibold">${clinic.rating}</span>
+        const popup = new mapboxgl.Popup({ offset: 25, maxWidth: '350px' }).setHTML(`
+          <div class="p-4 min-w-[300px]">
+            <div class="flex items-start justify-between mb-3">
+              <h3 class="font-bold text-lg text-foreground pr-2">${clinic.name}</h3>
+              ${clinic.rating ? `
+                <div class="flex items-center gap-1 bg-yellow-500/10 px-2 py-1 rounded-full shrink-0">
+                  <span class="text-yellow-500">★</span>
+                  <span class="font-semibold text-sm">${clinic.rating}</span>
+                  <span class="text-xs text-muted-foreground">(${clinic.review_count})</span>
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              <span>${clinic.city}, ${clinic.country}</span>
+            </div>
+
+            ${clinic.badges && clinic.badges.length > 0 ? `
+              <div class="flex flex-wrap gap-1 mb-3">
+                ${clinic.badges.slice(0, 3).map(badge => `
+                  <span class="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full border border-primary/20">${badge}</span>
+                `).join('')}
               </div>
             ` : ''}
-            ${clinic.success_rate ? `
-              <div class="text-sm text-muted-foreground mt-1">
-                Taux de réussite: ${clinic.success_rate}
+
+            ${clinic.specialties && clinic.specialties.length > 0 ? `
+              <div class="mb-3">
+                <div class="text-xs font-semibold text-muted-foreground mb-1">Spécialités</div>
+                <div class="flex flex-wrap gap-1">
+                  ${clinic.specialties.slice(0, 3).map(specialty => `
+                    <span class="text-xs px-2 py-1 bg-secondary/50 text-secondary-foreground rounded">${specialty}</span>
+                  `).join('')}
+                  ${clinic.specialties.length > 3 ? `<span class="text-xs text-muted-foreground">+${clinic.specialties.length - 3}</span>` : ''}
+                </div>
               </div>
             ` : ''}
-            ${clinic.price_from ? `
-              <div class="text-sm font-semibold text-primary mt-1">
-                À partir de ${clinic.price_from.toLocaleString()}€
-              </div>
-            ` : ''}
+
+            <div class="grid grid-cols-2 gap-3 mb-3 pb-3 border-b border-border/50">
+              ${clinic.success_rate ? `
+                <div>
+                  <div class="text-xs text-muted-foreground">Taux de réussite</div>
+                  <div class="font-semibold text-success flex items-center gap-1">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                      <polyline points="17 6 23 6 23 12"></polyline>
+                    </svg>
+                    ${clinic.success_rate}
+                  </div>
+                </div>
+              ` : ''}
+              ${clinic.price_from ? `
+                <div>
+                  <div class="text-xs text-muted-foreground">À partir de</div>
+                  <div class="font-bold text-primary text-lg">${clinic.price_from.toLocaleString()}€</div>
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="flex gap-2">
+              <button class="flex-1 bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold text-sm hover:bg-primary/90 transition-colors">
+                Voir les détails
+              </button>
+              ${clinic.website ? `
+                <a href="${clinic.website}" target="_blank" rel="noopener noreferrer" class="px-3 py-2 border-2 border-border rounded-lg hover:bg-secondary/50 transition-colors">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              ` : ''}
+            </div>
           </div>
         `);
 
