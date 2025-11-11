@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X, Loader2 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import mapboxgl from "mapbox-gl";
@@ -34,6 +35,7 @@ interface Clinic {
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmc3NTc1NzUiLCJhIjoiY21ocXhnNzdiMGNzczJqc2R3dWpmM3N4ZSJ9.BUHrAaoH9kK_HXmAfCo9ig';
 
 const Comparateur = () => {
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
   const [comparisonMode, setComparisonMode] = useState(false);
   const [selectedClinics, setSelectedClinics] = useState<string[]>([]);
@@ -248,9 +250,20 @@ const Comparateur = () => {
         <div className="container mx-auto px-4">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Comparateur de Cliniques FIV
-            </h1>
+            <div className="flex items-center justify-between mb-4">
+              <Button
+                variant="outline"
+                onClick={() => navigate("/carte-cliniques")}
+                className="gap-2"
+              >
+                <Map className="w-4 h-4" />
+                Carte interactive
+              </Button>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground flex-1 mx-4">
+                Comparateur de Cliniques FIV
+              </h1>
+              <div className="w-[140px]" />
+            </div>
             <p className="text-lg text-muted-foreground">
               Découvrez et comparez les meilleures cliniques européennes de fertilité
             </p>
