@@ -4,21 +4,21 @@ import { Badge } from "@/components/ui/badge";
 import { X, Check, MapPin, Star, Euro, TrendingUp } from "lucide-react";
 
 interface Clinic {
-  id: number;
+  id: string;
   name: string;
   country: string;
   city: string;
-  rating: number;
-  reviewCount: number;
-  successRate: string;
-  priceFrom: number;
+  rating: number | null;
+  review_count: number;
+  success_rate: string | null;
+  price_from: number | null;
   specialties: string[];
   badges: string[];
 }
 
 interface ComparisonTableProps {
   clinics: Clinic[];
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
   onClearAll: () => void;
 }
 
@@ -96,15 +96,15 @@ const ComparisonTable = ({ clinics, onRemove, onClearAll }: ComparisonTableProps
                       <div className="flex items-center justify-center gap-1">
                         <Star className="w-4 h-4 text-accent fill-current" />
                         <span className="font-semibold text-foreground">{clinic.rating}</span>
-                        <span className="text-xs text-muted-foreground">({clinic.reviewCount})</span>
+                        <span className="text-xs text-muted-foreground">({clinic.review_count})</span>
                       </div>
                     )}
-                    {row.key === "successRate" && (
-                      <div className="font-semibold text-success">{clinic.successRate}</div>
+                    {row.key === "successRate" && clinic.success_rate && (
+                      <div className="font-semibold text-success">{clinic.success_rate}</div>
                     )}
-                    {row.key === "price" && (
+                    {row.key === "price" && clinic.price_from && (
                       <div className="font-bold text-primary text-lg">
-                        {clinic.priceFrom.toLocaleString()}€
+                        {clinic.price_from.toLocaleString()}€
                       </div>
                     )}
                     {row.key === "specialties" && (
@@ -161,18 +161,22 @@ const ComparisonTable = ({ clinics, onRemove, onClearAll }: ComparisonTableProps
                     <span className="font-semibold">{clinic.rating}</span>
                   </div>
                 </div>
-                <div>
-                  <div className="text-sm text-muted-foreground mb-1">Réussite</div>
-                  <div className="font-semibold text-success">{clinic.successRate}</div>
-                </div>
-              </div>
-
               <div>
-                <div className="text-sm text-muted-foreground mb-1">Prix</div>
-                <div className="font-bold text-primary text-xl">
-                  {clinic.priceFrom.toLocaleString()}€
-                </div>
+                <div className="text-sm text-muted-foreground mb-1">Réussite</div>
+                {clinic.success_rate && (
+                  <div className="font-semibold text-success">{clinic.success_rate}</div>
+                )}
               </div>
+            </div>
+
+            <div>
+              <div className="text-sm text-muted-foreground mb-1">Prix</div>
+              {clinic.price_from && (
+                <div className="font-bold text-primary text-xl">
+                  {clinic.price_from.toLocaleString()}€
+                </div>
+              )}
+            </div>
 
               <div>
                 <div className="text-sm text-muted-foreground mb-2">Spécialités</div>

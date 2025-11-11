@@ -6,55 +6,28 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X } from "lucide-react";
+import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X, Loader2 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-// Mock data - sera remplacé par de vraies données
-const clinics = [
-  {
-    id: 1,
-    name: "Clinique FertiCare Prague",
-    country: "République Tchèque",
-    city: "Prague",
-    rating: 4.8,
-    reviewCount: 245,
-    successRate: "68%",
-    priceFrom: 4500,
-    specialties: ["FIV", "Don d'ovocytes", "ICSI"],
-    badges: ["Disponibilité rapide", "Francophone"],
-    coordinates: [14.4378, 50.0755] as [number, number],
-  },
-  {
-    id: 2,
-    name: "Barcelona IVF",
-    country: "Espagne",
-    city: "Barcelone",
-    rating: 4.9,
-    reviewCount: 412,
-    successRate: "72%",
-    priceFrom: 6200,
-    specialties: ["FIV", "Don d'ovocytes", "Don de sperme"],
-    badges: ["Taux de réussite élevé", "Équipe multiculturelle"],
-    coordinates: [2.1734, 41.3851] as [number, number],
-  },
-  {
-    id: 3,
-    name: "Athens Fertility Center",
-    country: "Grèce",
-    city: "Athènes",
-    rating: 4.7,
-    reviewCount: 198,
-    successRate: "65%",
-    priceFrom: 3800,
-    specialties: ["FIV", "ICSI"],
-    badges: ["Budget friendly", "Support émotionnel"],
-    coordinates: [23.7275, 37.9838] as [number, number],
-  },
-];
+interface Clinic {
+  id: string;
+  name: string;
+  country: string;
+  city: string;
+  rating: number | null;
+  review_count: number;
+  success_rate: string | null;
+  price_from: number | null;
+  specialties: string[];
+  badges: string[];
+  longitude: number | null;
+  latitude: number | null;
+}
 
 // Token Mapbox configuré
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmc3NTc1NzUiLCJhIjoiY21ocXhnNzdiMGNzczJqc2R3dWpmM3N4ZSJ9.BUHrAaoH9kK_HXmAfCo9ig';
@@ -62,12 +35,41 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmc3NTc1NzUiLCJhIjoiY21ocXhnNzdiMGNzczJqc2R3dWp
 const Comparateur = () => {
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
   const [comparisonMode, setComparisonMode] = useState(false);
-  const [selectedClinics, setSelectedClinics] = useState<number[]>([]);
+  const [selectedClinics, setSelectedClinics] = useState<string[]>([]);
+  const [clinics, setClinics] = useState<Clinic[]>([]);
+  const [loading, setLoading] = useState(true);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
-  const toggleClinicSelection = (clinicId: number) => {
+  // Charger les cliniques depuis Supabase
+  useEffect(() => {
+    const fetchClinics = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('clinics')
+          .select('*')
+          .order('country', { ascending: true });
+
+        if (error) throw error;
+
+        setClinics(data || []);
+      } catch (error) {
+        console.error('Error fetching clinics:', error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de charger les cliniques",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClinics();
+  }, []);
+
+  const toggleClinicSelection = (clinicId: string) => {
     if (selectedClinics.includes(clinicId)) {
       setSelectedClinics(selectedClinics.filter(id => id !== clinicId));
     } else if (selectedClinics.length < 3) {
@@ -130,23 +132,31 @@ const Comparateur = () => {
             <div class="p-3">
               <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
               <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
-              <div class="flex items-center gap-1 mt-2">
-                <span class="text-yellow-500">★</span>
-                <span class="font-semibold">${clinic.rating}</span>
-              </div>
-              <div class="text-sm text-muted-foreground mt-1">
-                Taux de réussite: ${clinic.successRate}
-              </div>
-              <div class="text-sm font-semibold text-primary mt-1">
-                À partir de ${clinic.priceFrom.toLocaleString()}€
-              </div>
+              ${clinic.rating ? `
+                <div class="flex items-center gap-1 mt-2">
+                  <span class="text-yellow-500">★</span>
+                  <span class="font-semibold">${clinic.rating}</span>
+                </div>
+              ` : ''}
+              ${clinic.success_rate ? `
+                <div class="text-sm text-muted-foreground mt-1">
+                  Taux de réussite: ${clinic.success_rate}
+                </div>
+              ` : ''}
+              ${clinic.price_from ? `
+                <div class="text-sm font-semibold text-primary mt-1">
+                  À partir de ${clinic.price_from.toLocaleString()}€
+                </div>
+              ` : ''}
             </div>
           `);
 
-          new mapboxgl.Marker(el)
-            .setLngLat(clinic.coordinates)
-            .setPopup(popup)
-            .addTo(map.current!);
+          if (clinic.longitude && clinic.latitude) {
+            new mapboxgl.Marker(el)
+              .setLngLat([clinic.longitude, clinic.latitude])
+              .setPopup(popup)
+              .addTo(map.current!);
+          }
         });
       });
     } catch (error) {
@@ -273,12 +283,39 @@ const Comparateur = () => {
               <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
               
               {/* Loading indicator */}
-              {!mapLoaded && (
+              {loading && (
                 <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
                   <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                    <p className="text-lg font-semibold text-foreground">Chargement de la carte...</p>
+                    <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto mb-4" />
+                    <p className="text-lg font-semibold text-foreground">Chargement des cliniques...</p>
                   </div>
+                </div>
+              )}
+              
+              {!loading && !mapLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
+                  <div className="text-center">
+                    <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto mb-4" />
+                    <p className="text-lg font-semibold text-foreground">Initialisation de la carte...</p>
+                  </div>
+                </div>
+              )}
+              
+              {!loading && clinics.length === 0 && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm z-20">
+                  <Card className="p-6 max-w-md">
+                    <p className="text-lg font-semibold text-foreground mb-2">
+                      Aucune clinique importée
+                    </p>
+                    <p className="text-muted-foreground mb-4">
+                      Importez d'abord les cliniques depuis la base de données
+                    </p>
+                    <Button asChild>
+                      <NavLink to="/import-clinics">
+                        Importer les cliniques
+                      </NavLink>
+                    </Button>
+                  </Card>
                 </div>
               )}
             </div>
@@ -299,7 +336,27 @@ const Comparateur = () => {
           {/* Clinics list */}
           {viewMode === 'list' && !comparisonMode && (
           <div className="space-y-6">
-            {clinics.map((clinic) => (
+            {loading ? (
+              <Card className="p-8 text-center">
+                <Loader2 className="w-12 h-12 text-primary animate-spin mx-auto mb-4" />
+                <p className="text-lg font-semibold text-foreground">Chargement des cliniques...</p>
+              </Card>
+            ) : clinics.length === 0 ? (
+              <Card className="p-8 text-center">
+                <p className="text-lg font-semibold text-foreground mb-2">
+                  Aucune clinique trouvée
+                </p>
+                <p className="text-muted-foreground mb-4">
+                  Importez d'abord les cliniques depuis la base de données
+                </p>
+                <Button asChild>
+                  <NavLink to="/import-clinics">
+                    Importer les cliniques
+                  </NavLink>
+                </Button>
+              </Card>
+            ) : (
+              clinics.map((clinic) => (
               <Card key={clinic.id} className="hover:shadow-large transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="grid md:grid-cols-[1fr,auto] gap-6">
@@ -313,7 +370,7 @@ const Comparateur = () => {
                           <div className="flex items-center gap-1 bg-accent/10 px-3 py-1 rounded-full">
                             <Star className="w-4 h-4 text-accent fill-current" />
                             <span className="font-semibold text-accent">{clinic.rating}</span>
-                            <span className="text-xs text-muted-foreground">({clinic.reviewCount})</span>
+                            <span className="text-xs text-muted-foreground">({clinic.review_count})</span>
                           </div>
                         </div>
                         
@@ -346,20 +403,24 @@ const Comparateur = () => {
 
                       {/* Stats */}
                       <div className="flex flex-wrap gap-6">
-                        <div className="flex items-center gap-2">
-                          <TrendingUp className="w-5 h-5 text-success" />
-                          <div>
-                            <div className="text-sm text-muted-foreground">Taux de réussite</div>
-                            <div className="font-semibold text-foreground">{clinic.successRate}</div>
+                        {clinic.success_rate && (
+                          <div className="flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5 text-success" />
+                            <div>
+                              <div className="text-sm text-muted-foreground">Taux de réussite</div>
+                              <div className="font-semibold text-foreground">{clinic.success_rate}</div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Euro className="w-5 h-5 text-primary" />
-                          <div>
-                            <div className="text-sm text-muted-foreground">À partir de</div>
-                            <div className="font-semibold text-foreground">{clinic.priceFrom.toLocaleString()}€</div>
+                        )}
+                        {clinic.price_from && (
+                          <div className="flex items-center gap-2">
+                             <Euro className="w-5 h-5 text-primary" />
+                            <div>
+                              <div className="text-sm text-muted-foreground">À partir de</div>
+                              <div className="font-semibold text-foreground">{clinic.price_from.toLocaleString()}€</div>
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     </div>
 
@@ -387,7 +448,8 @@ const Comparateur = () => {
                   </div>
                 </CardContent>
               </Card>
-            ))}
+            ))
+            )}
           </div>
           )}
 
