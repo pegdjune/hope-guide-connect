@@ -14,6 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
+      clinics: {
+        Row: {
+          badges: string[] | null
+          city: string
+          country: string
+          country_configuration: string | null
+          created_at: string | null
+          description: string | null
+          email: string | null
+          id: string
+          latitude: number | null
+          logo_url: string | null
+          longitude: number | null
+          name: string
+          phone: string | null
+          price_currency: string | null
+          price_from: number | null
+          rating: number | null
+          reporting_clinics: number | null
+          review_count: number | null
+          specialties: string[] | null
+          success_rate: string | null
+          total_clinics_country: number | null
+          type: string
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          badges?: string[] | null
+          city: string
+          country: string
+          country_configuration?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          latitude?: number | null
+          logo_url?: string | null
+          longitude?: number | null
+          name: string
+          phone?: string | null
+          price_currency?: string | null
+          price_from?: number | null
+          rating?: number | null
+          reporting_clinics?: number | null
+          review_count?: number | null
+          specialties?: string[] | null
+          success_rate?: string | null
+          total_clinics_country?: number | null
+          type: string
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          badges?: string[] | null
+          city?: string
+          country?: string
+          country_configuration?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          latitude?: number | null
+          logo_url?: string | null
+          longitude?: number | null
+          name?: string
+          phone?: string | null
+          price_currency?: string | null
+          price_from?: number | null
+          rating?: number | null
+          reporting_clinics?: number | null
+          review_count?: number | null
+          specialties?: string[] | null
+          success_rate?: string | null
+          total_clinics_country?: number | null
+          type?: string
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           clinic_name: string
