@@ -110,54 +110,6 @@ const Comparateur = () => {
 
       map.current.on("load", () => {
         setMapLoaded(true);
-
-        clinics.forEach((clinic) => {
-          const el = document.createElement("div");
-          el.className = "marker";
-          el.style.width = "40px";
-          el.style.height = "40px";
-          el.style.cursor = "pointer";
-          
-          const markerIcon = document.createElement("div");
-          markerIcon.innerHTML = `
-            <div class="flex items-center justify-center w-10 h-10 bg-primary rounded-full shadow-lg border-2 border-white hover:scale-110 transition-transform">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-            </div>
-          `;
-          el.appendChild(markerIcon);
-
-          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-            <div class="p-3">
-              <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
-              <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
-              ${clinic.rating ? `
-                <div class="flex items-center gap-1 mt-2">
-                  <span class="text-yellow-500">★</span>
-                  <span class="font-semibold">${clinic.rating}</span>
-                </div>
-              ` : ''}
-              ${clinic.success_rate ? `
-                <div class="text-sm text-muted-foreground mt-1">
-                  Taux de réussite: ${clinic.success_rate}
-                </div>
-              ` : ''}
-              ${clinic.price_from ? `
-                <div class="text-sm font-semibold text-primary mt-1">
-                  À partir de ${clinic.price_from.toLocaleString()}€
-                </div>
-              ` : ''}
-            </div>
-          `);
-
-          if (clinic.longitude && clinic.latitude) {
-            new mapboxgl.Marker(el)
-              .setLngLat([clinic.longitude, clinic.latitude])
-              .setPopup(popup)
-              .addTo(map.current!);
-          }
-        });
       });
     } catch (error) {
       console.error("Error initializing map:", error);
@@ -171,6 +123,64 @@ const Comparateur = () => {
       }
     };
   }, [viewMode]);
+
+  // Add markers when clinics data changes and map is loaded
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    // Clear existing markers
+    const markers = document.querySelectorAll('.marker');
+    markers.forEach((marker) => marker.remove());
+
+    // Add markers for clinics with coordinates
+    clinics
+      .filter((clinic) => clinic.latitude && clinic.longitude)
+      .forEach((clinic) => {
+        const el = document.createElement("div");
+        el.className = "marker";
+        el.style.width = "40px";
+        el.style.height = "40px";
+        el.style.cursor = "pointer";
+
+        const markerIcon = document.createElement("div");
+        markerIcon.innerHTML = `
+          <div class="flex items-center justify-center w-10 h-10 bg-primary rounded-full shadow-lg border-2 border-white hover:scale-110 transition-transform">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+        `;
+        el.appendChild(markerIcon);
+
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+          <div class="p-3">
+            <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
+            <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
+            ${clinic.rating ? `
+              <div class="flex items-center gap-1 mt-2">
+                <span class="text-yellow-500">★</span>
+                <span class="font-semibold">${clinic.rating}</span>
+              </div>
+            ` : ''}
+            ${clinic.success_rate ? `
+              <div class="text-sm text-muted-foreground mt-1">
+                Taux de réussite: ${clinic.success_rate}
+              </div>
+            ` : ''}
+            ${clinic.price_from ? `
+              <div class="text-sm font-semibold text-primary mt-1">
+                À partir de ${clinic.price_from.toLocaleString()}€
+              </div>
+            ` : ''}
+          </div>
+        `);
+
+        new mapboxgl.Marker(el)
+          .setLngLat([clinic.longitude!, clinic.latitude!])
+          .setPopup(popup)
+          .addTo(map.current!);
+      });
+  }, [clinics, mapLoaded]);
 
   const selectedClinicsData = clinics.filter(c => selectedClinics.includes(c.id));
 
