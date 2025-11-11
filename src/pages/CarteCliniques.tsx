@@ -7,20 +7,19 @@ import { Input } from "@/components/ui/input";
 import { ArrowLeft, X } from "lucide-react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
-// Cliniques FIV en Europe
-const clinics = [
-  { name: "Clinique Eugin", city: "Barcelona", country: "Espagne", coordinates: [2.1734, 41.3851], rating: 4.8 },
-  { name: "IVI Madrid", city: "Madrid", country: "Espagne", coordinates: [-3.7038, 40.4168], rating: 4.9 },
-  { name: "Prague Fertility Centre", city: "Prague", country: "République Tchèque", coordinates: [14.4378, 50.0755], rating: 4.7 },
-  { name: "Gennet", city: "Prague", country: "République Tchèque", coordinates: [14.4208, 50.0875], rating: 4.8 },
-  { name: "Instituto Bernabeu", city: "Alicante", country: "Espagne", coordinates: [-0.4890, 38.3460], rating: 4.9 },
-  { name: "Serum IVF", city: "Athènes", country: "Grèce", coordinates: [23.7275, 37.9838], rating: 4.6 },
-  { name: "North Cyprus IVF", city: "Nicosie", country: "Chypre", coordinates: [33.3823, 35.1856], rating: 4.7 },
-  { name: "Invicta Fertility", city: "Gdansk", country: "Pologne", coordinates: [18.6466, 54.3520], rating: 4.5 },
-  { name: "Next Fertility", city: "Barcelone", country: "Espagne", coordinates: [2.1686, 41.3879], rating: 4.8 },
-  { name: "Reprogenesis", city: "Athènes", country: "Grèce", coordinates: [23.7369, 37.9795], rating: 4.6 },
-];
+interface Clinic {
+  id: string;
+  name: string;
+  city: string;
+  country: string;
+  latitude: number | null;
+  longitude: number | null;
+  rating: number | null;
+  type: string;
+}
 
 const getStoredToken = () => {
   if (typeof window !== 'undefined') {
@@ -36,6 +35,83 @@ const CarteCliniques = () => {
   const [mapLoaded, setMapLoaded] = useState(false);
   const [mapboxToken, setMapboxToken] = useState(getStoredToken);
   const [showTokenInput, setShowTokenInput] = useState(!getStoredToken());
+  const [clinics, setClinics] = useState<Clinic[]>([]);
+  const [isGeocoding, setIsGeocoding] = useState(false);
+
+  // Fetch clinics from database
+  useEffect(() => {
+    const fetchClinics = async () => {
+      const { data, error } = await supabase
+        .from('clinics')
+        .select('id, name, city, country, latitude, longitude, rating, type');
+      
+      if (error) {
+        console.error('Error fetching clinics:', error);
+        toast.error('Erreur lors du chargement des cliniques');
+        return;
+      }
+      
+      setClinics(data || []);
+    };
+    
+    fetchClinics();
+  }, []);
+
+  // Geocode clinics without coordinates
+  const geocodeClinic = async (clinic: Clinic) => {
+    if (!mapboxToken) return null;
+    
+    try {
+      const query = encodeURIComponent(`${clinic.city}, ${clinic.country}`);
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${mapboxToken}&limit=1`
+      );
+      
+      if (!response.ok) throw new Error('Geocoding failed');
+      
+      const data = await response.json();
+      if (data.features && data.features.length > 0) {
+        const [longitude, latitude] = data.features[0].center;
+        
+        // Update database
+        const { error } = await supabase
+          .from('clinics')
+          .update({ latitude, longitude })
+          .eq('id', clinic.id);
+        
+        if (error) {
+          console.error('Error updating coordinates:', error);
+          return null;
+        }
+        
+        return { ...clinic, latitude, longitude };
+      }
+    } catch (error) {
+      console.error('Geocoding error:', error);
+    }
+    return null;
+  };
+
+  const geocodeAllClinics = async () => {
+    setIsGeocoding(true);
+    const clinicsToGeocode = clinics.filter(c => !c.latitude || !c.longitude);
+    
+    toast.info(`Géocodage de ${clinicsToGeocode.length} cliniques...`);
+    
+    let successCount = 0;
+    for (const clinic of clinicsToGeocode) {
+      const updated = await geocodeClinic(clinic);
+      if (updated) {
+        successCount++;
+        setClinics(prev => prev.map(c => c.id === updated.id ? updated : c));
+      }
+      // Delay to respect rate limits
+      await new Promise(resolve => setTimeout(resolve, 200));
+    }
+    
+    setIsGeocoding(false);
+    toast.success(`${successCount} cliniques géocodées avec succès`);
+  };
 
   useEffect(() => {
     if (!mapContainer.current || map.current || !mapboxToken) return;
@@ -61,40 +137,6 @@ const CarteCliniques = () => {
       map.current.on("load", () => {
         setMapLoaded(true);
         setShowTokenInput(false);
-
-        clinics.forEach((clinic) => {
-          const el = document.createElement("div");
-          el.className = "marker";
-          el.style.width = "40px";
-          el.style.height = "40px";
-          el.style.cursor = "pointer";
-          
-          const markerIcon = document.createElement("div");
-          markerIcon.innerHTML = `
-            <div class="flex items-center justify-center w-10 h-10 bg-primary rounded-full shadow-lg border-2 border-white hover:scale-110 transition-transform">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-            </div>
-          `;
-          el.appendChild(markerIcon);
-
-          const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-            <div class="p-3">
-              <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
-              <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
-              <div class="flex items-center gap-1 mt-2">
-                <span class="text-yellow-500">★</span>
-                <span class="font-semibold">${clinic.rating}</span>
-              </div>
-            </div>
-          `);
-
-          new mapboxgl.Marker(el)
-            .setLngLat(clinic.coordinates as [number, number])
-            .setPopup(popup)
-            .addTo(map.current!);
-        });
       });
     } catch (error) {
       console.error("Error initializing map:", error);
@@ -105,6 +147,54 @@ const CarteCliniques = () => {
       map.current?.remove();
     };
   }, [mapboxToken]);
+
+  // Add markers when clinics data changes
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    // Clear existing markers
+    const markers = document.querySelectorAll('.marker');
+    markers.forEach(marker => marker.remove());
+
+    // Add markers for clinics with coordinates
+    clinics
+      .filter(clinic => clinic.latitude && clinic.longitude)
+      .forEach((clinic) => {
+        const el = document.createElement("div");
+        el.className = "marker";
+        el.style.width = "40px";
+        el.style.height = "40px";
+        el.style.cursor = "pointer";
+        
+        const markerIcon = document.createElement("div");
+        markerIcon.innerHTML = `
+          <div class="flex items-center justify-center w-10 h-10 bg-primary rounded-full shadow-lg border-2 border-white hover:scale-110 transition-transform">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+          </div>
+        `;
+        el.appendChild(markerIcon);
+
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+          <div class="p-3">
+            <h3 class="font-bold text-lg text-foreground">${clinic.name}</h3>
+            <p class="text-sm text-muted-foreground">${clinic.city}, ${clinic.country}</p>
+            ${clinic.rating ? `
+              <div class="flex items-center gap-1 mt-2">
+                <span class="text-yellow-500">★</span>
+                <span class="font-semibold">${clinic.rating}</span>
+              </div>
+            ` : ''}
+          </div>
+        `);
+
+        new mapboxgl.Marker(el)
+          .setLngLat([clinic.longitude!, clinic.latitude!])
+          .setPopup(popup)
+          .addTo(map.current!);
+      });
+  }, [clinics, mapLoaded]);
 
   const handleTokenSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -194,11 +284,21 @@ const CarteCliniques = () => {
         {mapLoaded && (
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 bg-white/95 backdrop-blur-sm p-6 rounded-2xl shadow-2xl border-2 border-primary/10 max-w-lg">
             <h2 className="text-2xl font-bold text-foreground mb-2">
-              {clinics.length} cliniques d'excellence
+              {clinics.filter(c => c.latitude && c.longitude).length} / {clinics.length} cliniques localisées
             </h2>
-            <p className="text-muted-foreground">
-              Cliquez sur les marqueurs pour découvrir les meilleures cliniques FIV en Europe
+            <p className="text-muted-foreground mb-3">
+              Cliquez sur les marqueurs pour découvrir les cliniques FIV en Europe
             </p>
+            {clinics.some(c => !c.latitude || !c.longitude) && (
+              <Button 
+                onClick={geocodeAllClinics} 
+                disabled={isGeocoding}
+                size="sm"
+                className="w-full"
+              >
+                {isGeocoding ? 'Géocodage en cours...' : 'Géocoder les cliniques manquantes'}
+              </Button>
+            )}
           </div>
         )}
       </div>
