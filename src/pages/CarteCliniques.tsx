@@ -247,6 +247,16 @@ const CarteCliniques = () => {
           Retour
         </Button>
 
+        {/* Comparateur button */}
+        <Button
+          onClick={() => navigate("/comparateur")}
+          variant="default"
+          size="lg"
+          className="absolute top-24 right-4 z-20 bg-primary text-primary-foreground shadow-lg hover:scale-105 transition-all"
+        >
+          Comparateur de cliniques
+        </Button>
+
         {/* Map */}
         <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
         
