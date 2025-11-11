@@ -9,6 +9,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { updateClinicsWithCoordinates } from "@/scripts/updateClinicsWithCoordinates";
 
 interface Clinic {
   id: string;
@@ -208,6 +209,28 @@ const CarteCliniques = () => {
     }
   };
 
+  const handleUpdateCoordinates = async () => {
+    setIsGeocoding(true);
+    try {
+      const result = await updateClinicsWithCoordinates();
+      toast.success(`✅ ${result.updated} cliniques mises à jour avec succès!`);
+      
+      // Recharger les cliniques
+      const { data, error } = await supabase
+        .from('clinics')
+        .select('id, name, city, country, latitude, longitude, rating, type');
+      
+      if (!error && data) {
+        setClinics(data);
+      }
+    } catch (error) {
+      console.error('Error updating coordinates:', error);
+      toast.error('Erreur lors de la mise à jour des coordonnées');
+    } finally {
+      setIsGeocoding(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navigation />
@@ -290,14 +313,26 @@ const CarteCliniques = () => {
               Cliquez sur les marqueurs pour découvrir les cliniques FIV en Europe
             </p>
             {clinics.some(c => !c.latitude || !c.longitude) && (
-              <Button 
-                onClick={geocodeAllClinics} 
-                disabled={isGeocoding}
-                size="sm"
-                className="w-full"
-              >
-                {isGeocoding ? 'Géocodage en cours...' : 'Géocoder les cliniques manquantes'}
-              </Button>
+              <div className="space-y-2">
+                <Button 
+                  onClick={handleUpdateCoordinates} 
+                  disabled={isGeocoding}
+                  size="sm"
+                  variant="default"
+                  className="w-full"
+                >
+                  {isGeocoding ? 'Mise à jour en cours...' : 'Mettre à jour depuis CSV'}
+                </Button>
+                <Button 
+                  onClick={geocodeAllClinics} 
+                  disabled={isGeocoding}
+                  size="sm"
+                  variant="outline"
+                  className="w-full"
+                >
+                  {isGeocoding ? 'Géocodage en cours...' : 'Géocoder automatiquement'}
+                </Button>
+              </div>
             )}
           </div>
         )}

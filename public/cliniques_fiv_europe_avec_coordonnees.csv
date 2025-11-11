@@ -1,0 +1,226 @@
+Pays,Ville,Nom de la clinique,Type,Total cliniques pays,Cliniques rapportantes,Configuration pays,Latitude,Longitude
+Austria,Bregenz,Institut für Reproduktionsmedizin und Endokrinologie,Privée,25,25,Both private and public centres,47.5031,9.7471
+Austria,Dobl,Kinderwunschinstitut Schenk,Privée,25,25,Both private and public centres,46.9858,15.4106
+Austria,Graz,Institut für In-Vitro-Fertilisierung und Endokrinologie,Privée,25,25,Both private and public centres,47.0708,15.4382
+Austria,Graz,Institut für Hormonstörungen Wechselbeschwerden und Kinderwunsch,Privée,25,25,Both private and public centres,47.0708,15.4382
+Austria,Graz,A. ö. Landeskrankenhaus Graz,Publique,25,25,Both private and public centres,47.0708,15.4382
+Austria,Horn,Landesklinikum Waldviertel Horn,Publique,25,25,Both private and public centres,48.6656,15.6558
+Austria,Hohenems,Landeskrankenhaus Hohenems,Publique,25,25,Both private and public centres,47.3617,9.6886
+Austria,Innsbruck,Landeskrankenhaus-Universitätskliniken Innsbruck,Publique,25,25,Both private and public centres,47.2682,11.3923
+Austria,Innsbruck,Private Kinderwunschklinik Dr. Josef Zech GmbH,Privée,25,25,Both private and public centres,47.2682,11.3923
+Austria,Innsbruck,WOMED Therapiezentrum Kinderwunsch GmbH,Privée,25,25,Both private and public centres,47.2682,11.3923
+Austria,Klagenfurt,Sterignost Kinderwunschbehandlungs GmbH,Privée,25,25,Both private and public centres,46.6245,14.3051
+Austria,Krumpendorf,Privatkrankenanstalt Parkvilla,Privée,25,25,Both private and public centres,46.6287,14.2172
+Austria,Linz,Landes-Frauen- und –Kinderklinik,Publique,25,25,Both private and public centres,48.3064,14.2861
+Austria,Oberpullendorf,23 A. ö. Krankenhaus Oberpullendorf,Publique,25,25,Both private and public centres,47.5012,16.5062
+Austria,St. Pölten,Landesklinikum St. Pölten,Publique,25,25,Both private and public centres,48.2042,15.6263
+Austria,Salzburg,St. Johanns Spital,Publique,25,25,Both private and public centres,47.8095,13.055
+Austria,Vienna,Allgemeines Krankenhaus der Stadt Wien,Publique,25,25,Both private and public centres,48.2082,16.3738
+Austria,Vienna,Goldenes Kreuz,Privée,25,25,Both private and public centres,48.2082,16.3738
+Austria,Vienna,GYNANDRON Dr. Freude,Privée,25,25,Both private and public centres,48.2082,16.3738
+Austria,Vienna,Krankenhaus Hietzing,Privée,25,25,Both private and public centres,48.2082,16.3738
+Austria,Vienna,Wunschbaby-Zentrum,Privée,25,25,Both private and public centres,48.2082,16.3738
+Austria,Vienna,Adebar – Institut für Reproduktionsmedizin und Psychosomatik der Sterilität,Privée,25,25,Both private and public centres,48.2082,16.3738
+Austria,Vienna,22 Tagesklinik,Publique,25,25,Both private and public centres,48.2082,16.3738
+Austria,Wals-Himmelreich,Babywunsch-Klinik Dr. Zajc GmbH,Privée,25,25,Both private and public centres,47.7833,12.9667
+Austria,Wels-Thalheim,Die KinderWunschKlinik Dr. Loimer GmbH,Privée,25,25,Both private and public centres,48.1617,14.0287
+Belgium,Antwerpen,"Dienst Fertiliteit, Algemeen Ziekenhuis Middelheim",Publique,18,18,Only public centres,51.2194,4.4025
+Belgium,Braine - L’alleud,"Centre de Fécondation C.H. Interregional Edith Cavell (CHIREC),",Publique,18,18,Only public centres,50.6833,4.3667
+Belgium,Brugge,"BIRTH – Fertiliteitskliniek, Algemeen Ziekenhuis Sint-Jan",Publique,18,18,Only public centres,51.2093,3.2247
+Belgium,Brussel,"Centrum voor Reproductieve Geneeskunde, UZ Brussel",Publique,18,18,Only public centres,50.8503,4.3517
+Belgium,Brussel,"Service de Gynécologie, Cliniques Universitaires Saint-Luc - U.C.L",Publique,18,18,Only public centres,50.8503,4.3517
+Belgium,Brussel,Centre de FIV de l’U.L.B. – Hôpital Erasme,Publique,18,18,Only public centres,50.8503,4.3517
+Belgium,Charleroi,"Service Gyn/Obst, Clinique Notre Dame",Publique,18,18,Only public centres,50.4108,4.4446
+Belgium,Genk,"Centre for Reproductive Medicine, Ziekenhuis Oost-Limburg - St. Jan",Publique,18,18,Only public centres,50.9658,5.5026
+Belgium,Gent,"Vrouwenkliniek- Infertiliteitscentrum, U.Z. – Gent",Publique,18,18,Only public centres,51.0543,3.7174
+Belgium,Gent,"Centrum voor Fertiliteitstherapie, A.Z. Jan Palfijn",Publique,18,18,Only public centres,51.0543,3.7174
+Belgium,Leuven,"dienst Gynaecologie, Universitaire Zieknhuizen K.U.Leuven Gasthuisberg",Publique,18,18,Only public centres,50.8798,4.7005
+Belgium,Leuven,"Unit Reproductieve Geneeskunde, Regionaal Ziekenhuis Heilig Hart",Publique,18,18,Only public centres,50.8798,4.7005
+Belgium,Libramont,"Centre d’Infertilité, Centre Hospitalier de l'Ardenne",Publique,18,18,Only public centres,49.9222,5.3786
+Belgium,Liege,"Centre de FIV, Centre Hospitalier Régional de la Citadelle",Publique,18,18,Only public centres,50.6326,5.5797
+Belgium,Namur,"Service Gynéco, Centre Hospitalier Régional de Namur",Publique,18,18,Only public centres,50.4674,4.872
+Bulgaria,Sofia,In Vitro Medical center “Bratya Todorovi”,Privée,15,8,"Both private and public centres, but reporting centres only private",42.6977,23.3219
+Bulgaria,Sofia,Ob/Gyn Center “Dimitrov”,Privée,15,8,"Both private and public centres, but reporting centres only private",42.6977,23.3219
+Bulgaria,Sofia,Medical center “Reprobiomed”,Privée,15,8,"Both private and public centres, but reporting centres only private",42.6977,23.3219
+Bulgaria,Sofia,"IVF Unit, Ob/Gyn Hospital “Dr. Shterev”",Privée,15,8,"Both private and public centres, but reporting centres only private",42.6977,23.3219
+Bulgaria,Varna,ART Centre “Varna” OOD,Privée,15,8,"Both private and public centres, but reporting centres only private",43.2141,27.9147
+Bulgaria,Varna,In Vitro Center ”Olimed”;,Privée,15,8,"Both private and public centres, but reporting centres only private",43.2141,27.9147
+Bulgaria,Plovdiv,"In Vitro Center, Ob/Gyn Hospital ”Selena”",Privée,15,8,"Both private and public centres, but reporting centres only private",42.1354,24.7453
+Bulgaria,Plovdiv,"Clinic of Sterility, BORA Medical",Privée,15,8,"Both private and public centres, but reporting centres only private",42.1354,24.7453
+Bulgaria,Limassol,Centre of Genetics,Privée,15,8,Only private centres,34.6841,33.0369
+Bulgaria,Nicosia,Akeso Fertility Centre,Privée,15,8,Only private centres,35.1856,33.3823
+Bulgaria,Nicosia,Pedieos IVF Centre,Privée,15,8,Only private centres,35.1856,33.3823
+Bulgaria,Pafos,Iaso Fertility Centre,Privée,15,8,Only private centres,34.7571,32.4254
+Czech Republik,Brno,MUDr. Ales Bourek,Privée,21,21,Both private and public centres,49.1951,16.6068
+Czech Republik,Brno,"REPROMEDA, s.r.o. ;",Privée,21,21,Both private and public centres,49.1951,16.6068
+Czech Republik,Brno,"Sanatorium HELIOS, s.r.o",Privée,21,21,Both private and public centres,49.1951,16.6068
+Czech Republik,Brno,"CAR 01 Brno, Gyn. - por. klinika FN Brno",Publique,21,21,Both private and public centres,49.1951,16.6068
+Czech Republik,Brno,"UNICA, s.r.o.",Privée,21,21,Both private and public centres,49.1951,16.6068
+Czech Republik,Ceské Budejovice,"Sanatorium ART, s.r.o.",Privée,21,21,Both private and public centres,48.9745,14.4743
+Czech Republik,Hradec Kralove,"SANUS, s.r.o.",Privée,21,21,Both private and public centres,50.2091,15.8327
+Czech Republik,Jihlava,Sanus Jihlava,Privée,21,21,Both private and public centres,49.3961,15.591
+Czech Republik,Olomouc,"Fakultni nemocnice Olomouc, CAR, Por.-gyn. Klinika",Publique,21,21,Both private and public centres,49.5938,17.2509
+Czech Republik,Olomouc,"FERTIMED, s.r.o.",Privée,21,21,Both private and public centres,49.5938,17.2509
+Czech Republik,Ostrava,"GYNCENTRUM Ostrava, s.r.o.",Privée,21,21,Both private and public centres,49.8209,18.2625
+Czech Republik,Pardubice,Sanus Pardubice,Privée,21,21,Both private and public centres,50.0343,15.7812
+Czech Republik,Plzen,"IVF-institut, s.r.o.",Privée,21,21,Both private and public centres,49.7476,13.3775
+Czech Republik,Plzen,NATALART,Privée,21,21,Both private and public centres,49.7476,13.3775
+Czech Republik,Praha,"APOLINAR CAR – VFN, Gyn.-por. Klinika 1. LF UK",Publique,21,21,Both private and public centres,50.0755,14.4378
+Czech Republik,Praha,"Fakultni nemocnice v Motole, CAR, Gyn.-por klinika 2. LF UK",Publique,21,21,Both private and public centres,50.0755,14.4378
+Czech Republik,Praha,"GEST, s.r.o.",Privée,21,21,Both private and public centres,50.0755,14.4378
+Czech Republik,Praha,UPMD Praha,Publique,21,21,Both private and public centres,50.0755,14.4378
+Czech Republik,Praha,Gennet Praha,Privée,21,21,Both private and public centres,50.0755,14.4378
+Czech Republik,Praha,Iscare IVF,Privée,21,21,Both private and public centres,50.0755,14.4378
+Czech Republik,Praha,"Pronatal, s.r.o.",Privée,21,21,Both private and public centres,50.0755,14.4378
+Denmark,Aarhus,Privathospitalet Ciconia,Privée,22,22,N/A,56.1629,10.2039
+Finland,Helsinki,Diacor,Privée,18,18,Both private and public centres,60.1699,24.9384
+Finland,Joensuu,Northern Carelia Central Hospital,Publique,18,18,Both private and public centres,62.601,29.7636
+Finland,Jyväskylä,In-Tiimi Jyväskylä,Privée,18,18,Both private and public centres,62.2426,25.7473
+Finland,Lappeenranta,Felicitas,Privée,18,18,Both private and public centres,61.0587,28.1887
+Finland,Oulu,Family Federation of Finland Oulu,Privée,18,18,Both private and public centres,65.0121,25.4651
+Finland,Tampere,AVA Tampere,Privée,18,18,Both private and public centres,61.4978,23.761
+Finland,Turku,AVA Turku,Privée,18,18,Both private and public centres,60.4518,22.2666
+Finland,Turku,Family Federation of Finland Turku,Privée,18,18,Both private and public centres,60.4518,22.2666
+Germany,Augsburg,Dr. med. D. Steinfeld-Birg,Privée,122,122,Both private and public centres,48.3705,10.8978
+Germany,Bad Schwartau,"Kinderwunschzentrum Bad Schwartau, Dr. med. Peter B. Kunstmann",Privée,122,122,Both private and public centres,53.9167,10.7
+Germany,Bocholt,"Fertility Center Münsterland, Dr. med. Ulrich Hilland",Privée,122,122,Both private and public centres,51.8406,6.6166
+Germany,Bochum,"FERTI-MED, Zentrum für Reproduktionsmedizin Bochum, Yvonne Giesner",Privée,122,122,Both private and public centres,51.4818,7.2162
+Germany,Dresden,Praxisklinik Dr. med. Hans Jürgen Held,Privée,122,122,Both private and public centres,51.0504,13.7373
+Germany,Esslingen,"IVF-Zentrum Esslingen, Praxis Dr. med. J. E. Costea",Privée,122,122,Both private and public centres,48.7398,9.3098
+Germany,Frankfurt,"Prof. Dr. med. Ernst Siebzehnrübl, Zentrum für Reproduktionsmedizin",Privée,122,122,Both private and public centres,50.1109,8.6821
+Germany,Hamburg,"Fertility Center Hamburg, Praxisklink Fischer, Naether, Rudolf",Privée,122,122,Both private and public centres,53.5511,9.9937
+Germany,Hannover,"Medizinische Hochschule Hannover, Prof. Dr. H. W. Schlösser",Publique,122,122,Both private and public centres,52.3759,9.732
+Germany,Hannover,"Team Kinderwunsch Hannover, Dr. Saymé und Kollegen",Privée,122,122,Both private and public centres,52.3759,9.732
+Germany,Jena,"Universitätsklinikum Jena, PD Dr. med. W. Starker, Dr. rer. nat. I. Hoppe",Publique,122,122,Both private and public centres,50.9275,11.5863
+Germany,Kiel,"Kinderwunsch Kiel, Dr. med. Kurt Brandenburg, Dr. sc. agr. A. Bonhoff",Privée,122,122,Both private and public centres,54.3233,10.1394
+Germany,Leipzig,"Praxisklinik City Leipzig, Dr. med. Astrid Gabert, Dr. med. Katharina Bauer",Privée,122,122,Both private and public centres,51.3397,12.3731
+Germany,Mainz,"Kinderwunsch Zentrum Mainz, Dr. Robert Emig, Dr. med. Silke Mettlin",Privée,122,122,Both private and public centres,50.0,8.2711
+Germany,Munchen,"A.R.T.-Bogenhausen, Prof. Dr. med. Dieter Berg, Dr. med. Bernd Lesoine",Privée,122,122,Both private and public centres,48.1351,11.582
+Germany,Münster,"IVF-Zentrum Münster, Dr. Dr. med. L. Belkien, PD Dr. med. B. Krause",Privée,122,122,Both private and public centres,51.9607,7.6261
+Germany,Nürnberg,"Gemeinschaftspraxis, Dr. med. J. Neuwinger, Dr. med. B. Munzer-Neuwinger",Privée,122,122,Both private and public centres,49.4521,11.0767
+Germany,Nurnberg,Prof. Dr. P. Licht,Privée,122,122,Both private and public centres,49.4521,11.0767
+Germany,Pforzheim,"Centrum für Reproduktionsmedizin, Praxis Verena Peuten",Privée,122,122,Both private and public centres,48.8921,8.6945
+Germany,Recklinghausen,"Reprovita, Dr. med. Cordula Pitone",Privée,122,122,Both private and public centres,51.6139,7.1972
+Germany,Trier,"Kinderwunsch-Praxisklinik Trier, Dr.med. Mohsen Satari",Privée,122,122,Both private and public centres,49.749,6.6371
+Germany,Tubingen,"Kinderwunschpraxis, Dr. med. Ulrich Göhring",Privée,122,122,Both private and public centres,48.5216,9.0576
+Germany,Ulm,"IVF-Zentrum Ulm, Dr. med. Friedrich Gagsteiger",Privée,122,122,Both private and public centres,48.4011,9.9876
+Germany,Ulm,"Praxisklinik Frauenstraße, Prof. Dr. med. K. Sterzik",Privée,122,122,Both private and public centres,48.4011,9.9876
+Germany,Wetzlar,"Kinderwunschzentrum Mittelhessen, Dr. med. Amir Hajimohammad",Privée,122,122,Both private and public centres,50.5569,8.5008
+Greece,Athens,Neogenesis IVF Center,Privée,50,9,Both private and public centres,37.9838,23.7275
+Greece,Athens,Embryoland IVF,Privée,50,9,Both private and public centres,37.9838,23.7275
+Greece,Athens,Eugonia - Medical Research (Iatriki Erevna),Privée,50,9,Both private and public centres,37.9838,23.7275
+Greece,Athens,Fertility Institute,Privée,50,9,Both private and public centres,37.9838,23.7275
+Greece,Crete,"Mediterranean Fertility Center& Genetic Services, Chania",Privée,50,9,Both private and public centres,35.2401,24.8093
+Greece,Ioannina,"IVF Unit, University of Ioannina",Publique,50,9,Both private and public centres,39.665,20.8537
+Greece,Thessaloniki,"Infertility & IVF Center, Biogenesis Unit",Privée,50,9,Both private and public centres,40.6401,22.9444
+Greece,Thessalia,"Dept of OB/GYN, Medical School, University of Thessalia",Publique,50,9,Both private and public centres,39.639,22.4191
+Ireland,Clane,"Assisted Conception Unit, Clane General Hospital, Clane, Co Kildare",Privée,7,6,Only private centres,53.2917,-6.6833
+Ireland,Cork,"Cork Fertility Centre, ¾ Fernhurst Villas",Privée,7,6,Only private centres,51.8985,-8.4756
+Ireland,Dublin,"Human Assisted Reproduction Ireland (HARI) Unit, Rotunda Hospital",Privée,7,6,Only private centres,53.3498,-6.2603
+Ireland,Dublin,Merrion Fertility Clinic,Privée,7,6,Only private centres,53.3498,-6.2603
+Ireland,Galway,"Galway Fertility Unit, University College Hospital Galway",Privée,7,6,Only private centres,53.2707,-9.0568
+Ireland,Kilkenny,"The Kilkenny Clinic, Greens Hill, Kilkenny",Privée,7,6,Only private centres,52.6541,-7.2448
+Italy,Riga,Clinic EGV,Privée,202,202,Only private centres (public are allowed),56.9496,24.1052
+Lithuania,Vilnius,Fertility Center,Privée,3,2,Only private centres,54.6872,25.2797
+Lithuania,Vilnius,Fertility Clinic,Privée,3,2,Only private centres,54.6872,25.2797
+Luxemburg,Luxembourg,Centre hospitalier Luxembourg,Publique,1,0,Only public centres,49.6116,6.1319
+Malta,Zabbar,St. James Hospital,Privée,2,0,Both private and public centres,35.8761,14.5403
+Malta,Msida,Mater Dei Hospital,Publique,2,0,Both private and public centres,35.8969,14.4889
+Poland,Bialystok,Center for Reproductive Medicine “Kriobank”,Privée,32,17,Both private and public centres,53.1325,23.1688
+Poland,Gdansk,„Invicta” Fertility and Reproductive Center,Privée,32,17,Both private and public centres,54.352,18.6466
+Poland,Katowice,‘Provita’ Centrum Leczenia Nieplodnosci i Diagnostyki Prenatanej,Privée,32,17,Both private and public centres,50.2649,19.0238
+Poland,Krakow,“Maternity” Infertility Diagnosis and Treatment Centre,Privée,32,17,Both private and public centres,50.0647,19.945
+Poland,Krakow,In Vitro Centrum Jaroslaw Janeczko MD,Privée,32,17,Both private and public centres,50.0647,19.945
+Poland,Lodz,“Gameta” Fertility Center,Privée,32,17,Both private and public centres,51.7592,19.456
+Poland,Lodz,“GRAVITA” Diagnosis and Infertility Treatment Wojciech Gontarek MD,Privée,32,17,Both private and public centres,51.7592,19.456
+Poland,Lublin,Family Health Center ‘AB OVO’- Infertility treatment,Privée,32,17,Both private and public centres,51.2465,22.5684
+Poland,Lublin,‘OVUM’ Rozrodczosc I Andrologia,Privée,32,17,Both private and public centres,51.2465,22.5684
+Poland,Myslowice,Fertility Center “Novomedica” Ltd.,Privée,32,17,Both private and public centres,50.2071,19.1494
+Poland,Opole,GMW-Embrio Sp.Zo.o,Privée,32,17,Both private and public centres,50.6751,17.9213
+Poland,Poznan,Infertility Center “MEDART”,Privée,32,17,Both private and public centres,52.4064,16.9252
+Poland,Warsaw,"Private Clinic ""NOVUM",Privée,32,17,Both private and public centres,52.2297,21.0122
+Poland,Wroclaw,POLMED Nonpublic Health Center ‘POLAK’ CP,Privée,32,17,Both private and public centres,51.1079,17.0385
+Portugal,Coimbra,FERTICENTRO,Privée,21,19,Both private and public centres,40.2033,-8.4103
+Portugal,Espinho,COGE,Privée,21,19,Both private and public centres,41.0076,-8.6412
+Portugal,Guimarães,Hospital N. S. da Oliveira,Publique,21,19,Both private and public centres,41.4415,-8.2918
+Portugal,Lisboa,Ava Clinic,Privée,21,19,Both private and public centres,38.7223,-9.1393
+Portugal,Oporto,Centro de Genética Prof. Alberto Barros,Privée,21,19,Both private and public centres,41.1579,-8.6291
+Portugal,Ponta Delgada,Clínica do Bom Jesus,Privée,21,19,Both private and public centres,37.7394,-25.6681
+Portugal,Vila Nova de Gaia,Centro Hospitalar,Publique,21,19,Both private and public centres,41.1239,-8.6118
+Slovenia,Ljubljana,Univerzitetni klinični center Ljubljana,Publique,3,3,Only public centres,46.0569,14.5058
+Slovenia,Maribor,"Klinika za ginekologijo in perinatologijo, UKC Maribor",Publique,3,3,Only public centres,46.5547,15.6467
+Slovenia,Postojna,Bolnišnica za ginekologijo in porodništvo,Publique,3,3,Only public centres,45.7743,14.2143
+Spain,A Coruña,IRAGA,Privée,182,107,Both private and public centres,43.3623,-8.4115
+Spain,A Coruna,Maternidad Belén,Privée,182,107,Both private and public centres,43.3623,-8.4115
+Spain,Albacete,Hospital General de Albacete,Publique,182,107,Both private and public centres,38.9942,-1.8585
+Spain,Alicante,Hospital General de Alicante,Publique,182,107,Both private and public centres,38.3452,-0.481
+Spain,Alicante,Clínica Vista Hermosa de Alicante,Privée,182,107,Both private and public centres,38.3452,-0.481
+Spain,Alicante,Clínica Ufeal,Privée,182,107,Both private and public centres,38.3452,-0.481
+Spain,Alicante,H. General de Elche,Publique,182,107,Both private and public centres,38.3452,-0.481
+Spain,Almeria,IVI Almería,Privée,182,107,Both private and public centres,36.8381,-2.4597
+Spain,Asturias,CEFIVA Oviedo,Privée,182,107,Both private and public centres,43.3614,-5.8593
+Spain,Badajoz,Instituto Extremeño de Reproducción Asistida,Privée,182,107,Both private and public centres,38.8794,-6.9706
+Spain,Badajoz,Complejo Hospitalario Infanta Cristina (CERHA),Publique,182,107,Both private and public centres,38.8794,-6.9706
+Spain,Baleares,Instituto Balear de Fertilidad,Privée,182,107,Both private and public centres,39.6953,3.0176
+Spain,Barcelona,Institut Dexeus,Privée,182,107,Both private and public centres,41.3874,2.1686
+Spain,Barcelona,Fertilab,Privée,182,107,Both private and public centres,41.3874,2.1686
+Spain,Barcelona,Unitat Endocrinología Ginecológica,Privée,182,107,Both private and public centres,41.3874,2.1686
+Spain,Caceres,Clínica Norba,Privée,182,107,Both private and public centres,39.4753,-6.3724
+Spain,Cadiz,Consulta Dr. Enciso,Privée,182,107,Both private and public centres,36.5271,-6.2886
+Spain,Cadiz,Clínica Serman Unidad de Reproducción,Privée,182,107,Both private and public centres,36.5271,-6.2886
+Spain,Canarias,Instituto Canario de Infertilidad S.L. (Ali Mashlab),Privée,182,107,Both private and public centres,28.2916,-16.6291
+Spain,Canarias,Hospital Universitario Materno Infantil de Las Palmas de Gran Canaria,Publique,182,107,Both private and public centres,28.2916,-16.6291
+Spain,Canarias,CIRA Las Palmas,Privée,182,107,Both private and public centres,28.2916,-16.6291
+Spain,Canarias,Hopital Universitario de Canarias-Tenerife,Publique,182,107,Both private and public centres,28.2916,-16.6291
+Spain,Cantabria,Unidad de Reproducción del Hospital de Valdecilla,Privée,182,107,Both private and public centres,43.1828,-3.9878
+Spain,Ciudad Real,FIV Recoletos,Privée,182,107,Both private and public centres,38.9848,-3.9275
+Spain,Cordoba,Clinica BAU,Privée,182,107,Both private and public centres,37.8882,-4.7794
+Spain,Gipuzkoa,Clínica El Pilar de San Sebastián,Privée,182,107,Both private and public centres,43.1405,-2.1734
+Spain,Granada,Hospital Virgen de las Nieves,Publique,182,107,Both private and public centres,37.1773,-3.5986
+Spain,Guadalajara,FIV Recoletos,Privée,182,107,Both private and public centres,40.6328,-3.1604
+Spain,Huelva,Fertimed,Privée,182,107,Both private and public centres,37.2614,-6.9447
+Spain,Jaen,H. Ciudad de Jaén,Publique,182,107,Both private and public centres,37.7796,-3.7849
+Spain,La Rioja,Clínica Ginecológica Juana Hernández,Privée,182,107,Both private and public centres,42.2871,-2.5396
+Spain,La Rioja,Centro Ginecológico Manzanera,Privée,182,107,Both private and public centres,42.2871,-2.5396
+Spain,León,Centro Ginecológico de León,Privée,182,107,Both private and public centres,42.5987,-5.5671
+Spain,León,FIV Ponferrada,Privée,182,107,Both private and public centres,42.5987,-5.5671
+Spain,Lleida,CIRH,Privée,182,107,Both private and public centres,41.6175,0.62
+Spain,Madrid,IVI Madrid,Privée,182,107,Both private and public centres,40.4168,-3.7038
+Spain,Madrid,U.R.H García del Real,Privée,182,107,Both private and public centres,40.4168,-3.7038
+Spain,Madrid,Hospital de Alcorcón,Publique,182,107,Both private and public centres,40.4168,-3.7038
+Spain,Malaga,Malaga FIV,Privée,182,107,Both private and public centres,36.7213,-4.4214
+Spain,Malaga,Centro de Reproducción Asistida de Marbella (CERAM),Privée,182,107,Both private and public centres,36.7213,-4.4214
+Spain,Malaga,Hospital Xanit,Privée,182,107,Both private and public centres,36.7213,-4.4214
+Spain,Malaga,CEMAR,Privée,182,107,Both private and public centres,36.7213,-4.4214
+Spain,Murcia,IVI Murcia,Privée,182,107,Both private and public centres,37.9922,-1.1307
+Spain,Pontevedra,Hospital Xeral Cíes,Privée,182,107,Both private and public centres,42.4333,-8.65
+Spain,Pontevedra,Hospital Nuestra Señora de Fátima,Publique,182,107,Both private and public centres,42.4333,-8.65
+Spain,Sevilla,IVI Sevilla,Privée,182,107,Both private and public centres,37.3891,-5.9845
+Spain,Sevilla,Hospital Universitario Virgen del Rocio,Publique,182,107,Both private and public centres,37.3891,-5.9845
+Spain,Valencia,IVI Valencia,Privée,182,107,Both private and public centres,39.4699,-0.3763
+Spain,Valencia,HU La Fe,Publique,182,107,Both private and public centres,39.4699,-0.3763
+Spain,Valencia,Unidad de Reproduccion del Hospital General Universitario,Publique,182,107,Both private and public centres,39.4699,-0.3763
+Spain,Valladolid,FIV Recoletos,Privée,182,107,Both private and public centres,41.6523,-4.7245
+Spain,Vizcaya,Clínica Euskalduna,Privée,182,107,Both private and public centres,43.2627,-2.9253
+Spain,Zaragoza,Hospital Miguel Servet,Publique,182,107,Both private and public centres,41.6488,-0.8891
+Spain,Zaragoza,Clínica Montpellier,Privée,182,107,Both private and public centres,41.6488,-0.8891
+Sweden,Falun,"IVF unit, Falu Hospital",Privée,14,14,Both private and public centres,60.6066,15.6263
+Sweden,Göteborg,"Fertility Center, Carlanderska Hospital",Privée,14,14,Both private and public centres,57.7089,11.9746
+Sweden,Linköping,"IVF unit, RMC, Linköping University Hospital",Publique,14,14,Both private and public centres,58.4108,15.6214
+Sweden,Malmö,Curakliniken,Privée,14,14,Both private and public centres,55.605,13.0038
+Sweden,Örebro,"IVF unit, Örebro University Hospital",Publique,14,14,Both private and public centres,59.2741,15.2066
+Sweden,Stockholm,IVF Stockholm; St Görans Hospital,Privée,14,14,Both private and public centres,59.3293,18.0686
+Sweden,Umeå,"IVF unit, Norrlands University Hospital,Umeå",Privée,14,14,Both private and public centres,63.8258,20.263
+Sweden,Uppsala,Carl von Linné Kliniken,Publique,14,14,Both private and public centres,59.8586,17.6389
+The Netherlands,Amsterdam,Academisch Medisch Centrum,Publique,13,13,Only public centres,52.3702,4.8952
+The Netherlands,Eindhoven,Catharina Ziekenhuis,Publique,13,13,Only public centres,51.4416,5.4697
+The Netherlands,Groningen,Universitair Medisch Centrum Groningen,Publique,13,13,Only public centres,53.2194,6.5665
+The Netherlands,Leiden,Leids Universitair Medisch Centrum,Publique,13,13,Only public centres,52.1601,4.497
+The Netherlands,Leiderdorp,MCK,Publique,13,13,Only public centres,52.1562,4.5283
+The Netherlands,Maastricht,Universitair Medisch Centrum Maastricht,Publique,13,13,Only public centres,50.8514,5.6909
+The Netherlands,Nijmegen,Universitair Medisch Centrum Nijmegen,Publique,13,13,Only public centres,51.8426,5.8528
+The Netherlands,Rotterdam,Erasmus Medical centre,Publique,13,13,Only public centres,51.9244,4.4777
+The Netherlands,Tilburg,St. Elisabeth Ziekenhuis,Publique,13,13,Only public centres,51.5555,5.0913
+The Netherlands,Utrecht,Universitair Medisch Centrum Utrecht,Publique,13,13,Only public centres,52.0907,5.1214
+The Netherlands,Voorburg,Reiner de Graaf Groep,Publique,13,13,Only public centres,52.0704,4.3586
+The Netherlands,Zwolle,Isala,Publique,13,13,Only public centres,52.5168,6.083
