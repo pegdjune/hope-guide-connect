@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { X, Check, MapPin, Star, Euro, TrendingUp } from "lucide-react";
+import { X, Check, MapPin, Star, Euro, TrendingUp, AlertTriangle } from "lucide-react";
 
 interface Clinic {
   id: string;
@@ -100,11 +100,17 @@ const ComparisonTable = ({ clinics, onRemove, onClearAll }: ComparisonTableProps
                       </div>
                     )}
                     {row.key === "successRate" && clinic.success_rate && (
-                      <div className="font-semibold text-success">{clinic.success_rate}</div>
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="font-semibold text-success">{clinic.success_rate}</div>
+                        <span className="text-orange-500 text-xs" title="Données ESHRE - À vérifier">⚠️</span>
+                      </div>
                     )}
                     {row.key === "price" && clinic.price_from && (
-                      <div className="font-bold text-primary text-lg">
-                        {clinic.price_from.toLocaleString()}€
+                      <div className="flex flex-col items-center gap-1">
+                        <div className="font-bold text-primary text-lg">
+                          ~{clinic.price_from.toLocaleString()}€
+                        </div>
+                        <span className="text-orange-500 text-xs" title="Prix indicatif">⚠️</span>
                       </div>
                     )}
                     {row.key === "specialties" && (
@@ -162,7 +168,10 @@ const ComparisonTable = ({ clinics, onRemove, onClearAll }: ComparisonTableProps
                   </div>
                 </div>
               <div>
-                <div className="text-sm text-muted-foreground mb-1">Réussite</div>
+                <div className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                  Réussite
+                  <span className="text-orange-500 text-xs">⚠️</span>
+                </div>
                 {clinic.success_rate && (
                   <div className="font-semibold text-success">{clinic.success_rate}</div>
                 )}
@@ -170,10 +179,13 @@ const ComparisonTable = ({ clinics, onRemove, onClearAll }: ComparisonTableProps
             </div>
 
             <div>
-              <div className="text-sm text-muted-foreground mb-1">Prix</div>
+              <div className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                Prix
+                <span className="text-orange-500 text-xs">⚠️</span>
+              </div>
               {clinic.price_from && (
                 <div className="font-bold text-primary text-xl">
-                  {clinic.price_from.toLocaleString()}€
+                  ~{clinic.price_from.toLocaleString()}€
                 </div>
               )}
             </div>
