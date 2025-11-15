@@ -6,7 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X, Loader2 } from "lucide-react";
+import DataReliabilityBanner from "@/components/DataReliabilityBanner";
+import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X, Loader2, AlertTriangle, Info, Shield } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +42,7 @@ const Comparateur = () => {
   const [selectedClinics, setSelectedClinics] = useState<string[]>([]);
   const [clinics, setClinics] = useState<Clinic[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showVerifiedOnly, setShowVerifiedOnly] = useState(false);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
@@ -196,9 +198,12 @@ const Comparateur = () => {
             ` : ''}
 
             <div class="grid grid-cols-2 gap-3 mb-3 pb-3 border-b border-border/50">
-              ${clinic.success_rate ? `
+            ${clinic.success_rate ? `
                 <div>
-                  <div class="text-xs text-muted-foreground">Taux de réussite</div>
+                  <div class="text-xs text-muted-foreground flex items-center gap-1">
+                    Taux de réussite
+                    <span class="text-orange-500" title="Données issues des registres ESHRE - À vérifier">⚠️</span>
+                  </div>
                   <div class="font-semibold text-success flex items-center gap-1">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
@@ -210,8 +215,11 @@ const Comparateur = () => {
               ` : ''}
               ${clinic.price_from ? `
                 <div>
-                  <div class="text-xs text-muted-foreground">À partir de</div>
-                  <div class="font-bold text-primary text-lg">${clinic.price_from.toLocaleString()}€</div>
+                  <div class="text-xs text-muted-foreground flex items-center gap-1">
+                    À partir de
+                    <span class="text-orange-500" title="Prix indicatif - Contacter pour devis">⚠️</span>
+                  </div>
+                  <div class="font-bold text-primary text-lg">~${clinic.price_from.toLocaleString()}€</div>
                 </div>
               ` : ''}
             </div>
@@ -305,6 +313,11 @@ const Comparateur = () => {
             </CardContent>
           </Card>
 
+          {/* Data Reliability Banner */}
+          <div className="mb-6">
+            <DataReliabilityBanner />
+          </div>
+
           {/* View toggle and results count */}
           <div className="mb-6 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
             <div>
@@ -318,6 +331,14 @@ const Comparateur = () => {
               )}
             </div>
             <div className="flex gap-2 flex-wrap">
+              <Button
+                variant={showVerifiedOnly ? 'default' : 'outline'}
+                onClick={() => setShowVerifiedOnly(!showVerifiedOnly)}
+                className="gap-2"
+              >
+                <Shield className="w-4 h-4" />
+                {showVerifiedOnly ? 'Toutes les cliniques' : 'Données vérifiées uniquement'}
+              </Button>
               <Button
                 variant={viewMode === 'map' ? 'default' : 'outline'}
                 onClick={() => {
@@ -486,7 +507,10 @@ const Comparateur = () => {
                           <div className="flex items-center gap-2">
                             <TrendingUp className="w-5 h-5 text-success" />
                             <div>
-                              <div className="text-sm text-muted-foreground">Taux de réussite</div>
+                              <div className="text-sm text-muted-foreground flex items-center gap-1">
+                                Taux de réussite
+                                <span className="text-orange-500" title="Données issues des registres ESHRE - À vérifier">⚠️</span>
+                              </div>
                               <div className="font-semibold text-foreground">{clinic.success_rate}</div>
                             </div>
                           </div>
@@ -495,8 +519,11 @@ const Comparateur = () => {
                           <div className="flex items-center gap-2">
                              <Euro className="w-5 h-5 text-primary" />
                             <div>
-                              <div className="text-sm text-muted-foreground">À partir de</div>
-                              <div className="font-semibold text-foreground">{clinic.price_from.toLocaleString()}€</div>
+                              <div className="text-sm text-muted-foreground flex items-center gap-1">
+                                À partir de
+                                <span className="text-orange-500" title="Prix indicatif - Contacter pour devis">⚠️</span>
+                              </div>
+                              <div className="font-semibold text-foreground">~{clinic.price_from.toLocaleString()}€</div>
                             </div>
                           </div>
                         )}
