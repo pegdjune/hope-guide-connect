@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogOut, FileText, MessageSquare, User, TrendingUp } from "lucide-react";
+import { LogOut, FileText, MessageSquare, TrendingUp, Shield } from "lucide-react";
 import { toast } from "sonner";
 import { User as SupabaseUser } from "@supabase/supabase-js";
 
@@ -38,6 +38,7 @@ const Dashboard = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     checkUser();
@@ -55,9 +56,21 @@ const Dashboard = () => {
     await Promise.all([
       fetchProfile(session.user.id),
       fetchQuotes(session.user.id),
-      fetchConversations(session.user.id)
+      fetchConversations(session.user.id),
+      checkAdminRole(session.user.id)
     ]);
     setLoading(false);
+  };
+
+  const checkAdminRole = async (userId: string) => {
+    const { data } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    
+    setIsAdmin(!!data);
   };
 
   const fetchProfile = async (userId: string) => {
@@ -145,10 +158,18 @@ const Dashboard = () => {
               Gérez vos devis et échangez avec les experts
             </p>
           </div>
-          <Button onClick={handleSignOut} variant="outline">
-            <LogOut className="w-4 h-4 mr-2" />
-            Déconnexion
-          </Button>
+          <div className="flex gap-2">
+            {isAdmin && (
+              <Button onClick={() => navigate("/admin")} variant="outline">
+                <Shield className="w-4 h-4 mr-2" />
+                Admin
+              </Button>
+            )}
+            <Button onClick={handleSignOut} variant="outline">
+              <LogOut className="w-4 h-4 mr-2" />
+              Déconnexion
+            </Button>
+          </div>
         </div>
 
         {/* Stats rapides */}
