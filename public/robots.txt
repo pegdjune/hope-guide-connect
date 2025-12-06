@@ -1,4 +1,27 @@
+# FertilEurope - Robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://fertileurope.com/sitemap.xml
+
+# Bloquer les pages admin et authentification
+Disallow: /admin
+Disallow: /auth
+Disallow: /clinic-auth
+Disallow: /clinic-dashboard
+Disallow: /dashboard
+
+# Bloquer les pages de résultats privées
+Disallow: /resultats-diagnostic
+
+# Bots spécifiques
 User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
@@ -10,5 +33,5 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Délai de crawl pour être respectueux
+Crawl-delay: 1
