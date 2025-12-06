@@ -10,10 +10,35 @@ import { blogArticles } from "@/data/blogArticles";
 import { ArrowLeft, Clock, Calendar, User, Share2, Bookmark } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import BlogSimulatorCTA from "@/components/BlogSimulatorCTA";
+import { useSEO, useArticleSchema } from "@/hooks/useSEO";
 
 const BlogArticle = () => {
   const { slug } = useParams();
   const article = blogArticles.find(a => a.slug === slug);
+
+  // SEO hooks - must be called before early return
+  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  
+  useSEO({
+    title: article?.title || "Article non trouvé",
+    description: article?.excerpt || "Article du blog FertilEurope",
+    image: article?.image,
+    type: "article",
+    publishedTime: article?.date,
+    author: article?.author,
+    section: article?.category,
+    tags: article?.tags,
+    canonicalUrl: currentUrl,
+  });
+
+  useArticleSchema({
+    title: article?.title || "",
+    description: article?.excerpt || "",
+    image: article?.image || "",
+    author: article?.author || "FertilEurope",
+    publishedDate: article?.date || new Date().toISOString(),
+    url: currentUrl,
+  });
 
   if (!article) {
     return <Navigate to="/blog" replace />;
