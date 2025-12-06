@@ -4,8 +4,8 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://fertileurope.com/sitemap.xml
+# Sitemap dynamique
+Sitemap: https://glioavwgffsmjtqufqye.supabase.co/functions/v1/sitemap
 
 # Bloquer les pages admin et authentification
 Disallow: /admin
