@@ -14,6 +14,7 @@ import AdminDiagnostics from "@/components/admin/AdminDiagnostics";
 import AdminArticles from "@/components/admin/AdminArticles";
 import AdminLeads from "@/components/admin/AdminLeads";
 import AdminClinics from "@/components/admin/AdminClinics";
+import AdminDatabase from "@/components/admin/AdminDatabase";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -103,8 +104,9 @@ const Admin = () => {
         </div>
 
         {/* Admin Tabs */}
-        <Tabs defaultValue="leads" className="w-full">
-          <TabsList className="grid w-full grid-cols-7">
+        <Tabs defaultValue="database" className="w-full">
+          <TabsList className="grid w-full grid-cols-8">
+            <TabsTrigger value="database">Base données</TabsTrigger>
             <TabsTrigger value="leads">Leads</TabsTrigger>
             <TabsTrigger value="clinics">Cliniques</TabsTrigger>
             <TabsTrigger value="articles">Articles</TabsTrigger>
@@ -113,6 +115,10 @@ const Admin = () => {
             <TabsTrigger value="conversations">Conversations</TabsTrigger>
             <TabsTrigger value="diagnostics">Diagnostics</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="database" className="mt-6">
+            <AdminDatabase />
+          </TabsContent>
 
           <TabsContent value="leads" className="mt-6">
             <AdminLeads />
