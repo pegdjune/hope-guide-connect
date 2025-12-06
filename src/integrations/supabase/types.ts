@@ -14,6 +14,89 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_articles: {
+        Row: {
+          author: string | null
+          category: string
+          content: string
+          created_at: string | null
+          excerpt: string | null
+          id: string
+          image_url: string | null
+          published: boolean | null
+          read_time: number | null
+          slug: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author?: string | null
+          category: string
+          content: string
+          created_at?: string | null
+          excerpt?: string | null
+          id?: string
+          image_url?: string | null
+          published?: boolean | null
+          read_time?: number | null
+          slug: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string | null
+          category?: string
+          content?: string
+          created_at?: string | null
+          excerpt?: string | null
+          id?: string
+          image_url?: string | null
+          published?: boolean | null
+          read_time?: number | null
+          slug?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      clinic_accounts: {
+        Row: {
+          clinic_id: string
+          created_at: string | null
+          id: string
+          invitation_accepted_at: string | null
+          invitation_sent_at: string | null
+          invitation_token: string | null
+          user_id: string
+        }
+        Insert: {
+          clinic_id: string
+          created_at?: string | null
+          id?: string
+          invitation_accepted_at?: string | null
+          invitation_sent_at?: string | null
+          invitation_token?: string | null
+          user_id: string
+        }
+        Update: {
+          clinic_id?: string
+          created_at?: string | null
+          id?: string
+          invitation_accepted_at?: string | null
+          invitation_sent_at?: string | null
+          invitation_token?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clinic_accounts_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: true
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clinics: {
         Row: {
           badges: string[] | null
@@ -168,6 +251,59 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      leads: {
+        Row: {
+          clinic_id: string
+          created_at: string | null
+          id: string
+          message: string | null
+          sent_to_clinic_at: string | null
+          status: string | null
+          treatment_type: string | null
+          updated_at: string | null
+          user_email: string
+          user_id: string
+          user_name: string | null
+          user_phone: string | null
+        }
+        Insert: {
+          clinic_id: string
+          created_at?: string | null
+          id?: string
+          message?: string | null
+          sent_to_clinic_at?: string | null
+          status?: string | null
+          treatment_type?: string | null
+          updated_at?: string | null
+          user_email: string
+          user_id: string
+          user_name?: string | null
+          user_phone?: string | null
+        }
+        Update: {
+          clinic_id?: string
+          created_at?: string | null
+          id?: string
+          message?: string | null
+          sent_to_clinic_at?: string | null
+          status?: string | null
+          treatment_type?: string | null
+          updated_at?: string | null
+          user_email?: string
+          user_id?: string
+          user_name?: string | null
+          user_phone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "leads_clinic_id_fkey"
+            columns: ["clinic_id"]
+            isOneToOne: false
+            referencedRelation: "clinics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       messages: {
         Row: {
@@ -337,7 +473,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "moderator" | "user" | "clinic"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -465,7 +601,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "moderator", "user", "clinic"],
     },
   },
 } as const

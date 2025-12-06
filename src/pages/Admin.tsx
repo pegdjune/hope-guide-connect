@@ -11,6 +11,9 @@ import AdminUsers from "@/components/admin/AdminUsers";
 import AdminQuotes from "@/components/admin/AdminQuotes";
 import AdminConversations from "@/components/admin/AdminConversations";
 import AdminDiagnostics from "@/components/admin/AdminDiagnostics";
+import AdminArticles from "@/components/admin/AdminArticles";
+import AdminLeads from "@/components/admin/AdminLeads";
+import AdminClinics from "@/components/admin/AdminClinics";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -100,13 +103,28 @@ const Admin = () => {
         </div>
 
         {/* Admin Tabs */}
-        <Tabs defaultValue="users" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+        <Tabs defaultValue="leads" className="w-full">
+          <TabsList className="grid w-full grid-cols-7">
+            <TabsTrigger value="leads">Leads</TabsTrigger>
+            <TabsTrigger value="clinics">Cliniques</TabsTrigger>
+            <TabsTrigger value="articles">Articles</TabsTrigger>
             <TabsTrigger value="users">Utilisateurs</TabsTrigger>
             <TabsTrigger value="quotes">Devis</TabsTrigger>
             <TabsTrigger value="conversations">Conversations</TabsTrigger>
             <TabsTrigger value="diagnostics">Diagnostics</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="leads" className="mt-6">
+            <AdminLeads />
+          </TabsContent>
+
+          <TabsContent value="clinics" className="mt-6">
+            <AdminClinics />
+          </TabsContent>
+
+          <TabsContent value="articles" className="mt-6">
+            <AdminArticles />
+          </TabsContent>
 
           <TabsContent value="users" className="mt-6">
             <AdminUsers />
