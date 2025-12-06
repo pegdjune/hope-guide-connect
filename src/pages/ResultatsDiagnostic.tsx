@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "@/components/NavLink";
 import { CheckCircle2, MapPin, Star, Euro, TrendingUp, ArrowRight, Download, Mail } from "lucide-react";
+import SimulatorCTA from "@/components/SimulatorCTA";
 
 const ResultatsDiagnostic = () => {
   // Mock data - serait remplacé par les vraies données du diagnostic
@@ -218,6 +219,15 @@ const ResultatsDiagnostic = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Simulateurs CTA */}
+          <div className="mb-12">
+            <SimulatorCTA 
+              simulators={["remboursement", "coutPays", "budgetGlobal"]}
+              variant="banner"
+              title="Affinez votre budget"
+            />
           </div>
 
           {/* Action cards */}
