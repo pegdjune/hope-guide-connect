@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import DataReliabilityBanner from "@/components/DataReliabilityBanner";
+import SimulatorCTA from "@/components/SimulatorCTA";
 import { MapPin, Star, Euro, TrendingUp, ArrowRight, Map, GitCompare, X, Loader2, AlertTriangle, Info, Shield } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState, useEffect, useRef } from "react";
@@ -316,6 +317,15 @@ const Comparateur = () => {
           {/* Data Reliability Banner */}
           <div className="mb-6">
             <DataReliabilityBanner />
+          </div>
+
+          {/* Simulators CTA */}
+          <div className="mb-6">
+            <SimulatorCTA 
+              simulators={["coutPays", "remboursement", "budgetGlobal"]}
+              variant="banner"
+              title="Estimez vos coûts"
+            />
           </div>
 
           {/* View toggle and results count */}
