@@ -24,8 +24,14 @@ import {
   Euro
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useSEO } from "@/hooks/useSEO";
 
 const SimulateurBudgetGlobal = () => {
+  useSEO({
+    title: "Simulateur Budget Global PMA - Planifiez vos dépenses",
+    description: "Calculez le budget complet de votre parcours PMA : traitement, voyages, hébergement et perte de revenus. Planification financière détaillée.",
+    type: "website",
+  });
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     // Traitement

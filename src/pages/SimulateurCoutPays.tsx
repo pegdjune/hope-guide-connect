@@ -19,6 +19,7 @@ import {
   Info
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useSEO } from "@/hooks/useSEO";
 
 // Données par pays (basées sur les témoignages du forum)
 const PAYS_DATA = {
@@ -99,6 +100,12 @@ const PAYS_DATA = {
 type PaysKey = keyof typeof PAYS_DATA;
 
 const SimulateurCoutPays = () => {
+  useSEO({
+    title: "Simulateur Coût PMA par Pays - Comparez les destinations",
+    description: "Estimez le coût total d'un traitement PMA selon le pays : Espagne, République Tchèque, Portugal, Grèce. Traitement, voyage et hébergement inclus.",
+    type: "website",
+  });
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     typeTraitement: "fiv" as "fiv" | "donOvocytes" | "iac",
