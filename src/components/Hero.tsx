@@ -171,27 +171,29 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col gap-4 pt-4">
-            <Button 
-              asChild 
-              size="lg" 
-              className="bg-accent hover:bg-accent/90 text-white shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
-            >
-              <NavLink to="/comparateur" className="flex items-center gap-3">
-                🗺️ Comparer les cliniques
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-              </NavLink>
-            </Button>
-            
-            <Button 
-              asChild 
-              size="lg" 
-              className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all"
-            >
-              <NavLink to="/diagnostic" className="flex items-center gap-3">
-                📋 Recevoir mes devis gratuits
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
-              </NavLink>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-accent hover:bg-accent/90 text-white shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all flex-1"
+              >
+                <NavLink to="/comparateur" className="flex items-center gap-3">
+                  🗺️ Comparer les cliniques
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                </NavLink>
+              </Button>
+              
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-primary hover:bg-primary-hover text-primary-foreground shadow-glow group text-lg font-bold px-8 py-7 hover:scale-105 transition-all flex-1"
+              >
+                <NavLink to="/diagnostic" className="flex items-center gap-3">
+                  📋 Recevoir mes devis gratuits
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                </NavLink>
+              </Button>
+            </div>
             
             <Button 
               asChild 
@@ -203,6 +205,31 @@ const Hero = () => {
                 📞 Parler à une experte PMA (gratuit)
               </a>
             </Button>
+          </div>
+
+          {/* Quick Links - Blog & Simulateurs */}
+          <div className="flex flex-wrap gap-3 pt-2">
+            <NavLink 
+              to="/blog" 
+              className="flex items-center gap-2 px-4 py-2.5 bg-white/90 hover:bg-white rounded-full text-sm font-semibold text-foreground hover:text-primary transition-all shadow-soft hover:shadow-medium group"
+            >
+              📚 Blog & Guides
+              <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+            </NavLink>
+            <NavLink 
+              to="/simulateurs" 
+              className="flex items-center gap-2 px-4 py-2.5 bg-white/90 hover:bg-white rounded-full text-sm font-semibold text-foreground hover:text-primary transition-all shadow-soft hover:shadow-medium group"
+            >
+              🧮 Simulateurs gratuits
+              <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+            </NavLink>
+            <NavLink 
+              to="/simulateurs/chances-succes" 
+              className="flex items-center gap-2 px-4 py-2.5 bg-white/90 hover:bg-white rounded-full text-sm font-semibold text-foreground hover:text-primary transition-all shadow-soft hover:shadow-medium group"
+            >
+              📊 Calculer mes chances
+              <ArrowRight className="w-4 h-4 opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+            </NavLink>
           </div>
 
           {/* Stats */}
