@@ -9,6 +9,7 @@ import { NavLink } from "@/components/NavLink";
 import { blogArticles } from "@/data/blogArticles";
 import { ArrowLeft, Clock, Calendar, User, Share2, Bookmark } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import BlogSimulatorCTA from "@/components/BlogSimulatorCTA";
 
 const BlogArticle = () => {
   const { slug } = useParams();
@@ -122,6 +123,9 @@ const BlogArticle = () => {
                   {article.content}
                 </ReactMarkdown>
               </div>
+
+              {/* Contextual Simulator CTA */}
+              <BlogSimulatorCTA category={article.category} tags={article.tags} />
 
               {/* Tags */}
               <div className="mt-12 pt-8 border-t">
