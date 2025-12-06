@@ -60,35 +60,32 @@ export default {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
         },
-        // Warm palette
-        warm: {
-          50: "hsl(var(--warm-50))",
-          100: "hsl(var(--warm-100))",
-          200: "hsl(var(--warm-200))",
-          300: "hsl(var(--warm-300))",
-          400: "hsl(var(--warm-400))",
-          500: "hsl(var(--warm-500))",
-          600: "hsl(var(--warm-600))",
-          700: "hsl(var(--warm-700))",
-          800: "hsl(var(--warm-800))",
-          900: "hsl(var(--warm-900))",
+        // Rose/Pink palette
+        rose: {
+          50: "hsl(var(--rose-50))",
+          100: "hsl(var(--rose-100))",
+          200: "hsl(var(--rose-200))",
+          300: "hsl(var(--rose-300))",
+          400: "hsl(var(--rose-400))",
+          500: "hsl(var(--rose-500))",
+          600: "hsl(var(--rose-600))",
         },
-        blush: {
-          50: "hsl(var(--blush-50))",
-          100: "hsl(var(--blush-100))",
-          200: "hsl(var(--blush-200))",
-          300: "hsl(var(--blush-300))",
-          400: "hsl(var(--blush-400))",
-          500: "hsl(var(--blush-500))",
+        // Lavender palette
+        lavender: {
+          50: "hsl(var(--lavender-50))",
+          100: "hsl(var(--lavender-100))",
+          200: "hsl(var(--lavender-200))",
+          300: "hsl(var(--lavender-300))",
+          400: "hsl(var(--lavender-400))",
         },
-        terracotta: {
-          50: "hsl(var(--terracotta-50))",
-          100: "hsl(var(--terracotta-100))",
-          200: "hsl(var(--terracotta-200))",
-          300: "hsl(var(--terracotta-300))",
-          400: "hsl(var(--terracotta-400))",
-          500: "hsl(var(--terracotta-500))",
+        // Cream palette
+        cream: {
+          50: "hsl(var(--cream-50))",
+          100: "hsl(var(--cream-100))",
+          200: "hsl(var(--cream-200))",
+          300: "hsl(var(--cream-300))",
         },
+        // Sage/Eucalyptus
         sage: {
           50: "hsl(var(--sage-50))",
           100: "hsl(var(--sage-100))",
@@ -104,6 +101,7 @@ export default {
         large: "var(--shadow-large)",
         glow: "var(--shadow-glow)",
         card: "var(--shadow-card)",
+        float: "var(--shadow-float)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -111,6 +109,7 @@ export default {
         sm: "calc(var(--radius) - 8px)",
         "2xl": "1.5rem",
         "3xl": "2rem",
+        "4xl": "2.5rem",
       },
       keyframes: {
         "accordion-down": {
