@@ -3,6 +3,7 @@ import PriceSimulatorBanner from "@/components/PriceSimulatorBanner";
 import Hero from "@/components/Hero";
 import TrustBanner from "@/components/TrustBanner";
 import Features from "@/components/Features";
+import ContentHighlight from "@/components/ContentHighlight";
 import FeaturedClinics from "@/components/FeaturedClinics";
 import HowItWorks from "@/components/HowItWorks";
 import SimulatorsSection from "@/components/SimulatorsSection";
@@ -30,6 +31,7 @@ const Index = () => {
       <Hero />
       <TrustBanner />
       <Features />
+      <ContentHighlight />
       <FeaturedClinics />
       <HowItWorks />
       <SimulatorsSection />
