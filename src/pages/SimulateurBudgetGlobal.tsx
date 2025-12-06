@@ -80,7 +80,7 @@ const SimulateurBudgetGlobal = () => {
     // Extras
     let totalExtras = 0;
     if (formData.psychologicalSupport) {
-      totalExtras += formData.psychologyCost * formData.psychologySettings;
+      totalExtras += formData.psychologyCost * formData.psychologySessions;
     }
     if (formData.acupuncture) {
       totalExtras += formData.acupunctureCost * formData.acupunctureSessions * formData.numberOfCycles;
