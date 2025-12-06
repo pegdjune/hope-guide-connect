@@ -99,11 +99,17 @@ export type Database = {
       }
       clinics: {
         Row: {
+          access_couples_hetero: boolean | null
+          access_couples_lesbiennes: boolean | null
+          access_femmes_seules: boolean | null
           badges: string[] | null
           city: string
+          collection_notes: string | null
           country: string
           country_configuration: string | null
           created_at: string | null
+          data_source: string | null
+          data_year: number | null
           description: string | null
           email: string | null
           id: string
@@ -117,19 +123,34 @@ export type Database = {
           rating: number | null
           reporting_clinics: number | null
           review_count: number | null
+          service_don_ovocytes: boolean | null
+          service_don_sperme: boolean | null
+          service_dpi: boolean | null
           specialties: string[] | null
           success_rate: string | null
+          tarif_don_ovocytes: number | null
+          tarif_fiv_base: number | null
+          tarif_fiv_dpi: number | null
+          taux_reussite_fiv: number | null
+          taux_reussite_icsi: number | null
           total_clinics_country: number | null
           type: string
           updated_at: string | null
+          verification_status: string | null
           website: string | null
         }
         Insert: {
+          access_couples_hetero?: boolean | null
+          access_couples_lesbiennes?: boolean | null
+          access_femmes_seules?: boolean | null
           badges?: string[] | null
           city: string
+          collection_notes?: string | null
           country: string
           country_configuration?: string | null
           created_at?: string | null
+          data_source?: string | null
+          data_year?: number | null
           description?: string | null
           email?: string | null
           id?: string
@@ -143,19 +164,34 @@ export type Database = {
           rating?: number | null
           reporting_clinics?: number | null
           review_count?: number | null
+          service_don_ovocytes?: boolean | null
+          service_don_sperme?: boolean | null
+          service_dpi?: boolean | null
           specialties?: string[] | null
           success_rate?: string | null
+          tarif_don_ovocytes?: number | null
+          tarif_fiv_base?: number | null
+          tarif_fiv_dpi?: number | null
+          taux_reussite_fiv?: number | null
+          taux_reussite_icsi?: number | null
           total_clinics_country?: number | null
           type: string
           updated_at?: string | null
+          verification_status?: string | null
           website?: string | null
         }
         Update: {
+          access_couples_hetero?: boolean | null
+          access_couples_lesbiennes?: boolean | null
+          access_femmes_seules?: boolean | null
           badges?: string[] | null
           city?: string
+          collection_notes?: string | null
           country?: string
           country_configuration?: string | null
           created_at?: string | null
+          data_source?: string | null
+          data_year?: number | null
           description?: string | null
           email?: string | null
           id?: string
@@ -169,11 +205,20 @@ export type Database = {
           rating?: number | null
           reporting_clinics?: number | null
           review_count?: number | null
+          service_don_ovocytes?: boolean | null
+          service_don_sperme?: boolean | null
+          service_dpi?: boolean | null
           specialties?: string[] | null
           success_rate?: string | null
+          tarif_don_ovocytes?: number | null
+          tarif_fiv_base?: number | null
+          tarif_fiv_dpi?: number | null
+          taux_reussite_fiv?: number | null
+          taux_reussite_icsi?: number | null
           total_clinics_country?: number | null
           type?: string
           updated_at?: string | null
+          verification_status?: string | null
           website?: string | null
         }
         Relationships: []
