@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Mail, Phone, Calendar, Building2 } from "lucide-react";
+import { Mail, Phone, Calendar, Building2, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -68,6 +68,32 @@ const AdminLeads = () => {
   const [stats, setStats] = useState<LeadStats[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedClinic, setSelectedClinic] = useState<string>("all");
+  const [sendingEmails, setSendingEmails] = useState(false);
+
+  const sendDailyRecap = async () => {
+    setSendingEmails(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-daily-leads-recap");
+      
+      if (error) {
+        console.error("Error sending emails:", error);
+        toast.error("Erreur lors de l'envoi des emails");
+        return;
+      }
+
+      if (data?.emailsSent > 0) {
+        toast.success(`${data.emailsSent} email(s) envoyé(s) avec ${data.leadsProcessed} lead(s)`);
+        fetchData(); // Refresh data
+      } else {
+        toast.info("Aucun nouveau lead à envoyer");
+      }
+    } catch (err) {
+      console.error("Exception sending emails:", err);
+      toast.error("Une erreur est survenue");
+    } finally {
+      setSendingEmails(false);
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -153,6 +179,27 @@ const AdminLeads = () => {
 
   return (
     <div className="space-y-6">
+      {/* Action Bar */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-lg font-semibold">Gestion des leads</h2>
+        <Button 
+          onClick={sendDailyRecap} 
+          disabled={sendingEmails || leads.filter(l => l.status === "new").length === 0}
+        >
+          {sendingEmails ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+              Envoi en cours...
+            </>
+          ) : (
+            <>
+              <Send className="w-4 h-4 mr-2" />
+              Envoyer le récap aux cliniques
+            </>
+          )}
+        </Button>
+      </div>
+
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
