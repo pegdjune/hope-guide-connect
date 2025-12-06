@@ -16,6 +16,11 @@ import Dashboard from "./pages/Dashboard";
 import ChatConversation from "./pages/ChatConversation";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Simulateurs from "./pages/Simulateurs";
+import SimulateurRemboursement from "./pages/SimulateurRemboursement";
+import SimulateurCoutPays from "./pages/SimulateurCoutPays";
+import SimulateurChancesSucces from "./pages/SimulateurChancesSucces";
+import SimulateurBudgetGlobal from "./pages/SimulateurBudgetGlobal";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +43,11 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chat/:conversationId" element={<ChatConversation />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/simulateurs" element={<Simulateurs />} />
+          <Route path="/simulateurs/remboursement" element={<SimulateurRemboursement />} />
+          <Route path="/simulateurs/cout-pays" element={<SimulateurCoutPays />} />
+          <Route path="/simulateurs/chances-succes" element={<SimulateurChancesSucces />} />
+          <Route path="/simulateurs/budget-global" element={<SimulateurBudgetGlobal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
