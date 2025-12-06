@@ -21,6 +21,8 @@ import SimulateurRemboursement from "./pages/SimulateurRemboursement";
 import SimulateurCoutPays from "./pages/SimulateurCoutPays";
 import SimulateurChancesSucces from "./pages/SimulateurChancesSucces";
 import SimulateurBudgetGlobal from "./pages/SimulateurBudgetGlobal";
+import ClinicAuth from "./pages/ClinicAuth";
+import ClinicDashboard from "./pages/ClinicDashboard";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,10 @@ const App = () => (
           <Route path="/simulateurs/cout-pays" element={<SimulateurCoutPays />} />
           <Route path="/simulateurs/chances-succes" element={<SimulateurChancesSucces />} />
           <Route path="/simulateurs/budget-global" element={<SimulateurBudgetGlobal />} />
+          {/* Clinic Portal Routes */}
+          <Route path="/clinic-auth" element={<ClinicAuth />} />
+          <Route path="/clinic-invite/:token" element={<ClinicAuth />} />
+          <Route path="/clinic-dashboard" element={<ClinicDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
