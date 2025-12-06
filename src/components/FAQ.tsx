@@ -7,6 +7,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { useFAQSchema } from "@/hooks/useOrganizationSchema";
 
 const faqData = [
   {
@@ -94,6 +95,15 @@ const faqData = [
 const FAQ = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
+
+  // Generate FAQ schema for SEO
+  const allFAQs = faqData.flatMap(category => 
+    category.questions.map(q => ({
+      question: q.question,
+      answer: q.answer,
+    }))
+  );
+  useFAQSchema(allFAQs);
 
   const filteredFAQ = faqData
     .map(category => ({

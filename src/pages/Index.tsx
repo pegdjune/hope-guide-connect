@@ -11,8 +11,18 @@ import FAQ from "@/components/FAQ";
 import CTASection from "@/components/CTASection";
 import ChatWidget from "@/components/ChatWidget";
 import Footer from "@/components/Footer";
+import { useSEO } from "@/hooks/useSEO";
+import { useOrganizationSchema } from "@/hooks/useOrganizationSchema";
 
 const Index = () => {
+  useSEO({
+    title: "FertilEurope - Votre parcours FIV en Europe simplifié",
+    description: "Comparez les meilleures cliniques FIV européennes. Diagnostic personnalisé gratuit en 5 minutes. Accompagnement humain à chaque étape de votre parcours PMA.",
+    type: "website",
+  });
+  
+  useOrganizationSchema();
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
