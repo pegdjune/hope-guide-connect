@@ -12,6 +12,7 @@ import FAQ from "@/components/FAQ";
 import CTASection from "@/components/CTASection";
 import ChatWidget from "@/components/ChatWidget";
 import Footer from "@/components/Footer";
+import WhitePaperPopup from "@/components/WhitePaperPopup";
 import { useSEO } from "@/hooks/useSEO";
 import { useOrganizationSchema } from "@/hooks/useOrganizationSchema";
 
@@ -40,6 +41,9 @@ const Index = () => {
       <CTASection />
       <ChatWidget />
       <Footer />
+      
+      {/* Popup Livre Blanc - s'affiche après 30s ou 50% scroll */}
+      <WhitePaperPopup trigger="scroll" scrollThreshold={50} />
     </div>
   );
 };
