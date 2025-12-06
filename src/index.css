@@ -2,74 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* ============================================
+   FertilEurope Design System
+   Style: Chaleureux & Humain
+   Palette: Beige, Terracotta, Rose poudré
+   ============================================ */
 
 @layer base {
   :root {
-    /* Background colors - more vibrant cream */
-    --background: 40 45% 98%;
-    --foreground: 25 25% 15%;
+    /* Background - Warm off-white cream */
+    --background: 35 40% 97%;
+    --foreground: 25 30% 18%;
 
-    /* Card surfaces */
-    --card: 0 0% 100%;
-    --card-foreground: 25 25% 15%;
+    /* Card surfaces - Pure white with warmth */
+    --card: 40 30% 99%;
+    --card-foreground: 25 30% 18%;
 
     /* Popover surfaces */
-    --popover: 0 0% 100%;
-    --popover-foreground: 25 25% 15%;
+    --popover: 40 30% 99%;
+    --popover-foreground: 25 30% 18%;
 
-    /* Primary - vibrant coral pink */
-    --primary: 350 85% 65%;
-    --primary-foreground: 0 0% 100%;
-    --primary-hover: 350 90% 60%;
-    --primary-light: 350 95% 92%;
+    /* Primary - Warm terracotta/caramel */
+    --primary: 25 55% 55%;
+    --primary-foreground: 40 30% 99%;
+    --primary-hover: 25 60% 48%;
+    --primary-light: 30 50% 92%;
 
-    /* Secondary - warm peachy tone */
-    --secondary: 25 85% 75%;
-    --secondary-foreground: 25 30% 20%;
-    --secondary-hover: 25 90% 70%;
+    /* Secondary - Soft blush pink */
+    --secondary: 15 45% 88%;
+    --secondary-foreground: 25 35% 25%;
+    --secondary-hover: 15 50% 82%;
 
-    /* Accent - bright turquoise */
-    --accent: 175 70% 60%;
-    --accent-foreground: 0 0% 100%;
-    --accent-light: 175 80% 90%;
+    /* Accent - Sage green (trust, nature) */
+    --accent: 145 25% 50%;
+    --accent-foreground: 40 30% 99%;
+    --accent-light: 145 30% 92%;
 
-    /* Muted tones */
-    --muted: 40 30% 94%;
+    /* Muted tones - Warm beige */
+    --muted: 35 25% 93%;
     --muted-foreground: 25 15% 45%;
 
     /* Destructive/alerts */
-    --destructive: 0 75% 60%;
+    --destructive: 0 65% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Borders and inputs */
-    --border: 40 35% 90%;
-    --input: 40 35% 90%;
-    --ring: 350 85% 65%;
+    /* Borders and inputs - Soft warm tones */
+    --border: 30 25% 88%;
+    --input: 30 25% 88%;
+    --ring: 25 55% 55%;
 
-    /* Border radius */
-    --radius: 1rem;
+    /* Border radius - Softer, more organic */
+    --radius: 1.25rem;
 
     /* Success state */
-    --success: 145 70% 55%;
+    --success: 145 50% 45%;
     --success-foreground: 0 0% 100%;
 
-    /* Vibrant gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(350 85% 65%), hsl(25 85% 70%));
-    --gradient-hero: linear-gradient(135deg, hsl(350 95% 92%) 0%, hsl(175 80% 90%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(175 70% 60%), hsl(200 75% 65%));
+    /* Warm color palette tokens */
+    --warm-50: 35 35% 97%;
+    --warm-100: 35 30% 94%;
+    --warm-200: 30 25% 88%;
+    --warm-300: 28 22% 78%;
+    --warm-400: 25 20% 65%;
+    --warm-500: 25 18% 50%;
+    --warm-600: 25 20% 40%;
+    --warm-700: 25 22% 30%;
+    --warm-800: 25 25% 22%;
+    --warm-900: 25 28% 15%;
 
-    /* Enhanced shadows */
-    --shadow-soft: 0 2px 12px hsla(350 60% 50% / 0.08);
-    --shadow-medium: 0 4px 20px hsla(350 60% 50% / 0.12);
-    --shadow-large: 0 12px 40px hsla(350 60% 50% / 0.15);
-    --shadow-glow: 0 0 30px hsla(350 85% 65% / 0.2);
+    /* Blush pink tokens */
+    --blush-50: 15 50% 97%;
+    --blush-100: 15 45% 94%;
+    --blush-200: 15 40% 90%;
+    --blush-300: 12 45% 82%;
+    --blush-400: 10 50% 72%;
+    --blush-500: 8 55% 62%;
 
-    /* Transitions */
+    /* Terracotta tokens */
+    --terracotta-50: 25 50% 96%;
+    --terracotta-100: 25 45% 90%;
+    --terracotta-200: 25 50% 80%;
+    --terracotta-300: 25 55% 68%;
+    --terracotta-400: 25 55% 55%;
+    --terracotta-500: 25 58% 45%;
+
+    /* Sage green tokens */
+    --sage-50: 145 25% 96%;
+    --sage-100: 145 22% 90%;
+    --sage-200: 145 20% 82%;
+    --sage-300: 145 22% 68%;
+    --sage-400: 145 25% 50%;
+    --sage-500: 145 28% 40%;
+
+    /* Warm gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(25 55% 55%), hsl(15 50% 62%));
+    --gradient-hero: linear-gradient(180deg, hsl(35 40% 97%) 0%, hsl(30 35% 94%) 50%, hsl(35 40% 97%) 100%);
+    --gradient-warm: linear-gradient(135deg, hsl(35 35% 97%) 0%, hsl(15 45% 94%) 100%);
+    --gradient-soft: linear-gradient(180deg, hsl(var(--warm-50)) 0%, hsl(var(--blush-50)) 100%);
+
+    /* Organic shadows - softer, warmer */
+    --shadow-soft: 0 2px 8px hsla(25 40% 40% / 0.06);
+    --shadow-medium: 0 4px 16px hsla(25 40% 40% / 0.08);
+    --shadow-large: 0 8px 32px hsla(25 40% 40% / 0.10);
+    --shadow-glow: 0 0 24px hsla(25 55% 55% / 0.15);
+    --shadow-card: 0 1px 3px hsla(25 30% 30% / 0.04), 0 4px 12px hsla(25 30% 30% / 0.06);
+
+    /* Transitions - smoother, more organic */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
@@ -79,16 +119,66 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
-    font-family: 'Nunito', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-feature-settings: "kern" 1, "liga" 1;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection color */
+  ::selection {
+    background-color: hsl(var(--primary-light));
+    color: hsl(var(--foreground));
   }
 }
 
 @layer utilities {
+  /* Warm glass effect */
+  .glass-warm {
+    background: hsla(40, 30%, 99%, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsla(30, 25%, 88%, 0.5);
+  }
+
+  /* Organic card style */
+  .card-organic {
+    @apply bg-card rounded-2xl shadow-card border border-border/50;
+    transition: var(--transition-smooth);
+  }
+
+  .card-organic:hover {
+    @apply shadow-medium;
+    transform: translateY(-2px);
+  }
+
+  /* Warm button glow */
+  .btn-glow {
+    box-shadow: 0 4px 14px hsla(25, 55%, 55%, 0.25);
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 6px 20px hsla(25, 55%, 55%, 0.35);
+  }
+
+  /* Text gradient */
+  .text-gradient-warm {
+    background: linear-gradient(135deg, hsl(25 55% 45%), hsl(15 50% 55%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Animations */
   .animate-float {
     animation: float 6s ease-in-out infinite;
   }
@@ -97,8 +187,12 @@ All colors MUST be HSL.
     animation: float 6s ease-in-out 2s infinite;
   }
 
-  .animate-pulse-slow {
-    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  .animate-pulse-soft {
+    animation: pulse-soft 3s ease-in-out infinite;
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.6s ease-out forwards;
   }
 
   @keyframes float {
@@ -106,7 +200,55 @@ All colors MUST be HSL.
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-20px);
+      transform: translateY(-12px);
     }
+  }
+
+  @keyframes pulse-soft {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Decorative elements */
+  .blob-shape {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  /* Link underline animation */
+  .link-underline {
+    position: relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 }
