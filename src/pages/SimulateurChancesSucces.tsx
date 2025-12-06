@@ -24,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSEO } from "@/hooks/useSEO";
 
 // Modèle simplifié basé sur les statistiques publiées
 const calculateSuccessRate = (
@@ -85,6 +86,12 @@ const calculateSuccessRate = (
 };
 
 const SimulateurChancesSucces = () => {
+  useSEO({
+    title: "Simulateur Chances de Succès FIV - Estimation personnalisée",
+    description: "Estimez vos chances de réussite FIV/ICSI selon votre âge, réserve ovarienne et facteurs personnels. Calcul basé sur les statistiques ESHRE.",
+    type: "website",
+  });
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     age: 35,

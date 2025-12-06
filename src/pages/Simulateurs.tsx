@@ -15,6 +15,7 @@ import {
   Wallet
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useSEO } from "@/hooks/useSEO";
 
 const simulators = [
   {
@@ -68,6 +69,12 @@ const simulators = [
 ];
 
 const Simulateurs = () => {
+  useSEO({
+    title: "Simulateurs PMA - Calculez vos coûts et chances de succès",
+    description: "Outils gratuits pour estimer vos remboursements, le coût d'une FIV par pays, vos chances de succès et votre budget global PMA.",
+    type: "website",
+  });
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />

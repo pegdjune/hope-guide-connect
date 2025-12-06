@@ -26,6 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSEO } from "@/hooks/useSEO";
 
 // Barèmes Sécurité Sociale (approximatifs basés sur les données CNSE)
 const TARIFS_SS = {
@@ -60,6 +61,12 @@ const NIVEAUX_MUTUELLE = {
 };
 
 const SimulateurRemboursement = () => {
+  useSEO({
+    title: "Simulateur Remboursement PMA - Sécurité Sociale et Mutuelle",
+    description: "Estimez vos remboursements PMA : Sécurité Sociale et mutuelle. Calculez le reste à charge pour FIV, ICSI, don d'ovocytes en France.",
+    type: "website",
+  });
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     typeTraitement: "fiv" as keyof typeof TARIFS_SS,

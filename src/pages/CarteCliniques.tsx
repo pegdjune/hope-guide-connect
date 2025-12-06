@@ -10,6 +10,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { updateClinicsWithCoordinates } from "@/scripts/updateClinicsWithCoordinates";
+import { useSEO } from "@/hooks/useSEO";
 
 interface Clinic {
   id: string;
@@ -30,6 +31,12 @@ const getStoredToken = () => {
 };
 
 const CarteCliniques = () => {
+  useSEO({
+    title: "Carte des Cliniques FIV en Europe",
+    description: "Explorez la carte interactive des cliniques de fertilité en Europe. Localisez les meilleures cliniques FIV proches de chez vous.",
+    type: "website",
+  });
+
   const navigate = useNavigate();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);

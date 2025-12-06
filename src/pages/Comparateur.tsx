@@ -16,6 +16,7 @@ import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useSEO } from "@/hooks/useSEO";
 
 interface Clinic {
   id: string;
@@ -37,6 +38,12 @@ interface Clinic {
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiYmc3NTc1NzUiLCJhIjoiY21ocXhnNzdiMGNzczJqc2R3dWpmM3N4ZSJ9.BUHrAaoH9kK_HXmAfCo9ig';
 
 const Comparateur = () => {
+  useSEO({
+    title: "Comparateur de Cliniques FIV en Europe",
+    description: "Comparez les meilleures cliniques FIV européennes : prix, taux de réussite, avis patients. Trouvez la clinique idéale pour votre parcours PMA.",
+    type: "website",
+  });
+
   const navigate = useNavigate();
   const [viewMode, setViewMode] = useState<'map' | 'list'>('map');
   const [comparisonMode, setComparisonMode] = useState(false);

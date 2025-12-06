@@ -9,8 +9,14 @@ import { NavLink } from "@/components/NavLink";
 import { blogArticles, categories } from "@/data/blogArticles";
 import { useState } from "react";
 import { Search, Clock, Calendar, ArrowRight } from "lucide-react";
+import { useSEO } from "@/hooks/useSEO";
 
 const Blog = () => {
+  useSEO({
+    title: "Blog PMA & Fertilité - Guides, Conseils et Témoignages",
+    description: "Découvrez nos articles sur la PMA : guides par pays, conseils d'experts, témoignages de couples et informations sur les traitements FIV en Europe.",
+    type: "website",
+  });
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
