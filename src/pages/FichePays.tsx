@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -17,12 +17,33 @@ import {
   HelpCircle,
   Building2,
   Users,
-  CheckCircle
+  CheckCircle,
+  User,
+  Heart,
+  Clock,
+  Baby,
+  RefreshCw,
+  ExternalLink
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { supabase } from "@/integrations/supabase/client";
-import { countryMapping, getCountryContent } from "@/data/countryPages";
+import { 
+  countryMapping, 
+  getCountryContent, 
+  getLongTailContent, 
+  getComparisonData, 
+  getSimilarCountries,
+  comparisonData 
+} from "@/data/countryPages";
 import { Helmet } from "react-helmet";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface Clinic {
   id: string;
@@ -53,6 +74,9 @@ const FichePays = () => {
 
   const countryInfo = slug ? countryMapping[slug] : null;
   const content = slug ? getCountryContent(slug) : null;
+  const longTailContent = slug ? getLongTailContent(slug) : null;
+  const currentComparisonData = slug ? getComparisonData(slug) : null;
+  const similarCountrySlugs = slug ? getSimilarCountries(slug) : [];
 
   useEffect(() => {
     if (!countryInfo) {
@@ -101,6 +125,9 @@ const FichePays = () => {
   if (!countryInfo || !content) {
     return null;
   }
+
+  // Pays de comparaison pour le tableau
+  const comparisonCountries = ['france', 'espagne', 'republique-tcheque'];
 
   return (
     <div className="min-h-screen bg-background">
@@ -276,6 +303,271 @@ const FichePays = () => {
             </div>
           </div>
         </section>
+
+        {/* Section Longue Traîne SEO */}
+        {longTailContent && (
+          <section className="bg-muted/30 py-16 mb-16">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+                  FIV en {countryInfo.frenchName} : situations spécifiques
+                </h2>
+                
+                <div className="space-y-8">
+                  {/* Femme seule */}
+                  <Card className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <User className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="text-xl font-semibold text-foreground">
+                            FIV en {countryInfo.frenchName} pour femme seule
+                          </h3>
+                          <Badge variant={longTailContent.femmeSeule.eligible ? "default" : "secondary"}>
+                            {longTailContent.femmeSeule.eligible ? "Autorisé" : "Non autorisé"}
+                          </Badge>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {longTailContent.femmeSeule.content}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Couple de femmes */}
+                  <Card className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Heart className="w-5 h-5 text-accent" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="text-xl font-semibold text-foreground">
+                            FIV en {countryInfo.frenchName} pour couple de femmes
+                          </h3>
+                          <Badge variant={longTailContent.coupleFemmes.eligible ? "default" : "secondary"}>
+                            {longTailContent.coupleFemmes.eligible ? "Autorisé" : "Non autorisé"}
+                          </Badge>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {longTailContent.coupleFemmes.content}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Après 40 ans */}
+                  <Card className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-success/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Clock className="w-5 h-5 text-success" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="text-xl font-semibold text-foreground">
+                            FIV en {countryInfo.frenchName} après 40 ans
+                          </h3>
+                          <Badge variant={longTailContent.apres40Ans.eligible ? "default" : "secondary"}>
+                            {longTailContent.apres40Ans.eligible ? "Possible" : "Limité"}
+                          </Badge>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {longTailContent.apres40Ans.content}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Don d'ovocytes */}
+                  <Card className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Baby className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="text-xl font-semibold text-foreground">
+                            FIV en {countryInfo.frenchName} avec don d'ovocytes
+                          </h3>
+                          <Badge variant={longTailContent.donOvocytes.eligible ? "default" : "secondary"}>
+                            {longTailContent.donOvocytes.eligible ? "Disponible" : "Non disponible"}
+                          </Badge>
+                        </div>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {longTailContent.donOvocytes.content}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+
+                  {/* Après échec */}
+                  <Card className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <RefreshCw className="w-5 h-5 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-foreground mb-2">
+                          FIV en {countryInfo.frenchName} après échec en France
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          {longTailContent.apresEchec.content}
+                        </p>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Tableau Comparatif */}
+        <section className="container mx-auto px-4 mb-16">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+              Comparer {countryInfo.frenchName} avec les autres destinations
+            </h2>
+            
+            <Card className="overflow-hidden">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="bg-muted/50">
+                      <TableHead className="font-semibold">Critère</TableHead>
+                      <TableHead className="font-semibold text-center bg-primary/10">
+                        {countryInfo.flag} {countryInfo.frenchName}
+                      </TableHead>
+                      {comparisonCountries.filter(c => c !== slug).slice(0, 3).map(countrySlug => {
+                        const country = countryMapping[countrySlug];
+                        return (
+                          <TableHead key={countrySlug} className="font-semibold text-center">
+                            <Link to={`/fiv/${countrySlug}`} className="hover:text-primary transition-colors">
+                              {country?.flag} {country?.frenchName}
+                            </Link>
+                          </TableHead>
+                        );
+                      })}
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">Coût moyen FIV</TableCell>
+                      <TableCell className="text-center bg-primary/5 font-semibold">
+                        {currentComparisonData?.coutMoyen || (stats?.avgPrice ? `${stats.avgPrice.toLocaleString()}€` : '-')}
+                      </TableCell>
+                      {comparisonCountries.filter(c => c !== slug).slice(0, 3).map(countrySlug => (
+                        <TableCell key={countrySlug} className="text-center">
+                          {comparisonData[countrySlug]?.coutMoyen || '-'}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Don d'ovocytes</TableCell>
+                      <TableCell className="text-center bg-primary/5">
+                        <Badge variant={currentComparisonData?.donOvocytes === 'Oui' ? 'default' : 'secondary'}>
+                          {currentComparisonData?.donOvocytes || (longTailContent?.donOvocytes.eligible ? 'Oui' : 'Non')}
+                        </Badge>
+                      </TableCell>
+                      {comparisonCountries.filter(c => c !== slug).slice(0, 3).map(countrySlug => (
+                        <TableCell key={countrySlug} className="text-center">
+                          <Badge variant={comparisonData[countrySlug]?.donOvocytes === 'Oui' ? 'default' : 'secondary'}>
+                            {comparisonData[countrySlug]?.donOvocytes || '-'}
+                          </Badge>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Accès femmes seules</TableCell>
+                      <TableCell className="text-center bg-primary/5">
+                        <Badge variant={currentComparisonData?.accesFemmesSeules === 'Oui' ? 'default' : 'secondary'}>
+                          {currentComparisonData?.accesFemmesSeules || (longTailContent?.femmeSeule.eligible ? 'Oui' : 'Non')}
+                        </Badge>
+                      </TableCell>
+                      {comparisonCountries.filter(c => c !== slug).slice(0, 3).map(countrySlug => (
+                        <TableCell key={countrySlug} className="text-center">
+                          <Badge variant={comparisonData[countrySlug]?.accesFemmesSeules === 'Oui' ? 'default' : 'secondary'}>
+                            {comparisonData[countrySlug]?.accesFemmesSeules || '-'}
+                          </Badge>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Délais d'attente</TableCell>
+                      <TableCell className="text-center bg-primary/5">
+                        {currentComparisonData?.delais || '-'}
+                      </TableCell>
+                      {comparisonCountries.filter(c => c !== slug).slice(0, 3).map(countrySlug => (
+                        <TableCell key={countrySlug} className="text-center">
+                          {comparisonData[countrySlug]?.delais || '-'}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Accompagnement FR</TableCell>
+                      <TableCell className="text-center bg-primary/5">
+                        {currentComparisonData?.accompagnementFR || '-'}
+                      </TableCell>
+                      {comparisonCountries.filter(c => c !== slug).slice(0, 3).map(countrySlug => (
+                        <TableCell key={countrySlug} className="text-center">
+                          {comparisonData[countrySlug]?.accompagnementFR || '-'}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </Card>
+            
+            <p className="text-sm text-muted-foreground text-center mt-4">
+              Ces données sont indicatives et peuvent varier selon les cliniques. 
+              <Link to="/comparateur" className="text-primary hover:underline ml-1">
+                Utilisez notre comparateur
+              </Link> pour des informations précises.
+            </p>
+          </div>
+        </section>
+
+        {/* Maillage Interne - Pays Similaires */}
+        {similarCountrySlugs.length > 0 && (
+          <section className="container mx-auto px-4 mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-foreground mb-6 text-center">
+                Destinations similaires à comparer
+              </h2>
+              
+              <div className="grid md:grid-cols-3 gap-4">
+                {similarCountrySlugs.map(countrySlug => {
+                  const country = countryMapping[countrySlug];
+                  if (!country) return null;
+                  
+                  return (
+                    <Link 
+                      key={countrySlug}
+                      to={`/fiv/${countrySlug}`}
+                      className="group"
+                    >
+                      <Card className="p-4 hover:shadow-lg transition-all group-hover:border-primary">
+                        <div className="flex items-center gap-3">
+                          <span className="text-3xl">{country.flag}</span>
+                          <div>
+                            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                              FIV en {country.frenchName}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">Voir le guide complet</p>
+                          </div>
+                          <ExternalLink className="w-4 h-4 text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                      </Card>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Cliniques du pays */}
         {clinics.length > 0 && (
