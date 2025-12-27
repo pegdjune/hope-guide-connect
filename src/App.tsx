@@ -23,6 +23,8 @@ import SimulateurChancesSucces from "./pages/SimulateurChancesSucces";
 import SimulateurBudgetGlobal from "./pages/SimulateurBudgetGlobal";
 import ClinicAuth from "./pages/ClinicAuth";
 import ClinicDashboard from "./pages/ClinicDashboard";
+import FichesPays from "./pages/FichesPays";
+import FichePays from "./pages/FichePays";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +56,9 @@ const App = () => (
           <Route path="/clinic-auth" element={<ClinicAuth />} />
           <Route path="/clinic-invite/:token" element={<ClinicAuth />} />
           <Route path="/clinic-dashboard" element={<ClinicDashboard />} />
+          {/* Country Pages */}
+          <Route path="/fiv" element={<FichesPays />} />
+          <Route path="/fiv/:slug" element={<FichePays />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
