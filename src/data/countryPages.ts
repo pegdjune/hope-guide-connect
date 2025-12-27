@@ -49,6 +49,252 @@ export interface CountryContent {
   faq: string;
 }
 
+// Données longue traîne SEO par pays
+export interface LongTailContent {
+  femmeSeule: { eligible: boolean; content: string };
+  coupleFemmes: { eligible: boolean; content: string };
+  apres40Ans: { eligible: boolean; content: string };
+  donOvocytes: { eligible: boolean; content: string };
+  apresEchec: { content: string };
+}
+
+// Données comparatives pour les tableaux
+export interface ComparisonData {
+  coutMoyen: string;
+  donOvocytes: 'Oui' | 'Non' | 'Limité';
+  accesFemmesSeules: 'Oui' | 'Non';
+  delais: string;
+  accompagnementFR: 'Excellent' | 'Bon' | 'Limité' | 'Faible';
+}
+
+// Pays similaires pour le maillage interne
+export const similarCountries: Record<string, string[]> = {
+  'espagne': ['portugal', 'grece', 'republique-tcheque'],
+  'portugal': ['espagne', 'grece', 'belgique'],
+  'grece': ['espagne', 'republique-tcheque', 'bulgarie'],
+  'republique-tcheque': ['espagne', 'grece', 'pologne'],
+  'belgique': ['france', 'pays-bas', 'espagne'],
+  'danemark': ['suede', 'finlande', 'belgique'],
+  'allemagne': ['autriche', 'suisse', 'belgique'],
+  'autriche': ['allemagne', 'suisse', 'republique-tcheque'],
+  'pologne': ['republique-tcheque', 'bulgarie', 'ukraine'],
+  'bulgarie': ['grece', 'republique-tcheque', 'pologne'],
+  'ukraine': ['pologne', 'republique-tcheque', 'georgie'],
+  'tunisie': ['maroc', 'turquie', 'espagne'],
+  'turquie': ['grece', 'tunisie', 'egypte'],
+  'maroc': ['tunisie', 'espagne', 'portugal'],
+  'suisse': ['allemagne', 'autriche', 'france'],
+  'italie': ['espagne', 'grece', 'france'],
+};
+
+// Données de comparaison par pays (pour les tableaux)
+export const comparisonData: Record<string, ComparisonData> = {
+  'france': { coutMoyen: '0€ (SS)', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '12-24 mois', accompagnementFR: 'Excellent' },
+  'espagne': { coutMoyen: '5 000-10 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '1-3 mois', accompagnementFR: 'Excellent' },
+  'republique-tcheque': { coutMoyen: '3 000-6 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Non', delais: '1-2 mois', accompagnementFR: 'Bon' },
+  'grece': { coutMoyen: '3 500-5 500€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '1-2 mois', accompagnementFR: 'Bon' },
+  'belgique': { coutMoyen: '4 000-8 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '2-6 mois', accompagnementFR: 'Excellent' },
+  'portugal': { coutMoyen: '5 000-7 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '2-4 mois', accompagnementFR: 'Bon' },
+  'danemark': { coutMoyen: '6 000-10 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '1-3 mois', accompagnementFR: 'Limité' },
+  'pologne': { coutMoyen: '2 500-4 500€', donOvocytes: 'Limité', accesFemmesSeules: 'Non', delais: '1-2 mois', accompagnementFR: 'Limité' },
+  'bulgarie': { coutMoyen: '2 500-4 500€', donOvocytes: 'Oui', accesFemmesSeules: 'Non', delais: '1-2 mois', accompagnementFR: 'Limité' },
+  'ukraine': { coutMoyen: '3 000-5 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Non', delais: 'Variable', accompagnementFR: 'Bon' },
+  'turquie': { coutMoyen: '2 500-4 000€', donOvocytes: 'Non', accesFemmesSeules: 'Non', delais: '1-2 mois', accompagnementFR: 'Bon' },
+  'tunisie': { coutMoyen: '2 000-3 500€', donOvocytes: 'Limité', accesFemmesSeules: 'Non', delais: '1-2 mois', accompagnementFR: 'Excellent' },
+  'allemagne': { coutMoyen: '4 000-7 000€', donOvocytes: 'Non', accesFemmesSeules: 'Oui', delais: '3-6 mois', accompagnementFR: 'Limité' },
+  'autriche': { coutMoyen: '4 000-7 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '2-4 mois', accompagnementFR: 'Limité' },
+  'suisse': { coutMoyen: '8 000-15 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '2-6 mois', accompagnementFR: 'Excellent' },
+  'italie': { coutMoyen: '5 000-8 000€', donOvocytes: 'Oui', accesFemmesSeules: 'Oui', delais: '3-6 mois', accompagnementFR: 'Bon' },
+  'maroc': { coutMoyen: '2 500-4 000€', donOvocytes: 'Limité', accesFemmesSeules: 'Non', delais: '1-2 mois', accompagnementFR: 'Excellent' },
+};
+
+// Contenu longue traîne par pays
+export const longTailContent: Record<string, LongTailContent> = {
+  'espagne': {
+    femmeSeule: {
+      eligible: true,
+      content: "L'Espagne est l'une des destinations les plus accessibles pour les femmes seules souhaitant réaliser une FIV. La législation espagnole autorise pleinement l'accès à la PMA pour les femmes célibataires, sans distinction de statut marital. Les cliniques proposent un accompagnement adapté, avec accès au don de sperme anonyme et une prise en charge complète. Les taux de réussite sont excellents et l'accompagnement francophone est généralement disponible."
+    },
+    coupleFemmes: {
+      eligible: true,
+      content: "Les couples de femmes sont pleinement acceptés dans les cliniques espagnoles pour la FIV. L'Espagne autorise la méthode ROPA (Reception of Oocytes from Partner) permettant à une partenaire de porter l'enfant conçu avec les ovocytes de l'autre. Cette option est très prisée des couples lesbiens français. L'accompagnement est personnalisé et respectueux de toutes les configurations familiales."
+    },
+    apres40Ans: {
+      eligible: true,
+      content: "La FIV en Espagne après 40 ans est tout à fait possible, avec une limite généralement fixée à 50 ans pour les traitements avec don d'ovocytes. Les cliniques espagnoles ont une grande expertise dans l'accompagnement des patientes de plus de 40 ans, proposant des protocoles adaptés et un suivi renforcé. Le don d'ovocytes permet d'optimiser les chances de réussite à cet âge."
+    },
+    donOvocytes: {
+      eligible: true,
+      content: "L'Espagne est la première destination européenne pour la FIV avec don d'ovocytes. Le don est anonyme et strictement encadré. Les donneuses sont rigoureusement sélectionnées (âge 18-35 ans, tests génétiques, évaluation psychologique). Les délais d'attente sont courts (1-3 mois) grâce à une importante banque de donneuses. Le matching phénotypique permet de trouver une donneuse compatible."
+    },
+    apresEchec: {
+      content: "Après un échec de FIV en France, l'Espagne offre une excellente alternative. Les cliniques espagnoles disposent de technologies avancées (DPI, PICSI, culture prolongée jusqu'à J5/J6) et peuvent proposer des protocoles différents. L'analyse approfondie des échecs précédents permet d'adapter la stratégie. Le changement de clinique apporte souvent un regard neuf et des techniques complémentaires."
+    }
+  },
+  'belgique': {
+    femmeSeule: {
+      eligible: true,
+      content: "La Belgique accueille les femmes seules pour la FIV depuis de nombreuses années. Le cadre légal belge est l'un des plus ouverts d'Europe, permettant un accès sans discrimination. La proximité avec la France et la langue française facilitent grandement le parcours. Les cliniques belges sont reconnues pour leur excellence et proposent un accompagnement complet."
+    },
+    coupleFemmes: {
+      eligible: true,
+      content: "Les couples de femmes bénéficient d'un accès complet à la PMA en Belgique. La législation belge est particulièrement favorable et les cliniques ont une longue expérience d'accompagnement de ces couples. La méthode ROPA est disponible. La proximité avec la France permet de limiter les déplacements et facilite le suivi."
+    },
+    apres40Ans: {
+      eligible: true,
+      content: "La FIV après 40 ans est accessible en Belgique avec un accompagnement médical adapté. Les cliniques belges évaluent chaque situation individuellement et peuvent proposer le don d'ovocytes pour optimiser les chances. L'expertise belge en PMA garantit une prise en charge de qualité avec des protocoles personnalisés."
+    },
+    donOvocytes: {
+      eligible: true,
+      content: "Le don d'ovocytes est autorisé en Belgique, avec un système semi-anonyme permettant à l'enfant d'accéder à certaines informations à sa majorité. Les cliniques belges sélectionnent rigoureusement les donneuses. Les délais peuvent être plus longs qu'en Espagne mais la qualité du suivi compense cette attente."
+    },
+    apresEchec: {
+      content: "La Belgique est une excellente option après un échec de FIV en France. Les cliniques belges offrent un regard neuf et des techniques complémentaires. La proximité permet un suivi facilité et des échanges réguliers avec l'équipe médicale. L'analyse des échecs précédents guide la nouvelle stratégie thérapeutique."
+    }
+  },
+  'republique-tcheque': {
+    femmeSeule: {
+      eligible: false,
+      content: "La République Tchèque ne permet pas l'accès à la FIV pour les femmes seules. La législation exige que les patientes soient en couple (marié ou union stable). Les femmes seules souhaitant une FIV doivent se tourner vers d'autres destinations comme l'Espagne, la Belgique ou le Danemark qui autorisent cette possibilité."
+    },
+    coupleFemmes: {
+      eligible: false,
+      content: "L'accès à la FIV pour les couples de femmes n'est pas autorisé en République Tchèque. La législation limite la PMA aux couples hétérosexuels. Les couples de femmes peuvent considérer l'Espagne, la Belgique ou le Danemark qui offrent un cadre légal plus ouvert et une grande expertise dans l'accompagnement de tous les modèles familiaux."
+    },
+    apres40Ans: {
+      eligible: true,
+      content: "La FIV après 40 ans est possible en République Tchèque, avec une limite généralement fixée à 49 ans. Les cliniques tchèques ont une excellente expertise dans l'accompagnement des patientes de cet âge. Le don d'ovocytes anonyme permet d'optimiser considérablement les chances de réussite avec des tarifs très compétitifs."
+    },
+    donOvocytes: {
+      eligible: true,
+      content: "La République Tchèque est une destination majeure pour la FIV avec don d'ovocytes en Europe. Le don est strictement anonyme. Les cliniques tchèques disposent d'importantes banques de donneuses, permettant des délais courts et un excellent matching. Les tarifs sont parmi les plus compétitifs d'Europe pour une qualité médicale excellente."
+    },
+    apresEchec: {
+      content: "Après un échec de FIV, la République Tchèque offre d'excellentes perspectives. Les cliniques utilisent des technologies de pointe (PGT-A, time-lapse, vitrification avancée) et analysent en détail les causes d'échec. Le rapport qualité-prix exceptionnel permet d'envisager plusieurs tentatives. L'expertise tchèque en FIV est reconnue internationalement."
+    }
+  },
+  'grece': {
+    femmeSeule: {
+      eligible: true,
+      content: "La Grèce autorise la FIV pour les femmes seules jusqu'à 50 ans. Le cadre légal grec est favorable et les cliniques ont l'habitude d'accompagner les femmes célibataires dans leur projet de maternité. Le don de sperme anonyme est accessible et les tarifs restent très compétitifs par rapport à d'autres destinations."
+    },
+    coupleFemmes: {
+      eligible: false,
+      content: "La législation grecque ne permet pas encore l'accès à la FIV pour les couples de femmes. Les couples lesbiens souhaitant une PMA doivent se tourner vers l'Espagne, la Belgique ou le Danemark qui offrent un cadre légal adapté. La Grèce reste cependant accessible pour les femmes seules."
+    },
+    apres40Ans: {
+      eligible: true,
+      content: "La Grèce est une excellente option pour la FIV après 40 ans, avec une limite à 50 ans. Les cliniques grecques sont expérimentées dans l'accompagnement des patientes de cet âge et proposent le don d'ovocytes à des tarifs très attractifs. Le climat méditerranéen et l'accueil chaleureux ajoutent au confort du parcours."
+    },
+    donOvocytes: {
+      eligible: true,
+      content: "Le don d'ovocytes en Grèce est anonyme et bien encadré. Les cliniques grecques disposent de donneuses sélectionnées avec soin. Les tarifs sont parmi les plus bas d'Europe (3 500-5 500€) pour une qualité de soins excellente. Le délai d'attente est généralement court et le matching phénotypique soigné."
+    },
+    apresEchec: {
+      content: "La Grèce offre une alternative intéressante après un échec de FIV, combinant expertise médicale, tarifs attractifs et cadre agréable. Les cliniques grecques proposent des technologies modernes et une approche personnalisée. Le changement d'environnement peut aussi contribuer à réduire le stress associé aux traitements."
+    }
+  },
+  'portugal': {
+    femmeSeule: {
+      eligible: true,
+      content: "Depuis 2016, le Portugal autorise la FIV pour les femmes seules. Le cadre légal est clair et les cliniques portugaises accueillent les femmes célibataires avec professionnalisme. La proximité géographique et culturelle avec la France facilite le parcours. Le don de sperme est accessible et les tarifs sont modérés."
+    },
+    coupleFemmes: {
+      eligible: true,
+      content: "Les couples de femmes sont acceptés pour la FIV au Portugal depuis 2016. La législation est ouverte et les cliniques ont développé une expertise dans l'accompagnement de tous les modèles familiaux. La proximité avec la France et l'accessibilité linguistique sont des atouts majeurs."
+    },
+    apres40Ans: {
+      eligible: true,
+      content: "Le Portugal propose la FIV aux femmes de plus de 40 ans, avec des protocoles adaptés et un accès au don d'ovocytes. Les cliniques portugaises développent rapidement leur expertise et offrent un accompagnement personnalisé. Le climat agréable et l'accueil chaleureux participent au bien-être des patientes."
+    },
+    donOvocytes: {
+      eligible: true,
+      content: "Le don d'ovocytes est autorisé au Portugal depuis 2016, avec un système permettant à l'enfant d'accéder à certaines informations à sa majorité. Les cliniques développent leurs banques de donneuses. Les délais peuvent être un peu plus longs qu'en Espagne mais les tarifs restent compétitifs."
+    },
+    apresEchec: {
+      content: "Le Portugal peut être une bonne option après un échec de FIV, offrant un cadre médical de qualité et une approche différente. Les cliniques portugaises sont en plein développement et investissent dans les dernières technologies. La proximité avec la France permet un suivi facilité."
+    }
+  },
+  'danemark': {
+    femmeSeule: {
+      eligible: true,
+      content: "Le Danemark est pionnier dans l'accès à la PMA pour les femmes seules, avec des décennies d'expérience. Les cliniques danoises sont mondialement reconnues pour leur expertise. Les banques de sperme danoises sont parmi les plus importantes au monde, offrant un large choix de donneurs identifiables ou anonymes."
+    },
+    coupleFemmes: {
+      eligible: true,
+      content: "Les couples de femmes bénéficient d'un accès complet à la FIV au Danemark. Le pays est un leader européen en matière d'ouverture et d'expertise. Les cliniques danoises proposent la méthode ROPA et un accompagnement respectueux de tous les modèles familiaux."
+    },
+    apres40Ans: {
+      eligible: true,
+      content: "La FIV après 40 ans est accessible au Danemark avec un accompagnement médical expert. Les cliniques danoises évaluent chaque situation individuellement et proposent des protocoles optimisés. Le don d'ovocytes est disponible pour maximiser les chances de réussite."
+    },
+    donOvocytes: {
+      eligible: true,
+      content: "Le don d'ovocytes au Danemark est possible avec un système flexible permettant de choisir entre don anonyme ou identifiable. Les cliniques danoises appliquent des standards élevés de sélection. Les tarifs sont plus élevés qu'en Europe de l'Est mais la qualité est excellente."
+    },
+    apresEchec: {
+      content: "Le Danemark offre une expertise de premier plan après un échec de FIV. Les cliniques danoises utilisent les technologies les plus avancées et ont une longue expérience des cas complexes. L'approche scandinave, centrée sur le bien-être du patient, contribue à réduire le stress."
+    }
+  },
+};
+
+// Contenu générique longue traîne pour les pays sans données spécifiques
+export const getGenericLongTailContent = (countryName: string, eligible: boolean): LongTailContent => ({
+  femmeSeule: {
+    eligible,
+    content: eligible 
+      ? `${countryName} autorise l'accès à la FIV pour les femmes seules. Le cadre légal permet aux femmes célibataires de réaliser leur projet de maternité avec un accompagnement médical adapté. Les cliniques proposent un accès au don de sperme et un suivi personnalisé.`
+      : `La législation en ${countryName} ne permet pas l'accès à la FIV pour les femmes seules. Les femmes célibataires doivent se tourner vers d'autres destinations comme l'Espagne, la Belgique ou le Danemark qui autorisent cette possibilité.`
+  },
+  coupleFemmes: {
+    eligible,
+    content: eligible
+      ? `Les couples de femmes sont acceptés pour la FIV en ${countryName}. La législation permet l'accès à la PMA pour les couples lesbiens, avec des options comme la méthode ROPA dans certains cas. Les cliniques ont l'expérience de l'accompagnement de tous les modèles familiaux.`
+      : `L'accès à la FIV pour les couples de femmes n'est pas autorisé en ${countryName}. Les couples lesbiens doivent considérer l'Espagne, la Belgique ou le Danemark pour réaliser leur projet de parentalité.`
+  },
+  apres40Ans: {
+    eligible: true,
+    content: `La FIV après 40 ans est possible en ${countryName}, généralement jusqu'à 45-50 ans selon les cliniques. Le don d'ovocytes permet d'optimiser les chances de réussite à cet âge. Les cliniques proposent des protocoles adaptés et un suivi renforcé pour les patientes de plus de 40 ans.`
+  },
+  donOvocytes: {
+    eligible,
+    content: eligible
+      ? `Le don d'ovocytes est autorisé en ${countryName}. Les cliniques disposent de donneuses sélectionnées selon des critères stricts. Le matching phénotypique permet de trouver une donneuse compatible et les délais varient selon les cliniques.`
+      : `Le don d'ovocytes n'est pas autorisé en ${countryName}. Les patientes ayant besoin d'un don d'ovocytes doivent se tourner vers des destinations comme l'Espagne, la Grèce ou la République Tchèque.`
+  },
+  apresEchec: {
+    content: `${countryName} peut être une option intéressante après un échec de FIV. Un changement de clinique permet d'avoir un regard neuf sur le dossier et d'envisager des techniques différentes. Les cliniques analysent les échecs précédents pour adapter la stratégie thérapeutique.`
+  }
+});
+
+// Helper pour obtenir le contenu longue traîne d'un pays
+export const getLongTailContent = (slug: string): LongTailContent => {
+  if (longTailContent[slug]) {
+    return longTailContent[slug];
+  }
+  
+  const countryInfo = countryMapping[slug];
+  if (!countryInfo) {
+    return getGenericLongTailContent('ce pays', false);
+  }
+  
+  // Déterminer l'éligibilité en fonction du pays
+  const openCountries = ['espagne', 'belgique', 'portugal', 'danemark', 'grece', 'suede', 'finlande', 'pays-bas', 'autriche', 'allemagne', 'suisse', 'irlande', 'royaume-uni'];
+  const eligible = openCountries.includes(slug);
+  
+  return getGenericLongTailContent(countryInfo.frenchName, eligible);
+};
+
+// Helper pour obtenir les données de comparaison d'un pays
+export const getComparisonData = (slug: string): ComparisonData | null => {
+  return comparisonData[slug] || null;
+};
+
+// Helper pour obtenir les pays similaires
+export const getSimilarCountries = (slug: string): string[] => {
+  return similarCountries[slug] || ['espagne', 'grece', 'republique-tcheque'];
+};
+
 export const countryContent: Record<string, CountryContent> = {
   'algerie': {
     intro: "L'Algérie fait partie des destinations envisagées par de nombreuses patientes françaises souhaitant réaliser une fécondation in vitro (FIV) à l'étranger. Le recours à une FIV hors de France s'explique par plusieurs facteurs : accès aux traitements, délais d'attente, cadre légal plus souple ou encore spécialisation de certaines cliniques.",
@@ -169,37 +415,65 @@ export const countryContent: Record<string, CountryContent> = {
   },
   'suisse': {
     intro: "La Suisse offre des traitements de FIV de haute qualité dans un environnement médical de premier plan.",
-    cadreLegal: "Le cadre légal suisse autorise la FIV avec ses propres gamètes. Le don d'ovocytes n'est pas autorisé, mais le don de sperme l'est.",
-    couts: "Les tarifs en Suisse sont parmi les plus élevés d'Europe, reflétant la qualité des infrastructures.",
-    tauxReussite: "Les cliniques suisses affichent d'excellents taux de réussite et une expertise de pointe.",
-    pourquoiChoisir: "La Suisse offre excellence médicale et proximité pour les patientes françaises.",
-    logistique: "La proximité avec la France facilite les déplacements. Le français est parlé dans les cliniques romandes.",
-    faq: "Les questions portent souvent sur les restrictions concernant le don d'ovocytes."
+    cadreLegal: "Le cadre légal suisse autorise la FIV et récemment le don de sperme. Le don d'ovocytes n'est pas encore autorisé mais en discussion.",
+    couts: "Les tarifs en Suisse sont parmi les plus élevés d'Europe, reflétant le niveau de vie et la qualité des soins.",
+    tauxReussite: "Les cliniques suisses affichent d'excellents taux de réussite et une qualité médicale irréprochable.",
+    pourquoiChoisir: "La Suisse offre excellence médicale, proximité et environnement sécurisant.",
+    logistique: "Genève et Zurich sont facilement accessibles. Le français est parlé dans la partie romande.",
+    faq: "Les questions portent sur les tarifs élevés et les restrictions sur le don d'ovocytes."
+  },
+  'italie': {
+    intro: "L'Italie a récemment assoupli sa législation sur la PMA, devenant une option intéressante pour certaines patientes.",
+    cadreLegal: "Le cadre légal italien a évolué et autorise désormais le don de gamètes et l'accès à la PMA pour les couples hétérosexuels.",
+    couts: "Les tarifs en Italie sont comparables à ceux de l'Europe occidentale, entre 5 000€ et 8 000€.",
+    tauxReussite: "Les cliniques italiennes affichent de bons taux de réussite avec une expertise en croissance.",
+    pourquoiChoisir: "L'Italie offre proximité, qualité médicale et un environnement culturel agréable.",
+    logistique: "Rome, Milan et les grandes villes sont facilement accessibles. L'italien est proche du français.",
+    faq: "Les questions portent sur les évolutions législatives récentes et les options disponibles."
+  },
+  'maroc': {
+    intro: "Le Maroc est une destination accessible pour les patientes francophones cherchant une FIV à tarifs modérés.",
+    cadreLegal: "Le cadre légal marocain autorise la FIV pour les couples mariés. Le don de gamètes est encadré.",
+    couts: "Les tarifs au Maroc sont compétitifs, avec des FIV à partir de 2 500€.",
+    tauxReussite: "Les cliniques marocaines offrent un bon niveau de soins avec une expertise croissante.",
+    pourquoiChoisir: "Le Maroc offre proximité, francophonie complète et tarifs attractifs.",
+    logistique: "Casablanca et Rabat sont facilement accessibles. Le français est la langue courante.",
+    faq: "Les questions portent sur la qualité des soins et les comparaisons avec d'autres destinations francophones."
   },
 };
 
-// Fonction pour obtenir le contenu d'un pays (avec fallback générique)
+// Fonction pour obtenir le contenu d'un pays
 export const getCountryContent = (slug: string): CountryContent => {
   if (countryContent[slug]) {
     return countryContent[slug];
   }
   
-  // Fallback générique
-  const country = countryMapping[slug];
-  const name = country?.frenchName || slug;
+  // Contenu générique si le pays n'a pas de contenu spécifique
+  const countryInfo = countryMapping[slug];
+  if (!countryInfo) {
+    return {
+      intro: "Information non disponible pour ce pays.",
+      cadreLegal: "Information non disponible.",
+      couts: "Information non disponible.",
+      tauxReussite: "Information non disponible.",
+      pourquoiChoisir: "Information non disponible.",
+      logistique: "Information non disponible.",
+      faq: "Information non disponible."
+    };
+  }
   
   return {
-    intro: `${name} fait partie des destinations envisagées par de nombreuses patientes françaises souhaitant réaliser une fécondation in vitro (FIV) à l'étranger. Le recours à une FIV hors de France s'explique par plusieurs facteurs : accès aux traitements, délais d'attente, cadre légal plus souple ou encore spécialisation de certaines cliniques.`,
-    cadreLegal: `Le cadre légal de la procréation médicalement assistée en ${name} diffère de celui appliqué en France. L'accès à la FIV peut dépendre du statut marital, de l'âge de la patiente ou du recours à un don de gamètes.`,
-    couts: `Le coût d'une FIV en ${name} varie selon plusieurs paramètres : type de traitement, recours à un don d'ovocytes, techniques complémentaires comme l'ICSI ou le PGT-A, et politique tarifaire des cliniques.`,
-    tauxReussite: `Les taux de réussite observés en ${name} dépendent de l'âge de la patiente, du diagnostic d'infertilité et de l'expertise des centres médicaux.`,
-    pourquoiChoisir: `Choisir ${name} pour une FIV permet souvent de bénéficier de délais plus courts, d'un accompagnement adapté aux patientes étrangères et d'une organisation optimisée des parcours de soins.`,
-    logistique: `Un parcours de FIV en ${name} nécessite une bonne préparation logistique. Les cliniques proposent généralement des parcours structurés permettant de limiter les déplacements.`,
-    faq: `Les patientes françaises se posent fréquemment des questions sur la légalité, le budget, les délais et la sélection des cliniques lors d'un projet de FIV en ${name}.`
+    intro: `${countryInfo.frenchName} fait partie des destinations envisagées par les patientes françaises pour réaliser une FIV à l'étranger. Le recours à une FIV hors de France s'explique par plusieurs facteurs : accès aux traitements, délais d'attente, cadre légal ou spécialisation de certaines cliniques.`,
+    cadreLegal: `Le cadre légal de la procréation médicalement assistée en ${countryInfo.frenchName} peut différer de celui appliqué en France. Il est important de se renseigner sur les conditions d'accès spécifiques.`,
+    couts: `Le coût d'une FIV en ${countryInfo.frenchName} varie selon le type de traitement et les techniques complémentaires utilisées. Une demande de devis permet d'obtenir des informations précises.`,
+    tauxReussite: `Les taux de réussite en ${countryInfo.frenchName} dépendent de nombreux facteurs : âge de la patiente, diagnostic et expertise des cliniques.`,
+    pourquoiChoisir: `Choisir ${countryInfo.frenchName} pour une FIV peut présenter des avantages en termes de délais, de tarifs ou d'accessibilité selon votre situation.`,
+    logistique: `Un parcours de FIV en ${countryInfo.frenchName} nécessite une préparation logistique adaptée. Les cliniques peuvent vous accompagner dans l'organisation de votre séjour.`,
+    faq: `N'hésitez pas à nous contacter pour toute question sur la FIV en ${countryInfo.frenchName}.`
   };
 };
 
-// Liste de tous les pays disponibles
+// Fonction pour obtenir tous les slugs de pays
 export const getAllCountrySlugs = (): string[] => {
   return Object.keys(countryMapping);
 };
