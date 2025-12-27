@@ -4,7 +4,7 @@ import ChatWidget from "@/components/ChatWidget";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, MapPin, Star, Lock } from "lucide-react";
+import { ArrowLeft, ArrowRight, MapPin, Star, Lock, Check } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -17,11 +17,36 @@ const Diagnostic = () => {
     age: "",
     country: "",
     budget: "",
-    treatments: [] as string[],
+    treatment: "",
     fullName: "",
     email: "",
     phone: "",
   });
+
+  // Validation: check if current step has required selection
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return formData.age !== "";
+      case 2:
+        return formData.country !== "";
+      case 3:
+        return formData.budget !== "";
+      case 4:
+        return formData.treatment !== "";
+      default:
+        return true;
+    }
+  };
+
+  // Toggle selection (second click deselects)
+  const handleSelection = (field: 'age' | 'budget' | 'treatment', value: string) => {
+    if (formData[field] === value) {
+      setFormData({ ...formData, [field]: "" }); // Deselect
+    } else {
+      setFormData({ ...formData, [field]: value }); // Select
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -73,8 +98,18 @@ const Diagnostic = () => {
                     {["Moins de 30 ans", "30-35 ans", "36-40 ans", "Plus de 40 ans"].map((option) => (
                       <button
                         key={option}
-                        className="p-4 rounded-xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all text-center"
+                        onClick={() => handleSelection('age', option)}
+                        className={`p-4 rounded-xl border-2 transition-all text-center relative ${
+                          formData.age === option 
+                            ? "border-primary bg-primary/10 ring-2 ring-primary/20" 
+                            : "border-border hover:border-primary hover:bg-primary/5"
+                        }`}
                       >
+                        {formData.age === option && (
+                          <div className="absolute top-2 right-2">
+                            <Check className="w-5 h-5 text-primary" />
+                          </div>
+                        )}
                         <span className="text-foreground font-medium">{option}</span>
                       </button>
                     ))}
@@ -90,7 +125,11 @@ const Diagnostic = () => {
                   <p className="text-muted-foreground">
                     Cela nous aide à comprendre les contraintes légales et logistiques.
                   </p>
-                  <select className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none bg-background">
+                  <select 
+                    value={formData.country}
+                    onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                    className="w-full p-4 rounded-xl border-2 border-border focus:border-primary outline-none bg-background"
+                  >
                     <option value="">Sélectionnez votre pays</option>
                     <option value="fr">France</option>
                     <option value="be">Belgique</option>
@@ -119,8 +158,18 @@ const Diagnostic = () => {
                     ].map((option) => (
                       <button
                         key={option}
-                        className="p-4 rounded-xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all text-left"
+                        onClick={() => handleSelection('budget', option)}
+                        className={`p-4 rounded-xl border-2 transition-all text-left relative ${
+                          formData.budget === option 
+                            ? "border-primary bg-primary/10 ring-2 ring-primary/20" 
+                            : "border-border hover:border-primary hover:bg-primary/5"
+                        }`}
                       >
+                        {formData.budget === option && (
+                          <div className="absolute top-1/2 right-4 -translate-y-1/2">
+                            <Check className="w-5 h-5 text-primary" />
+                          </div>
+                        )}
                         <span className="text-foreground font-medium">{option}</span>
                       </button>
                     ))}
@@ -134,7 +183,7 @@ const Diagnostic = () => {
                     Quel type de traitement envisagez-vous ?
                   </h2>
                   <p className="text-muted-foreground">
-                    Sélectionnez toutes les options qui vous intéressent.
+                    Sélectionnez l'option qui vous intéresse le plus.
                   </p>
                   <div className="grid md:grid-cols-2 gap-4">
                     {[
@@ -145,9 +194,19 @@ const Diagnostic = () => {
                     ].map((option) => (
                       <button
                         key={option.title}
-                        className="p-4 rounded-xl border-2 border-border hover:border-primary hover:bg-primary/5 transition-all text-left space-y-2"
+                        onClick={() => handleSelection('treatment', option.title)}
+                        className={`p-4 rounded-xl border-2 transition-all text-left space-y-2 relative ${
+                          formData.treatment === option.title 
+                            ? "border-primary bg-primary/10 ring-2 ring-primary/20" 
+                            : "border-border hover:border-primary hover:bg-primary/5"
+                        }`}
                       >
-                        <div className="font-medium text-foreground">{option.title}</div>
+                        {formData.treatment === option.title && (
+                          <div className="absolute top-3 right-3">
+                            <Check className="w-5 h-5 text-primary" />
+                          </div>
+                        )}
+                        <div className="font-medium text-foreground pr-6">{option.title}</div>
                         <div className="text-sm text-muted-foreground">{option.desc}</div>
                       </button>
                     ))}
@@ -300,10 +359,15 @@ const Diagnostic = () => {
               Précédent
             </Button>
 
-{currentStep < 4 ? (
+            {currentStep < 4 ? (
               <Button
                 onClick={() => setCurrentStep(currentStep + 1)}
-                className="bg-primary hover:bg-primary-hover text-primary-foreground"
+                disabled={!isStepValid()}
+                className={`${
+                  isStepValid() 
+                    ? "bg-primary hover:bg-primary-hover text-primary-foreground" 
+                    : "bg-muted text-muted-foreground cursor-not-allowed"
+                }`}
               >
                 Suivant
                 <ArrowRight className="w-4 h-4 ml-2" />
@@ -311,7 +375,12 @@ const Diagnostic = () => {
             ) : currentStep === 4 ? (
               <Button
                 onClick={() => setCurrentStep(4.5)}
-                className="bg-primary hover:bg-primary-hover text-primary-foreground"
+                disabled={!isStepValid()}
+                className={`${
+                  isStepValid() 
+                    ? "bg-primary hover:bg-primary-hover text-primary-foreground" 
+                    : "bg-muted text-muted-foreground cursor-not-allowed"
+                }`}
               >
                 Suivant
                 <ArrowRight className="w-4 h-4 ml-2" />
