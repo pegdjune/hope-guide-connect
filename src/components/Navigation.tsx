@@ -35,6 +35,13 @@ const Navigation = () => {
             >
               Comparateur
             </NavLink>
+            <NavLink
+              to="/fiv"
+              className="text-muted-foreground hover:text-foreground transition-colors font-medium"
+              activeClassName="text-primary"
+            >
+              FIV par pays
+            </NavLink>
             
             {/* Simulateurs Dropdown */}
             <DropdownMenu>
@@ -111,6 +118,14 @@ const Navigation = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               Comparateur
+            </NavLink>
+            <NavLink
+              to="/fiv"
+              className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
+              activeClassName="text-primary font-semibold"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              FIV par pays
             </NavLink>
             
             {/* Mobile Simulateurs */}
