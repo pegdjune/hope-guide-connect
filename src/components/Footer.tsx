@@ -53,6 +53,11 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Ressources</h3>
             <ul className="space-y-2">
               <li>
+                <NavLink to="/fiv" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                  FIV par Pays
+                </NavLink>
+              </li>
+              <li>
                 <NavLink to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Guide FIV
                 </NavLink>
