@@ -51,6 +51,16 @@ const Hero = () => {
         }),
         "top-right"
       );
+      
+      // Hide Mapbox attribution
+      const attribution = mapContainer.current.querySelector('.mapboxgl-ctrl-attrib');
+      if (attribution) {
+        (attribution as HTMLElement).style.display = 'none';
+      }
+      const logo = mapContainer.current.querySelector('.mapboxgl-ctrl-logo');
+      if (logo) {
+        (logo as HTMLElement).style.display = 'none';
+      }
 
       map.current.on("load", () => {
         setMapLoaded(true);
@@ -101,7 +111,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[95vh] flex items-center pt-20 overflow-hidden">
+    <section className="relative min-h-[95vh] flex items-center pt-24 overflow-hidden">
       {/* Mapbox Map Background */}
       <div 
         ref={mapContainer} 

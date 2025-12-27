@@ -48,29 +48,29 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Resources - Now with real links */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Ressources</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <NavLink to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Guide FIV
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <NavLink to="/simulateurs/cout-pays" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Législations par pays
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <NavLink to="/a-propos#faq" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   FAQ
-                </a>
+                </NavLink>
               </li>
               <li>
-                <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                <NavLink to="/blog" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                   Témoignages
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -97,15 +97,15 @@ const Footer = () => {
             © 2024 FertilEurope. Tous droits réservés.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <NavLink to="/a-propos" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Mentions légales
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            </NavLink>
+            <NavLink to="/a-propos" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Politique de confidentialité
-            </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            </NavLink>
+            <NavLink to="/a-propos" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               CGU
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>
