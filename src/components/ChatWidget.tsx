@@ -58,7 +58,7 @@ const ChatWidget = () => {
     }
     
     if (lowerMessage.includes("appel") || lowerMessage.includes("téléphone") || lowerMessage.includes("parler") || lowerMessage.includes("experte")) {
-      return "Nos expertes PMA sont disponibles pour un appel gratuit ! Appelez le +33 1 23 45 67 89 ou laissez-moi votre numéro et nous vous rappelons sous 2h. 📞";
+      return "Nos experts PMA sont disponibles pour vous accompagner ! Faites d'abord notre diagnostic gratuit en 2 minutes, et nous vous recontacterons avec des recommandations personnalisées. 📞";
     }
     
     if (lowerMessage.includes("taux") || lowerMessage.includes("réussite") || lowerMessage.includes("chance")) {

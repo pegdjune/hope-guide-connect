@@ -1,4 +1,4 @@
-import { Heart, Mail, Phone } from "lucide-react";
+import { Heart } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
 const Footer = () => {
