@@ -1,4 +1,4 @@
-import { Heart, Mail, Phone } from "lucide-react";
+import { Heart } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 
 const Footer = () => {
@@ -80,19 +80,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* À propos */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Contact</h3>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Mail className="w-4 h-4 text-primary" />
-                contact@fertileurope.com
-              </li>
-              <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4 text-primary" />
-                +33 1 23 45 67 89
-              </li>
-            </ul>
+            <h3 className="font-semibold text-foreground mb-4">À propos</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              FertilEurope accompagne les couples et personnes seules dans leur parcours de PMA en Europe avec des informations fiables et un accompagnement personnalisé.
+            </p>
           </div>
         </div>
 
